@@ -1,0 +1,15 @@
+*~
+*.db
+*.cache
+*.phar
+*.TODO
+*.lock
+/app/config/parameters.yml
+/app/tmp
+/app/cache
+/app/logs
+/bin
+/vendor
+/web/bundles
+.sass-cache
+/.project
