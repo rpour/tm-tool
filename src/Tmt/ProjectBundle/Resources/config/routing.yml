@@ -1,0 +1,3 @@
+tmt_project:
+    resource: "@TmtProjectBundle/Controller/ProjectController.php"
+    type:     annotation
