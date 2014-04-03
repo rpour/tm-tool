@@ -6,9 +6,10 @@
 
 {% block body %}
     <header>{% block header %}{% endblock %}</header>
-    <div id="content_wrapper">
-        <menu>{% block menu %}{% endblock %}</menu>
-        <div id="content">{% block content %}{% endblock %}</div>
+    <div class="content_wrapper">
+        <menu class="content-menu">{% block menu %}{% endblock %}</menu>
+        <div class="content">{% block content %}{% endblock %}</div>
     </div>
+    <div class="clear"></div>
     <footer>{% block footer %}{% endblock %}</footer>
 {% endblock %}

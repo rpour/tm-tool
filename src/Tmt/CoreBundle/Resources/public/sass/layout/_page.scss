@@ -14,7 +14,7 @@ header {
     padding: $padding-normal;
 }
 
-menu {
+.content-menu {
     @include debug(blue);
     // margin: $padding-normal 0;
     padding: 0;
@@ -22,11 +22,11 @@ menu {
 
 }
 
-#content_wrapper {
+.content_wrapper {
     margin: $padding-normal 0;
 }
 
-#content {
+.content {
     @include debug(green);
 }
 
@@ -35,3 +35,15 @@ footer {
     margin: $padding-normal 0;
     @include debug(orange);
 }
+
+.tmt-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+        @include debug(magenta);
+        display: block;
+        padding: 5px 10px ;
+    }
+ }

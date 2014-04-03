@@ -1,2 +1,6 @@
 _tmt_core:
     resource: "@TmtCoreBundle/Resources/config/routing.yml"
+_tmt_testcase:
+    resource: "@TmtTestCaseBundle/Resources/config/routing.yml" 
+_tmt_project:
+    resource: "@TmtProjectBundle/Resources/config/routing.yml"

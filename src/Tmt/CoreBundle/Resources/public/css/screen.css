@@ -1,3 +1,27 @@
+/*
+@mixin pos-left($width) {
+    @include pos(0,'',0,0);
+    width: $width;
+}
+
+@mixin pos-right($width) {
+    @include pos(0,0,0,'');
+    width: $width;
+}
+
+@mixin pos-top($height) {
+    @include pos(0,0,'',0);
+    height: $height;
+}
+
+@mixin posCenter($width, $height) {
+    width: $width;
+    height: $height;
+    margin-left: -($width/2);
+    margin-top: -($height/2);
+    @include pos(50%, '', '', 50%);
+}
+*/
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -398,6 +422,10 @@ th {
   box-sizing: border-box;
 }
 
+.clear {
+  clear: both;
+}
+
 .p10 {
   padding: 10px 0;
 }
@@ -418,17 +446,17 @@ header {
   padding: 20px;
 }
 
-menu {
+.content-menu {
   border: 1px solid blue;
   padding: 0;
   margin: 0;
 }
 
-#content_wrapper {
+.content_wrapper {
   margin: 20px 0;
 }
 
-#content {
+.content {
   border: 1px solid green;
 }
 
@@ -438,18 +466,29 @@ footer {
   border: 1px solid orange;
 }
 
+.tmt-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tmt-menu > li {
+  border: 1px solid magenta;
+  display: block;
+  padding: 5px 10px;
+}
+
 @media only screen and (min-width: 481px) {
-  menu {
-    width: 200px;
+  .content-menu {
+    width: 250px;
     float: left;
   }
 }
-@media only screen and (max-device-width: 480px) {
-  menu {
-    display: block;
-  }
 
-  #content {
+.content {
+  margin-left: 270px;
+}
+@media only screen and (max-width: 480px) {
+  .content {
     margin: 20px 0;
   }
 }
