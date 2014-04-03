@@ -1,0 +1,42 @@
+@mixin debug($color) {
+    border: 1px solid $color;
+}
+
+@mixin pos($top, $right, $bottom, $left, $pos : absolute) {
+    position: $pos;
+
+    @if($top != ''){top:$top;}
+    @if($left != ''){left:$left;}
+    @if($right != ''){right:$right;}
+    @if($bottom != ''){bottom:$bottom;}
+}
+
+@mixin pos-left($width) {
+    @include pos(0,'',0,0);
+    width: $width;
+}
+
+@mixin pos-right($width) {
+    @include pos(0,0,0,'');
+    width: $width;
+}
+
+@mixin pos-top($height) {
+    @include pos(0,0,'',0);
+    height: $height;
+}
+
+@mixin posCenter($width, $height) {
+    width: $width;
+    height: $height;
+    margin-left: -($width/2);
+    margin-top: -($height/2);
+    @include pos(50%, '', '', 50%);
+}
+
+@mixin userSelect($select) {
+    -webkit-user-select: $select;
+    -moz-user-select: $select;
+    -ms-user-select: $select;
+    user-select: $select;
+}

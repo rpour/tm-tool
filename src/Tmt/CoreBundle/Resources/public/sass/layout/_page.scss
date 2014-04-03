@@ -1,0 +1,37 @@
+body {
+    background-color: $background;
+    padding: $padding-normal;
+}
+
+* {
+    font-family: $font-family;
+    color: $font;
+    size: $font-size;
+}
+
+header {
+    @include debug(red);
+    padding: $padding-normal;
+}
+
+menu {
+    @include debug(blue);
+    // margin: $padding-normal 0;
+    padding: 0;
+    margin: 0;
+
+}
+
+#content_wrapper {
+    margin: $padding-normal 0;
+}
+
+#content {
+    @include debug(green);
+}
+
+footer {
+    clear: both;
+    margin: $padding-normal 0;
+    @include debug(orange);
+}

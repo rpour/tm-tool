@@ -1,0 +1,2 @@
+_tmt_core:
+    resource: "@TmtCoreBundle/Resources/config/routing.yml"

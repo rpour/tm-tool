@@ -1,0 +1,16 @@
+@media only screen and (min-width : 481px) {
+    menu {
+        width: 200px;
+        float: left;
+    }
+}
+
+@media only screen and (max-device-width : 480px) {
+    menu {
+        display:block;
+    }
+
+    #content {
+        margin: $padding-normal 0;
+    }
+}

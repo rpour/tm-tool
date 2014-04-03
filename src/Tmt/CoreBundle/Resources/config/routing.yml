@@ -1,0 +1,3 @@
+tmt_core:
+    resource: "@TmtCoreBundle/Controller/DefaultController.php"
+    type:     annotation
