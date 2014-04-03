@@ -1,0 +1,3 @@
+tmt_testcase:
+    resource: "@TmtTestCaseBundle/Controller/TestCaseController.php"
+    type:     annotation

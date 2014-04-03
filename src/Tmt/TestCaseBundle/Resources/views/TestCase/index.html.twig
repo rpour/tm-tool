@@ -1,0 +1,10 @@
+{% extends 'TmtCoreBundle::baseTemplate.html.twig' %}
+
+{% block title %}{{ 'Testfall'|trans }}{% endblock %}
+
+{% block header %}a{% endblock %}
+{% block menu %}
+    {% include 'TmtTestCaseBundle:TestCase:menu.html.twig' %}
+{% endblock %}
+{% block content %}c{% endblock %}
+{% block footer %}d{% endblock %}
