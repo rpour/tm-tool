@@ -1,0 +1,20 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Projekt (neu)'|trans }}{% endblock %}
+
+{% block content %}
+    <form method="post" class="basic-form" action="{{ path('tmt_project_create') }}" autocomplete="off" novalidate>
+        {{ form_errors(form) }}
+        {{ form_widget(form._token) }}
+        <div>
+        {{ form_label(form.name) }}{{ form_widget(form.name) }}{{ form_errors(form.name) }}
+        </div>
+        <div>
+        {{ form_label(form.template) }}{{ form_widget(form.template) }}{{ form_errors(form.template) }}
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <button type="submit">{{ 'Speichern'|trans }}</button>
+        </div>
+    </form>
+{% endblock %}

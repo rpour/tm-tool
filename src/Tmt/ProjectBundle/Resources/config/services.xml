@@ -2,11 +2,16 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="tmt_project.class">Tmt\ProjectBundle\Component\Project</parameter>
+        <parameter key="tmt.project.class">Tmt\ProjectBundle\Component\Project</parameter>
+        <parameter key="tmt.project.application.listener.class">Tmt\ProjectBundle\EventListener\ApplicationListener</parameter>
     </parameters>
 
     <services>
-        <service id="tmt_project" class="%tmt_project.class%">
+        <service id="tmt.project" class="%tmt.project.class%">
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="tmt.project.listener" class="%tmt.project.application.listener.class%">
+            <tag name="kernel.event_listener" event="application.integration" method="onIntegration" />
             <argument type="service" id="service_container" />
         </service>
     </services>

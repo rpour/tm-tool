@@ -1,10 +1,11 @@
-{% extends 'TmtCoreBundle::baseTemplate.html.twig' %}
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
 
 {% block title %}{{ 'Projekt'|trans }}{% endblock %}
 
-{% block header %}a{% endblock %}
-{% block menu %}
-    {% include 'TmtProjectBundle:Project:menu.html.twig' %}
+{% block content %}
+    {% for project in projects %}
+        <div>
+            <a href="{{ path('tmt_project_show', {projectId:project.id}) }}">{{project.name}}</a>
+        </div>
+    {% endfor %}
 {% endblock %}
-{% block content %}c{% endblock %}
-{% block footer %}d{% endblock %}

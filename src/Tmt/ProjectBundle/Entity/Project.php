@@ -2,6 +2,7 @@
 namespace Tmt\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tmt\ProjectBundle\Entity\Project
@@ -19,9 +20,15 @@ class Project {
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Projektname muss ausgefüllt sein.")
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern= "/(^.*\.pdf$)|^$/i", message="Template muss eine PDF-Datei sein.")
+     */
+    private $template;
 
     /**
      * Gets the value of id.
@@ -31,20 +38,6 @@ class Project {
     public function getId()
     {
         return $this->id;
-    }
-    
-    /**
-     * Sets the value of id.
-     *
-     * @param mixed $id the id
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -56,7 +49,7 @@ class Project {
     {
         return $this->name;
     }
-    
+
     /**
      * Sets the value of name.
      *
@@ -67,6 +60,30 @@ class Project {
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of template.
+     *
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * Sets the value of template.
+     *
+     * @param mixed $template the template
+     *
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
 
         return $this;
     }
