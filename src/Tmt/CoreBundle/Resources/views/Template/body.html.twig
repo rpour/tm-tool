@@ -1,0 +1,28 @@
+{% extends 'TmtCoreBundle:Template:index.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('bundles/tmtcore/css/screen.css') }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    <nav>
+        {% block breadcrumb %}
+        {% include 'TmtCoreBundle:Template:breadcrumb.html.twig' %}
+        {% endblock %}
+    </nav>
+    <div class="content_wrapper">
+        <menu class="content-menu">
+            {% block menu %}
+            {% include 'TmtCoreBundle:Template:leftMenu.html.twig' %}
+            {% endblock %}
+        </menu>
+        <div class="content">{% block content %}{% endblock %}</div>
+    </div>
+    <div class="clear"></div>
+    <footer>
+        {% block footer %}{% endblock %}
+    </footer>
+{% endblock %}

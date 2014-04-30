@@ -10,40 +10,50 @@ body {
 }
 
 header {
-    @include debug(red);
     padding: $padding-normal;
 }
 
 .content-menu {
-    @include debug(blue);
-    // margin: $padding-normal 0;
     padding: 0;
     margin: 0;
 
 }
 
 .content_wrapper {
+    clear: left;
     margin: $padding-normal 0;
 }
 
 .content {
-    @include debug(green);
 }
 
 footer {
     clear: both;
     margin: $padding-normal 0;
-    @include debug(orange);
 }
 
-.tmt-menu {
+.left-menu {
     list-style: none;
     margin: 0;
     padding: 0;
 
     & > li {
-        @include debug(magenta);
         display: block;
         padding: 5px 10px ;
+    }
+ }
+
+ .breadcrumb {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid silver;
+    height: 30px;
+
+    & > li {
+        display: block;
+        padding: 10px 5px 10px 0;
+        float:left;
+        font-size: 12px;
     }
  }

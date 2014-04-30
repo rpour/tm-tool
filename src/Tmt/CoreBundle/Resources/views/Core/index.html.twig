@@ -1,10 +1,5 @@
-{% extends 'TmtCoreBundle::baseTemplate.html.twig' %}
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
 
 {% block title %}{{ 'Test Management Tool'|trans }}{% endblock %}
 
-{% block header %}a{% endblock %}
-{% block menu %}
-    {% include 'TmtCoreBundle:Core:menu.html.twig' %}
-{% endblock %}
-{% block content %}c{% endblock %}
-{% block footer %}d{% endblock %}
+{% block content %}content{% endblock %}

@@ -442,39 +442,46 @@ body {
 }
 
 header {
-  border: 1px solid red;
   padding: 20px;
 }
 
 .content-menu {
-  border: 1px solid blue;
   padding: 0;
   margin: 0;
 }
 
 .content_wrapper {
+  clear: left;
   margin: 20px 0;
-}
-
-.content {
-  border: 1px solid green;
 }
 
 footer {
   clear: both;
   margin: 20px 0;
-  border: 1px solid orange;
 }
 
-.tmt-menu {
+.left-menu {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.tmt-menu > li {
-  border: 1px solid magenta;
+.left-menu > li {
   display: block;
   padding: 5px 10px;
+}
+
+.breadcrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid silver;
+  height: 30px;
+}
+.breadcrumb > li {
+  display: block;
+  padding: 10px 5px 10px 0;
+  float: left;
+  font-size: 12px;
 }
 
 @media only screen and (min-width: 481px) {

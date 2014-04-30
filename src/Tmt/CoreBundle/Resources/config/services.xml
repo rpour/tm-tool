@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd">
+
+    <parameters>
+        <parameter key="tmt.application.class">Tmt\CoreBundle\Component\Application</parameter>
+        <parameter key="tmt.application.extension.class">Tmt\CoreBundle\Twig\Extension\ApplicationExtension</parameter>
+        <parameter key="tmt.core.application.listener.class">Tmt\CoreBundle\EventListener\ApplicationListener</parameter>
+        <parameter key="tmt.jsondecode.extension.class">Tmt\CoreBundle\Twig\Extension\JsonDecodeExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="tmt.application" class="%tmt.application.class%">
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="tmt.twig.application" class="%tmt.application.extension.class%">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
+        </service>
+        <service id="tmt.core.listener" class="%tmt.core.application.listener.class%">
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_listener" event="application.integration" method="onIntegration" />
+        </service>
+        <service id="tmt.twig.jsondecode" class="%tmt.jsondecode.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

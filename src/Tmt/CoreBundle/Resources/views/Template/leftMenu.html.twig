@@ -1,0 +1,23 @@
+<ul class="left-menu">
+{% for item in applicationGet('tmt-menu') %}
+    {# RAW CONTENT #}
+    {% if item.raw is defined %}
+        {{ item.raw|raw }}
+
+    {# INCLUDE CONTENT #}
+    {% elseif item.template is defined %}
+        {% include item.template %}
+
+    {# USE TEMPLATE #}
+    {% else %}
+        <li{% if item.class is defined %} class="{{ item.class }}"{% endif %}>
+            {% if item.param is defined %}
+            <a href="{{ path(item.path, item.param) }}">
+            {% else %}
+            <a href="{{ path(item.path) }}">
+            {% endif %}
+            {{ item.label|trans }}</a>
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>

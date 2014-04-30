@@ -1,0 +1,30 @@
+<ul class="breadcrumb">
+{% for item in applicationGet('breadcrumb') %}
+    {# RAW CONTENT #}
+    {% if item.raw is defined %}
+        {{ item.raw|raw }}
+
+    {# INCLUDE CONTENT #}
+    {% elseif item.template is defined %}
+        {% include item.template %}
+
+    {# USE TEMPLATE #}
+    {% else %}
+        <li{% if item.class is defined %} class="{{ item.class }}"{% endif %}>
+            {% if not loop.last %}
+                {% if item.param is defined %}
+                <a href="{{ path(item.path, item.param) }}">
+                {% else %}
+                <a href="{{ path(item.path) }}">
+                {% endif %}
+                {{ item.label|trans }}</a>
+            {% else %}
+            {{ item.label|trans }}
+            {% endif %}
+        </li>
+        {% if not loop.last %}
+        <li>&gt;</li>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</ul>
