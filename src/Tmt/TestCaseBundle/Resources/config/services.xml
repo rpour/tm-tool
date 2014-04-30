@@ -2,11 +2,22 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="tmt_testcase.class">Tmt\TestCaseBundle\Component\TestCase</parameter>
+        <parameter key="tmt.testcase.class">Tmt\TestCaseBundle\Component\TestCase</parameter>
+        <parameter key="tmt.test.class">Tmt\TestCaseBundle\Component\Test</parameter>
+        <parameter key="tmt.testcase.application.listener.class">Tmt\TestCaseBundle\EventListener\ApplicationListener</parameter>
     </parameters>
 
     <services>
-        <service id="tmt_testcase" class="%tmt_testcase.class%">
+        <service id="tmt.test" class="%tmt.test.class%">
+            <argument type="service" id="service_container" />
+            <call method="setTestCaseId"></call>
+        </service>
+        <service id="tmt.testcase" class="%tmt.testcase.class%">
+            <argument type="service" id="service_container" />
+            <call method="setProjectId"></call>
+        </service>
+        <service id="tmt.testcase.listener" class="%tmt.testcase.application.listener.class%">
+            <tag name="kernel.event_listener" event="application.integration" method="onIntegration" />
             <argument type="service" id="service_container" />
         </service>
     </services>

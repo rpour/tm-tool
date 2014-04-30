@@ -1,3 +1,6 @@
 tmt_testcase:
     resource: "@TmtTestCaseBundle/Controller/TestCaseController.php"
     type:     annotation
+tmt_test:
+    resource: "@TmtTestCaseBundle/Controller/TestController.php"
+    type:     annotation

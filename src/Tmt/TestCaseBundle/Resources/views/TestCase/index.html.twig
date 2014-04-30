@@ -1,10 +1,33 @@
-{% extends 'TmtCoreBundle::baseTemplate.html.twig' %}
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
 
-{% block title %}{{ 'Testfall'|trans }}{% endblock %}
+{% block title %}{{ 'Testfälle'|trans }}{% endblock %}
 
-{% block header %}a{% endblock %}
-{% block menu %}
-    {% include 'TmtTestCaseBundle:TestCase:menu.html.twig' %}
+{% block content %}
+<table style="width:100%;">
+{% for testcase in testcases %}
+<tr>
+    <td>
+        <a href="{{ path('tmt_test_run', {
+        'projectId': app.request.get('projectId'),
+        'testcaseId': testcase.id
+        }) }}">play</a>
+    </td>
+    <td>
+        <a href="{{ path('tmt_test_index', {
+            'projectId': app.request.get('projectId'),
+            'testcaseId': testcase.id
+            }) }}">{{ testcase.name }}</a>
+    </td>
+    <td>ok</td>
+    <td>err</td>
+    <td>lastrun</td>
+    <td>
+        <a href="{{ path('tmt_testcase_edit', {
+        'projectId': app.request.get('projectId'),
+        'testcaseId': testcase.id
+        }) }}">edit</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
 {% endblock %}
-{% block content %}c{% endblock %}
-{% block footer %}d{% endblock %}

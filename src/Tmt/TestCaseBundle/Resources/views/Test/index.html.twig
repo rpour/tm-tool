@@ -1,0 +1,11 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tmttestcase/testcase.js') }}"></script>
+{% endblock %}
+
+{% block title %}{{ 'Testfall neu'|trans }}{% endblock %}
+
+{% block content %}
+{% endblock %}

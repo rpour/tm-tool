@@ -1,0 +1,97 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tmttestcase/testcase.js') }}"></script>
+{% endblock %}
+
+{% block title %}{{ 'Testfall neu'|trans }}{% endblock %}
+
+{% block content %}
+{% if errors is defined %}{{ errors }}{% endif %}
+
+{% if testcase is defined %}
+<form action="{{ path('tmt_testcase_delete', {
+    'projectId': app.request.get('projectId'),
+    'testcaseId': testcase.id
+}) }}" method="post">
+    <button type="submit">löschen</button>
+</form>
+{% endif %}
+
+{% if testcase is defined %}
+{% set data = testcase.data|json_decode %}
+<form action="{{ path('tmt_testcase_update', {
+    'projectId': app.request.get('projectId'),
+    'testcaseId': testcase.id
+}) }}" method="post">
+{% else %}
+<form action="{{ path('tmt_testcase_create', {'projectId': app.request.get('projectId')}) }}" method="post">
+{% endif %}
+    <div>
+        <label for="name">Titel</label>
+        <input type="text" id="name" name="testcase[name]" value="{% if testcase is defined %}{{ testcase.name }}{% endif %}" />
+    </div>
+    <div>
+        <label for="description">Beschreibung</label>
+        <textarea id="description" name="testcase[description]">{% if testcase is defined %}{{ testcase.description }}{% endif %}</textarea>
+    </div>
+    <div>
+        <label for="precondition">Vorbedingung</label>
+        <textarea id="precondition" name="testcase[precondition]">{% if testcase is defined %}{{ testcase.precondition }}{% endif %}</textarea>
+        <input type="text" id="preconditionId" name="testcase[preconditionId]" value="{% if testcase is defined %}{{ testcase.preconditionId }}{% endif %}" />
+    </div>
+    <div>
+        <label for="postcondition">Nachbedingung</label>
+        <textarea id="postcondition" name="testcase[postcondition]">{% if testcase is defined %}{{ testcase.postcondition }}{% endif %}</textarea>
+        <input type="text" id="postconditionId" name="testcase[postconditionId]" value="{% if testcase is defined %}{{ testcase.postconditionId }}{% endif %}" />
+    </div>
+    <hr/>
+    <div class="testcase-data">
+{% if data is defined and data|length > 2 %}
+{% for i in range(low=0, high=data|length - 1, step=2) %}
+        <div class="testcase-data-block">
+            <div class="add" data-testcase="prepend">hinzufügen</div>
+            <div class="add" data-testcase="delete">löschen</div>
+            <div>
+                <label>Testschritt</label>
+                <textarea name="testcase[data][]">{{ data[i] }}</textarea>
+            </div>
+            <div>
+                <label>Erwartetes Ergebnis</label>
+                <textarea name="testcase[data][]">{{ data[i + 1] }}</textarea>
+            </div>
+        </div>
+{% endfor %}
+{% elseif data is defined %}
+        <div class="testcase-data-block">
+            <div class="add" data-testcase="prepend">hinzufügen</div>
+            <div class="add" data-testcase="delete">löschen</div>
+            <div>
+                <label>Testschritt</label>
+                <textarea name="testcase[data][]">{{ data[0] }}</textarea>
+            </div>
+            <div>
+                <label>Erwartetes Ergebnis</label>
+                <textarea name="testcase[data][]">{{ data[1] }}</textarea>
+            </div>
+        </div>
+{% else %}
+        <div class="testcase-data-block">
+            <div class="add" data-testcase="prepend">hinzufügen</div>
+            <div class="add" data-testcase="delete">löschen</div>
+            <div>
+                <label>Testschritt</label>
+                <textarea name="testcase[data][]"></textarea>
+            </div>
+            <div>
+                <label>Erwartetes Ergebnis</label>
+                <textarea name="testcase[data][]"></textarea>
+            </div>
+        </div>
+{% endif %}
+        <div class="add" data-testcase="append">hinzufügen</div>
+    </div>
+    <div><button type="submit">{{ 'Speichern'|trans }}</button></div>
+</form>
+{% endblock %}

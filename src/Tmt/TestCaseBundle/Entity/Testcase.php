@@ -18,6 +18,41 @@ class Testcase {
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $projectId;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $precondition;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $preconditionId;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $postcondition;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $postconditionId;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $version;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lasttest;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -30,7 +65,7 @@ class Testcase {
     /**
      * @ORM\Column(type="text")
      */
-    private $json;
+    private $data;
 
     /**
      * Gets the value of id.
@@ -41,7 +76,7 @@ class Testcase {
     {
         return $this->id;
     }
-    
+
     /**
      * Sets the value of id.
      *
@@ -57,6 +92,174 @@ class Testcase {
     }
 
     /**
+     * Gets the value of projectId.
+     *
+     * @return mixed
+     */
+    public function getProjectId()
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * Sets the value of projectId.
+     *
+     * @param mixed $projectId the project id
+     *
+     * @return self
+     */
+    public function setProjectId($projectId)
+    {
+        $this->projectId = $projectId;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of precondition.
+     *
+     * @return mixed
+     */
+    public function getPrecondition()
+    {
+        return $this->precondition;
+    }
+
+    /**
+     * Sets the value of precondition.
+     *
+     * @param mixed $precondition the precondition
+     *
+     * @return self
+     */
+    public function setPrecondition($precondition)
+    {
+        $this->precondition = $precondition;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of preconditionId.
+     *
+     * @return mixed
+     */
+    public function getPreconditionId()
+    {
+        return $this->preconditionId;
+    }
+
+    /**
+     * Sets the value of preconditionId.
+     *
+     * @param mixed $preconditionId the precondition id
+     *
+     * @return self
+     */
+    public function setPreconditionId($preconditionId)
+    {
+        $this->preconditionId = $preconditionId;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of postcondition.
+     *
+     * @return mixed
+     */
+    public function getPostcondition()
+    {
+        return $this->postcondition;
+    }
+
+    /**
+     * Sets the value of postcondition.
+     *
+     * @param mixed $postcondition the postcondition
+     *
+     * @return self
+     */
+    public function setPostcondition($postcondition)
+    {
+        $this->postcondition = $postcondition;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of postconditionId.
+     *
+     * @return mixed
+     */
+    public function getPostconditionId()
+    {
+        return $this->postconditionId;
+    }
+
+    /**
+     * Sets the value of postconditionId.
+     *
+     * @param mixed $postconditionId the postcondition id
+     *
+     * @return self
+     */
+    public function setPostconditionId($postconditionId)
+    {
+        $this->postconditionId = $postconditionId;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of version.
+     *
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Sets the value of version.
+     *
+     * @param mixed $version the version
+     *
+     * @return self
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of lasttest.
+     *
+     * @return mixed
+     */
+    public function getLasttest()
+    {
+        return $this->lasttest;
+    }
+
+    /**
+     * Sets the value of lasttest.
+     *
+     * @param mixed $lasttest the lasttest
+     *
+     * @return self
+     */
+    public function setLasttest($lasttest)
+    {
+        $this->lasttest = $lasttest;
+
+        return $this;
+    }
+
+    /**
      * Gets the value of name.
      *
      * @return mixed
@@ -65,7 +268,7 @@ class Testcase {
     {
         return $this->name;
     }
-    
+
     /**
      * Sets the value of name.
      *
@@ -89,7 +292,7 @@ class Testcase {
     {
         return $this->description;
     }
-    
+
     /**
      * Sets the value of description.
      *
@@ -105,25 +308,25 @@ class Testcase {
     }
 
     /**
-     * Gets the value of json.
+     * Gets the value of data.
      *
      * @return mixed
      */
-    public function getJson()
+    public function getData()
     {
-        return json_decode($this->json, 1);
+        return $this->data;
     }
-    
+
     /**
-     * Sets the value of json.
+     * Sets the value of data.
      *
-     * @param mixed $json the json
+     * @param mixed $data the data
      *
      * @return self
      */
-    public function setJson($json)
+    public function setData($data)
     {
-        $this->json = json_encode($json);
+        $this->data = $data;
 
         return $this;
     }

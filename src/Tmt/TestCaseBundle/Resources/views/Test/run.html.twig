@@ -1,0 +1,56 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tmttestcase/testcase.js') }}"></script>
+{% endblock %}
+
+{% block title %}{{ 'Testfall neu'|trans }}{% endblock %}
+
+{% block content %}
+{% if errors is defined %}{{ errors }}{% endif %}
+
+{% if testcase is defined %}
+{% set data = testcase.data|json_decode %}
+
+<form action="{{ path('tmt_test_create', {
+    'projectId': app.request.get('projectId'),
+    'testcaseId': testcase.id
+}) }}" method="post">
+
+{% endif %}
+    <div>
+        {% if testcase is defined %}{{ testcase.name }}{% endif %}
+    </div>
+    <div>
+        {% if testcase is defined %}{{ testcase.description }}{% endif %}
+    </div>
+    <div>
+        {% if testcase is defined %}{{ testcase.precondition }}{% endif %}
+        {% if testcase is defined %}{{ testcase.preconditionId }}{% endif %}
+    </div>
+    <div>
+        {% if testcase is defined %}{{ testcase.postcondition }}{% endif %}
+        {% if testcase is defined %}{{ testcase.postconditionId }}{% endif %}
+    </div>
+
+    <hr/>
+    <div class="testcase-data">
+{% if data is defined and data|length > 2 %}
+{% for i in range(low=0, high=data|length - 1, step=2) %}
+        <label>Testschritt</label>
+        <p>{{ data[i] }}</p>
+
+        <label>Erwartetes Ergebnis</label>
+        <p>{{ data[i + 1] }}</p>
+{% endfor %}
+{% else %}
+        <label>Testschritt</label>
+        <p>{{ data[0] }}</p>
+
+        <label>Erwartetes Ergebnis</label>
+        <p>{{ data[1] }}</p>
+{% endif %}
+
+</form>
+{% endblock %}
