@@ -1,3 +1,6 @@
+tmt_core_security:
+    resource: "@TmtCoreBundle/Controller/SecurityController.php"
+    type:     annotation
 _tmt_testcase:
     resource: "@TmtTestCaseBundle/Resources/config/routing.yml"
 _tmt_project:
