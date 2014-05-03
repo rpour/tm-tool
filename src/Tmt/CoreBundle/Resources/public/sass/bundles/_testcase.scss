@@ -1,0 +1,69 @@
+.testcase-index {
+    width: 100%;
+
+    & tr {
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        border-bottom: 2px solid lighten($info, 35%);;
+
+        &:hover {
+            background-color: lighten($info, 45%);
+            border-bottom: 2px solid lighten($info, 20%);
+        }
+    }
+}
+
+.testcase-index-icon {
+    font-size: 20px;
+    width: 30px;
+
+    & > a {
+        text-decoration: none;
+    }
+}
+
+.testcase-count {
+    display: block;
+    float: right;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    color: $info;
+}
+
+.column.testcase {
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: darken($background, 10%);
+    background-color: lighten($background, 4%);
+
+    &.ok {
+        background-color: lighten($success, 30%);
+        border: 1px solid $success;
+    }
+
+    &.err {
+        background-color: lighten($error, 30%);
+        border: 1px solid $error;
+    }
+
+    @include border-radius(4px);
+}
+
+.column.testcase .case, .column.testcase .result {
+    padding: 20px 0;
+}
+
+.column.testcase .result {
+    border-top: 2px solid $success;
+}
+
+.column.testcase div.error > textarea.error-msg {
+    background-color: white;
+    color: $font;
+    border: 1px solid $error;
+    @include border-radius(4px);
+}

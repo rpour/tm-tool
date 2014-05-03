@@ -15,72 +15,81 @@ class ApplicationListener {
 
     public function onIntegration(ApplicationEvent $event) {
         $application = $event->getApplication();
-        $projectService = $this->container->get('tmt.project');
-        $project = $projectService->get(
-            $this->container->get('request')->get('projectId', 0)
-        );
 
+        $projectId = $this->container->get('request')->get('projectId', 0);
+
+        /***********************************************************************
+         * BREADCRUMB
+         **********************************************************************/
+
+        // home > project
+        if ($application->bundleIs('project') || $projectId) {
+            $application->add('breadcrumb', 'project', array(
+                'path'  => 'tmt_project_index',
+                'label' => 'Projekt'
+            ));
+        }
+
+        // home > project > [name]
+        if ($projectId) {
+            $projectService = $this->container->get('tmt.project');
+            $project = $projectService->get($projectId);
+
+            $application->add('breadcrumb', strtolower($project->getName()), array(
+                'path'  => 'tmt_project_show',
+                'param' => array('projectId' => $project->getId()),
+                'label' => $project->getName(),
+                'class' => 'breadcrumb-value'
+            ));
+        }
+
+        // home > project > new
+        if ($application->routeIs('tmt_project_new')) {
+            $application->add('breadcrumb', 'project.new', array(
+                'path'  => 'tmt_project_index',
+                'label' => 'new'
+            ));
+        }
+
+        /***********************************************************************
+         * MENU-BAR
+         **********************************************************************/
         if ($application->routeIs('tmt_project_index')) {
+            $application
+            ->add('tmt-menubar-label', 'label', 'Projete')
+            ->add('tmt-menubar', 'project.new', array(
+                'path'  => 'tmt_project_new',
+                'label' => 'neu',
+                'class' => 'icon-file-o'
+            ), 'ROLE_PROJECT_ADMIN');
 
-            // home > project
-            $application->add('breadcrumb', 'project', array(
-                'path'  => 'tmt_project_index',
-                'label' => 'Projekt'
-            ));
+        } else if ($application->routeIs('tmt_project_show')) {
+            $application
+            ->add('tmt-menubar-label', 'label', $project->getName())
+            ->add('tmt-menubar', 'project.edit', array(
+                'path'  => 'tmt_project_edit',
+                'param' => array('projectId' => $project->getId()),
+                'label' => 'bearbeiten',
+                'class' => 'icon-edit'
+            ), 'ROLE_PROJECT_ADMIN')
+            ->add('tmt-menubar', 'project.remove', array(
+                'path'  => 'tmt_project_confirm',
+                'param' => array('projectId' => $project->getId()),
+                'label' => 'löschen',
+                'class' => 'icon-trash-o'
+            ), 'ROLE_PROJECT_ADMIN');
+        } else if ($application->routeIs('tmt_project_confirm')) {
+            $application
+                ->add('tmt-menubar-label', 'label', $project->getName());
+        }
 
-            // add link to new project
-            if (!$application->actionIs('new')) {
-                $application->add('tmt-menu', 'project.new', array(
-                    'path'  => 'tmt_project_new',
-                    'label' => 'neu'
-                ));
-            }
-
-        } else if ($application->bundleIs('project') ||
-                   $application->bundleIs('testcase')) {
-
-            if ($application->controllerIs('project')) {
-                $application
-                    ->append('tmt-menu', 'project', array(
-                        'raw' => '<li class="title">Projekt</li>'
-                    ))->append('tmt-menu', 'project.new', array(
-                        'path'  => 'tmt_project_new',
-                        'label' => 'neu'
-                    ));
-
-                if (is_object($project)) {
-                    $application->append('tmt-menu', 'project.edit', array(
-                        'path'  => 'tmt_project_new',
-                        'param' => array('projectId' => $project->getId()),
-                        'label' => 'bearbeiten'
-                    ));
-                }
-            }
-
-            // home > project
-            $application->add('breadcrumb', 'project', array(
-                'path'  => 'tmt_project_index',
-                'label' => 'Projekt'
-            ));
-
-            if ($application->routeIs('tmt_project_new')) {
-
-                // home > project > new
-                $application->add('breadcrumb', 'project.new', array(
+        if ($application->bundleIs('project') && !$application->routeIs('tmt_project_index')) {
+            $application
+                ->add('tmt-menubar', 'testcase.back', array(
                     'path'  => 'tmt_project_index',
-                    'label' => 'new'
+                    'label' => 'zurück',
+                    'class' => 'icon-mail-reply'
                 ));
-
-            } else if ($application->routeIs('tmt_project_show')) {
-                if (is_object($project)) {
-                    // home > project > [name]
-                    $application->add('breadcrumb', strtolower($project->getName()), array(
-                        'path'  => 'tmt_core_show',
-                        'param' => array('projectId' => $project->getId()),
-                        'label' => $project->getName()
-                    ));
-                }
-            }
         }
     }
 }

@@ -2,9 +2,29 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset('bundles/tmtcore/css/screen.css') }}">
+    <link rel="stylesheet" href="http://i.icomoon.io/public/temp/fb7d5d34ba/tm-tool11/style.css">
 {% endblock %}
 
 {% block body %}
+<div class="page-body">
+    <div class="login">
+        {% if  app.user.username is defined %}
+        {{ app.user.username }}
+        <a href="{{ path('tmt_logout') }}">
+            <span class="icon-power-off"></span>
+        </a>
+        {% else %}
+        <form action="{{ path('tmt_login_check') }}" method="post">
+            <span class="icon-user"></span>
+            <input type="text" name="_username" value="" />
+
+            <span class="icon-key"></span>
+            <input type="password" name="_password" />
+
+            <button type="submit">login</button>
+        </form>
+        {% endif %}
+    </div>
     <header>
         {% block header %}{% endblock %}
     </header>
@@ -13,16 +33,14 @@
         {% include 'TmtCoreBundle:Template:breadcrumb.html.twig' %}
         {% endblock %}
     </nav>
-    <div class="content_wrapper">
-        <menu class="content-menu">
-            {% block menu %}
-            {% include 'TmtCoreBundle:Template:leftMenu.html.twig' %}
-            {% endblock %}
-        </menu>
-        <div class="content">{% block content %}{% endblock %}</div>
-    </div>
-    <div class="clear"></div>
+    <nav class="menu">
+        {% block menubar %}
+        {% include 'TmtCoreBundle:Template:menubar.html.twig' %}
+        {% endblock %}
+    </nav>
+    <div class="content">{% block content %}{% endblock %}</div>
     <footer>
         {% block footer %}{% endblock %}
     </footer>
+</div>
 {% endblock %}

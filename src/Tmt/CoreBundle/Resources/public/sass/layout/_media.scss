@@ -1,13 +1,9 @@
-.content-menu {
-    @media only screen and (min-width : 481px) {
-        width: $menu-width;
-        float: left;
-    }
-}
+.page-body {
+    margin: 0 auto;
+    width: $page-width;
 
-.content {
-    margin-left: $menu-width + $padding-normal;
     @media only screen and (max-width : 480px) {
-        margin: $padding-normal 0;
+        margin: 0;
+        width: 100%;
     }
 }

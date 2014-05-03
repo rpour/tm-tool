@@ -17,7 +17,8 @@ class ApplicationListener {
         $application = $event->getApplication();
         $application->add('breadcrumb', 'home', array(
             'path'  => 'tmt_project_index',
-            'label' => 'Home'
+            'label' => 'Home',
+            'class' => 'icon-home'
         ));
     }
 }

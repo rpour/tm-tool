@@ -15,6 +15,6 @@ class JsonDecodeExtension extends \Twig_Extension {
 
 
     public function jsonDecode($var) {
-        return json_decode($var);
+        return json_decode($var, true);
     }
 }

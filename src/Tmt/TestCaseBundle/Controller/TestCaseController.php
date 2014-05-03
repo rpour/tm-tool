@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/project/{projectId}/testcase")
@@ -20,9 +21,26 @@ class TestCaseController extends Controller {
      */
     public function indexAction($projectId) {
         $testcaseService = $this->get('tmt.testcase');
+        $testService = $this->get('tmt.test');
+        $testcases = $testcaseService->getAll();
+
+        $count = array();
+        foreach ($testcases as $testcase) {
+            $result = $testService->getPassedCount($testcase->getId());
+
+            if ($result[0]['total'] > 0)
+                $count[$testcase->getId()] = array(
+                    'passed' => (int)$result[0]['passed'],
+                    'notpassed' => (int)$result[0]['total'] - (int)$result[0]['passed']
+                );
+            else
+                $count[$testcase->getId()] = array('passed' => 0, 'notpassed' => 0);
+
+        }
 
         return array(
-            'testcases' => $testcaseService->getAll()
+            'testcases' => $testcases,
+            'count' => $count
         );
     }
 
@@ -32,6 +50,9 @@ class TestCaseController extends Controller {
      * @Template()
      */
     public function newAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
         return array();
     }
 
@@ -41,6 +62,9 @@ class TestCaseController extends Controller {
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
     public function createAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
         $testcaseService = $this->get('tmt.testcase');
         $errors = $testcaseService->create();
 
@@ -57,6 +81,9 @@ class TestCaseController extends Controller {
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
     public function editAction($projectId, $testcaseId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
         $testcaseService = $this->get('tmt.testcase');
 
         return array(
@@ -71,6 +98,9 @@ class TestCaseController extends Controller {
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
     public function updateAction($projectId, $testcaseId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
         $testcaseService = $this->get('tmt.testcase');
         $errors = $testcaseService->update($testcaseId);
 
@@ -86,10 +116,13 @@ class TestCaseController extends Controller {
     }
 
     /**
-     * @Route("/remove/{testcaseId}", name="tmt_testcase_delete")
+     * @Route("/remove/{testcaseId}", name="tmt_testcase_remove")
      * @Method("POST")
      */
     public function removeAction($projectId, $testcaseId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
         $testcaseService = $this->get('tmt.testcase');
         $testcaseService->remove($testcaseService->get($testcaseId));
 

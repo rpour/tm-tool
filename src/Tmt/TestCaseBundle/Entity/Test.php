@@ -33,6 +33,16 @@ class Test {
     private $data;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $passed;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $user;
+
+    /**
      * Gets the value of id.
      *
      * @return mixed
@@ -124,6 +134,54 @@ class Test {
     public function setData($data)
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of passed.
+     *
+     * @return mixed
+     */
+    public function getPassed()
+    {
+        return $this->passed;
+    }
+
+    /**
+     * Sets the value of passed.
+     *
+     * @param mixed $passed the passed
+     *
+     * @return self
+     */
+    public function setPassed($passed)
+    {
+        $this->passed = $passed;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of user.
+     *
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the value of user.
+     *
+     * @param mixed $user the user
+     *
+     * @return self
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }

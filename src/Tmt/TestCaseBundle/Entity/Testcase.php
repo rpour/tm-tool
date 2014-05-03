@@ -48,14 +48,19 @@ class Testcase {
     private $version;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lasttest;
+    private $lastUser;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastDate;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
@@ -236,49 +241,73 @@ class Testcase {
     }
 
     /**
-     * Gets the value of lasttest.
+     * Gets the value of lastUser.
      *
      * @return mixed
      */
-    public function getLasttest()
+    public function getLastUser()
     {
-        return $this->lasttest;
+        return $this->lastUser;
     }
 
     /**
-     * Sets the value of lasttest.
+     * Sets the value of lastUser.
      *
-     * @param mixed $lasttest the lasttest
+     * @param mixed $lastUser the last user
      *
      * @return self
      */
-    public function setLasttest($lasttest)
+    public function setLastUser($lastUser)
     {
-        $this->lasttest = $lasttest;
+        $this->lastUser = $lastUser;
 
         return $this;
     }
 
     /**
-     * Gets the value of name.
+     * Gets the value of lastDate.
      *
      * @return mixed
      */
-    public function getName()
+    public function getLastDate()
     {
-        return $this->name;
+        return $this->lastDate;
     }
 
     /**
-     * Sets the value of name.
+     * Sets the value of lastDate.
      *
-     * @param mixed $name the name
+     * @param mixed $lastDate the last date
      *
      * @return self
      */
-    public function setName($name)
+    public function setLastDate($lastDate)
     {
-        $this->name = $name;
+        $this->lastDate = $lastDate;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of title.
+     *
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets the value of title.
+     *
+     * @param mixed $title the title
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }

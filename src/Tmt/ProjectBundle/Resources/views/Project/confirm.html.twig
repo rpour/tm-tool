@@ -1,0 +1,12 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Projekt löschen'|trans }}{% endblock %}
+
+{% block content %}
+    <form method="post" class="basic-form" action="{{ path('tmt_project_remove', {'projectId': app.request.get('projectId')}) }}" autocomplete="off" novalidate>
+
+        <p>Projekt wirklich löschen?</p>
+        <a href="{{ path('tmt_project_show', {'projectId': app.request.get('projectId')}) }}">nein</a>
+        <button type="submit">{{ 'ja'|trans }}</button>
+    </form>
+{% endblock %}

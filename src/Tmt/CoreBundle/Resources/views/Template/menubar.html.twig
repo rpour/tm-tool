@@ -1,5 +1,6 @@
-<ul class="left-menu">
-{% for item in applicationGet('tmt-menu') %}
+<div class="menu-bar-label">{{ applicationGet('tmt-menubar-label', 'label') }}</div>
+<ul class="menu-bar">
+{% for item in applicationGet('tmt-menubar')|reverse %}
     {# RAW CONTENT #}
     {% if item.raw is defined %}
         {{ item.raw|raw }}

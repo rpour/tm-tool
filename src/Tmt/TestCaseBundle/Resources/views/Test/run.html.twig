@@ -8,49 +8,83 @@
 {% block title %}{{ 'Testfall neu'|trans }}{% endblock %}
 
 {% block content %}
-{% if errors is defined %}{{ errors }}{% endif %}
+{% if errors is defined %}
+{% for error in errors %}
+    {{ error }}
+{% endfor %}
+{% endif %}
 
 {% if testcase is defined %}
 {% set data = testcase.data|json_decode %}
-
 <form action="{{ path('tmt_test_create', {
     'projectId': app.request.get('projectId'),
     'testcaseId': testcase.id
-}) }}" method="post">
+}) }}" class="form-style-testcase" method="post">
 
 {% endif %}
-    <div>
-        {% if testcase is defined %}{{ testcase.name }}{% endif %}
-    </div>
-    <div>
-        {% if testcase is defined %}{{ testcase.description }}{% endif %}
-    </div>
-    <div>
-        {% if testcase is defined %}{{ testcase.precondition }}{% endif %}
-        {% if testcase is defined %}{{ testcase.preconditionId }}{% endif %}
-    </div>
-    <div>
-        {% if testcase is defined %}{{ testcase.postcondition }}{% endif %}
-        {% if testcase is defined %}{{ testcase.postconditionId }}{% endif %}
+    <div class="column full">
+        <label>
+            {{ testcase.title }}
+            <span class="right"># {{ testcase.id }}</span>
+        </label>
+        <p class="fs1">{{ testcase.description }}</p>
     </div>
 
-    <hr/>
-    <div class="testcase-data">
-{% if data is defined and data|length > 2 %}
-{% for i in range(low=0, high=data|length - 1, step=2) %}
-        <label>Testschritt</label>
-        <p>{{ data[i] }}</p>
+    <div class="column half">
+        <label>
+            {% if testcase.preconditionId != 0 %}
+            <a href="{{ path('tmt_test_run', {
+                'projectId': app.request.get('projectId'),
+                'testcaseId': testcase.preconditionId
+            }) }}">Vorbedingung</a>
+            {% else %}
+                Vorbedingung
+            {% endif %}
+        </label>
+        <p class="fs1">{{ testcase.precondition }}</p>
+    </div>
 
-        <label>Erwartetes Ergebnis</label>
-        <p>{{ data[i + 1] }}</p>
+    <div class="column half">
+        <label>
+            {% if testcase.postconditionId is not empty %}
+            <a href="{{ path('tmt_test_run', {
+                'projectId': app.request.get('projectId'),
+                'testcaseId': testcase.postconditionId
+            }) }}">Nachbedingung</a>
+            {% else %}
+                Nachbedingung
+            {% endif %}
+        </label>
+        <p class="fs1">{{ testcase.postcondition }}</p>
+    </div>
+
+    <div class="clear"></div>
+
+{% if data is not defined %}
+    {% set data = [['','']] %}
+{% endif %}
+
+{% for case in data %}
+<div class="column full testcase {% if case['passed'] is defined and case['passed'] %}ok{% endif %}" data-id="{{ loop.index }}">
+    <div class="case">
+        <div class="testcase-count"># {{ loop.index }}</div>
+        <div>{{ case[0] }}</div>
+    </div>
+    <div class="result">
+        <div>{{ case[1] }}</div>
+        <div class="p10 fs30">
+            <div class="left pointer" data-testcase="ok"><span class="icon-check success"></span></div>
+            <div class="right pointer" data-testcase="err"><span class="icon-warning warning"></span></div>
+        </div>
+    </div>
+    <div class="error off">
+        <input type="hidden" name="testcase[{{ loop.index }}][passed]" data-case="passed" value="{% if case['passed'] is defined and case['passed'] %}1{% else %}0{% endif %}" />
+        <textarea class="error-msg" name="testcase[{{ loop.index }}][error]"  data-case="error">{% if case['passed'] is defined and case['passed'] %}{% else %}Bitte Ergebnis eintragen.{% endif %}</textarea>
+    </div>
+</div>
 {% endfor %}
-{% else %}
-        <label>Testschritt</label>
-        <p>{{ data[0] }}</p>
 
-        <label>Erwartetes Ergebnis</label>
-        <p>{{ data[1] }}</p>
-{% endif %}
-
+<button type="submit">Speichern</button>
 </form>
+<div class="clear"></div>
 {% endblock %}

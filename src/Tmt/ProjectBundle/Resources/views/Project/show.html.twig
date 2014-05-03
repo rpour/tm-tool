@@ -3,5 +3,5 @@
 {% block title %}{{ 'Projekt'|trans }}{% endblock %}
 
 {% block content %}
-    {{ projectId }}
+    <a href="{{ path('tmt_testcase_index', {projectId: projectId}) }}">Testfälle</a>
 {% endblock %}

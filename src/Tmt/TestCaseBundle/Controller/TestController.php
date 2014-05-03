@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/project/{projectId}/test/{testcaseId}")
@@ -20,7 +21,9 @@ class TestController extends Controller {
      */
     public function indexAction($projectId, $testcaseId) {
         $testService = $this->get('tmt.test');
-        return array();
+        return array(
+            'tests' => $testService->getAll()
+        );
     }
 
     /**
@@ -29,6 +32,9 @@ class TestController extends Controller {
      * @Template()
      */
     public function runAction($projectId, $testcaseId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER'))
+            throw new AccessDeniedException();
+
         $testcaseService = $this->get('tmt.testcase');
 
         return array(
@@ -39,12 +45,24 @@ class TestController extends Controller {
     /**
      * @Route("/create", name="tmt_test_create")
      * @Method("POST")
+     * @Template("TmtTestCaseBundle:Test:run.html.twig")
      */
     public function createAction($projectId, $testcaseId) {
-        $testcaseService = $this->get('tmt.test');
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER'))
+            throw new AccessDeniedException();
+
+        $testService = $this->get('tmt.test');
+
+        $result = $testService->create();
+
+        if (count($result['errors']) === 0) {
+            return $this->redirect($this->generateUrl(
+                'tmt_testcase_index', array('projectId' => $projectId)));
+        }
 
         return array(
-            'testcase' => $testcaseService->get($testcaseId)
+            'errors' => $result['errors'],
+            'testcase' => $result['testcase']
         );
     }
 }

@@ -1,0 +1,33 @@
+.login {
+    height: 40px;
+    line-height: 40px;
+    background-color: darken($base, 20%);
+    color: white;
+    padding: 0 20px;
+    text-align: right;
+    border-bottom: 1px solid lighten($dark, 60%);;
+
+    & input, & button {
+        border: 0;
+        padding: 0 5px;
+        height: 20px;
+        line-height: 20px;
+        vertical-align: middle;
+        background-color: darken($base, 15%);
+        border: 1px solid darken($base, 20%);
+        font-size: 12px;
+        color: white;
+        @include border-radius(4px);
+    }
+
+    & input {
+        width: 100px;
+    }
+
+    & span {
+        color: lighten($dark, 60%);
+        vertical-align: middle;
+    }
+
+    @include pos(0,0,'',0);
+}

@@ -1,0 +1,39 @@
+.breadcrumb {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    background-color: $light;
+    border: 1px solid darken($light, 25%);
+    @include border-top-radius(4px);
+
+    & > li {
+        padding: 0 5px;
+        display: block;
+        float:left;
+        font-size: 12px;
+        color: #2c3e50;
+        height: 30px;
+        line-height: 30px;
+
+        & > a {
+            color: #2c3e50;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &:last-child {
+            color: #7f8c8d;
+        }
+    }
+}
+
+.breadcrumb .breadcrumb-value {
+    font-weight: bold;
+    color: #717ECD;
+    & > a { color: #717ECD; }
+}

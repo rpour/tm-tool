@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Tmt\ProjectBundle\Entity\Project;
 use Tmt\ProjectBundle\Form\ProjectType;
@@ -30,11 +31,26 @@ class ProjectController extends Controller {
     }
 
     /**
+     * @Route("/project/show/{projectId}", name="tmt_project_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($projectId) {
+
+        return array(
+            'projectId'=> $projectId
+        );
+    }
+
+    /**
      * @Route("/project/new", name="tmt_project_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction() {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
         return array(
             'form' => $this
                 ->get('form.factory')
@@ -48,6 +64,9 @@ class ProjectController extends Controller {
      * @Template("TmtProjectBundle:Project:new.html.twig")
      */
     public function createAction() {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
         $entity  = new Project();
 
         $form = $this->createForm(new ProjectType(), $entity);
@@ -65,12 +84,50 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/project/show/{projectId}", name="tmt_project_show")
+     * @Route("/project/edit/{projectId}", name="tmt_project_edit")
+     * @Method("GET")
+     * @Template("TmtProjectBundle:Project:new.html.twig")
+     */
+    public function editAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
+    }
+
+    /**
+     * @Route("/project/update/{projectId}", name="tmt_project_update")
+     * @Method("POST")
+     * @Template("TmtProjectBundle:Project:new.html.twig")
+     */
+    public function updateAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
+    }
+
+    /**
+     * @Route("/project/remove/{projectId}", name="tmt_project_confirm")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($projectId) {
-        return array('projectId'=> $projectId);
+    public function confirmAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
     }
 
+    /**
+     * @Route("/project/remove/{projectId}", name="tmt_project_remove")
+     * @Method("POST")
+     * @Template("TmtProjectBundle:Project:new.html.twig")
+     */
+    public function removeAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
+    }
 }

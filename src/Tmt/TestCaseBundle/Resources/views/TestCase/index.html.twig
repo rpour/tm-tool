@@ -3,30 +3,46 @@
 {% block title %}{{ 'Testfälle'|trans }}{% endblock %}
 
 {% block content %}
-<table style="width:100%;">
+<table class="testcase-index">
 {% for testcase in testcases %}
+{% set data = testcase.data|json_decode %}
 <tr>
-    <td>
+    {% if is_granted('ROLE_TESTCASE_USER') %}
+    <td class="testcase-index-icon align-center">
         <a href="{{ path('tmt_test_run', {
         'projectId': app.request.get('projectId'),
         'testcaseId': testcase.id
-        }) }}">play</a>
+        }) }}"><span class="icon-sign-in info"></span></a>
     </td>
+    {% endif %}
     <td>
         <a href="{{ path('tmt_test_index', {
             'projectId': app.request.get('projectId'),
             'testcaseId': testcase.id
-            }) }}">{{ testcase.name }}</a>
+            }) }}">{{ testcase.title }}</a>
     </td>
-    <td>ok</td>
-    <td>err</td>
-    <td>lastrun</td>
-    <td>
+    <td class="success">
+        {% if count[testcase.id]['passed'] > 0 %}
+        <span class="icon-check success"></span> {{ count[testcase.id]['passed'] }}
+        {% endif %}
+    </td>
+    <td class="error">
+        {% if count[testcase.id]['notpassed'] > 0 %}
+        <span class="icon-warning error"></span> {{ count[testcase.id]['notpassed'] }}
+        {% endif %}
+    </td>
+    <td class="fs0">{{ testcase.lastUser }}</td>
+    <td class="fs0">{{ testcase.lastDate|date('Y-m-d H:i') }}</td>
+    <td class="info"><span class="icon-list info"></span> {{ data|length }}</td>
+    <td class="fs0" title="{{ 'version'|trans }}">{{ testcase.version|date('y.mdhi') }}</td>
+    {% if is_granted('ROLE_TESTCASE_ADMIN') %}
+    <td class="testcase-index-icon align-center">
         <a href="{{ path('tmt_testcase_edit', {
         'projectId': app.request.get('projectId'),
         'testcaseId': testcase.id
-        }) }}">edit</a>
+        }) }}" title="{{ 'editieren'|trans }}"><span class="icon-edit info"></span></a>
     </td>
+    {% endif %}
 </tr>
 {% endfor %}
 </table>

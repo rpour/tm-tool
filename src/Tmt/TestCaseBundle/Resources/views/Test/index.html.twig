@@ -1,11 +1,30 @@
 {% extends 'TmtCoreBundle:Template:body.html.twig' %}
 
-{% block javascript %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/tmttestcase/testcase.js') }}"></script>
-{% endblock %}
-
-{% block title %}{{ 'Testfall neu'|trans }}{% endblock %}
+{% block title %}{{ 'Test'|trans }}{% endblock %}
 
 {% block content %}
+<table class="testcase-index">
+{% for test in tests %}
+{% set data = test.data|json_decode %}
+<tr>
+    <td class="testcase-index-icon align-center">
+        {% if test.passed %}
+            <span class="icon-check success"></span>
+        {% else %}
+            <span class="icon-times error"></span>
+        {% endif %}
+    </td>
+    <td>{{ test.user }}</td>
+    <td>{{ test.date|date('Y-m-d H:i') }}</td>
+    <td>{{ data.version }}</td>
+    {% if is_granted('ROLE_TESTCASE_ADMIN') %}
+    <td class="testcase-index-icon align-center">
+        <a href="">
+            <span class="icon-trash-o error"></span>
+        </a>
+    </td>
+    {% endif %}
+</tr>
+{% endfor %}
+</table>
 {% endblock %}

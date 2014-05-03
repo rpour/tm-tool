@@ -1,0 +1,48 @@
+$menubar-height: 40px;
+$menubar-border: 5px;
+
+.menu {
+    height: $menubar-height;
+    line-height: $menubar-height;
+    background-color: $base;
+    border-top: $menubar-border solid darken($base, 15%);
+    color: white;
+    @include border-bottom-radius(4px);
+    @include box-shadow(
+        inset 1px 0px 0px darken($base, 5%),
+        inset -1px -1px 0px darken($base, 5%)
+    );
+}
+
+.menu-bar-label {
+    line-height: $menubar-height - $menubar-border;
+    font-size: 20px;
+    color: white;
+    float: left;
+    padding-left: 20px;
+    font-weight: bold;
+    @include single-text-shadow(1px, 1px, 3px, false, darken($base, 10%));
+}
+
+.menu-bar {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px;
+    float: right;
+
+    & > li {
+        line-height: $menubar-height - $menubar-border;
+        font-size: 16px;
+        float: right;
+        padding: 0 0 0 10px;
+        color: lighten($base, 40%);
+
+        & > a {
+            color: lighten($base, 40%);
+            text-decoration: none;
+
+            @include single-text-shadow(1px, 1px, 0, false, darken($base, 5%));
+            &:hover {text-decoration: underline;}
+        }
+    }
+}

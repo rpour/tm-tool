@@ -3,10 +3,12 @@
 namespace Tmt\CoreBundle\Component;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Tmt\CoreBundle\Event\ApplicationEvent;
 
 class Application {
+    private $container;
     private $data;
     private $dataEnd;
     private $bundle;
@@ -15,6 +17,8 @@ class Application {
     private $route;
 
     public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+
         // get controller information
         $controllerInfo = $container->get('request')->get('_controller');
 
@@ -32,7 +36,10 @@ class Application {
         $container->get('event_dispatcher')->dispatch('application.integration', $event);
     }
 
-    public function add($type, $key, $data) {
+    public function add($type, $key, $data, $role = null) {
+        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role))
+            return $this;
+
         if (isset($data['path']) && $data['path'] === $this->route)
             $data['action_act'] = true;
 
@@ -40,7 +47,10 @@ class Application {
         return $this;
     }
 
-    public function append($type, $key, $data) {
+    public function append($type, $key, $data, $role = null) {
+        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role))
+            return $this;
+
         if (isset($data['path']) && $data['path'] === $this->route)
             $data['action_act'] = true;
 
@@ -48,9 +58,13 @@ class Application {
         return $this;
     }
 
-    public function get($key) {
+    public function get($type, $key = null) {
         $merged = array_merge_recursive($this->data, $this->dataEnd);
-        return isset($merged[$key]) ? $merged[$key] : array();
+
+        if (is_null($key))
+            return isset($merged[$type]) ? $merged[$type] : array();
+
+        return isset($merged[$type][$key]) ? $merged[$type][$key] : '';
     }
 
     public function bundleIs($bundle) {

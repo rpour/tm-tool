@@ -23,8 +23,8 @@ class ApplicationExtension extends \Twig_Extension {
         return 'application_extension';
     }
 
-    public function applicationGet($parameter) {
+    public function applicationGet($type, $key = null) {
         $application = $this->container->get('tmt.application');
-        return $application->get($parameter);
+        return $application->get($type, $key);
     }
 }

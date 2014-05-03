@@ -8,12 +8,13 @@ class EntityManipulation {
     protected $container;
     protected $em;
     protected $repo;
-
+    protected $qb;
 
     public function __construct(Container $container) {
         $this->container = $container;
         $this->em = $this->container->get('doctrine')->getManager();
         $this->repo = $this->em->getRepository($this->repository);
+        $this->qb = $this->em->createQueryBuilder();
     }
 
     public function get($id) {
@@ -32,5 +33,10 @@ class EntityManipulation {
     public function remove($entity) {
         $this->em->remove($entity);
         $this->em->flush();
+    }
+
+    public function getUsername() {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        return $user->getUsername();
     }
 }
