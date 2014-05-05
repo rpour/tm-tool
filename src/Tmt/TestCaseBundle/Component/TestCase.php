@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 use Tmt\CoreBundle\Component\EntityManipulation;
 use Tmt\TestCaseBundle\Entity\Testcase as TestcaseEntity;
+use Tmt\CoreBundle\Event\EntityEvent;
 
 class TestCase extends EntityManipulation {
     protected $repository = 'TmtTestCaseBundle:Testcase';
@@ -69,5 +70,26 @@ class TestCase extends EntityManipulation {
             $this->save($testcase);
 
         return $errors;
+    }
+
+    public function removeByProjectId($projectId) {
+        $testcases = $this->repo
+            ->createQueryBuilder('m')
+            ->where($this->qb->expr()->eq('m.projectId', ':projectId'))
+            ->setParameter('projectId', $projectId)
+            ->getQuery()
+            ->getResult();
+
+        foreach ($testcases as $testcase) {
+            // dispatch event
+            $this->container->get('event_dispatcher')->dispatch(
+                'entity.remove',
+                new EntityEvent($testcase)
+            );
+
+            $this->em->remove($testcase);
+        }
+
+        $this->em->flush();
     }
 }

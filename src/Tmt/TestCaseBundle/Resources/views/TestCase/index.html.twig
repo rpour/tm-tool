@@ -31,10 +31,10 @@
         <span class="icon-warning error"></span> {{ count[testcase.id]['notpassed'] }}
         {% endif %}
     </td>
-    <td class="fs0">{{ testcase.lastUser }}</td>
-    <td class="fs0">{{ testcase.lastDate|date('Y-m-d H:i') }}</td>
+    <td class="fs0 hide-on-media-change">{{ testcase.lastUser }}</td>
+    <td class="fs0 hide-on-media-change">{{ testcase.lastDate|date('Y-m-d H:i') }}</td>
     <td class="info"><span class="icon-list info"></span> {{ data|length }}</td>
-    <td class="fs0" title="{{ 'version'|trans }}">{{ testcase.version|date('y.mdhi') }}</td>
+    <td class="fs0 hide-on-media-change" title="{{ 'version'|trans }}">{{ testcase.version|date('y.mdhi') }}</td>
     {% if is_granted('ROLE_TESTCASE_ADMIN') %}
     <td class="testcase-index-icon align-center">
         <a href="{{ path('tmt_testcase_edit', {

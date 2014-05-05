@@ -5,6 +5,7 @@
         <parameter key="tmt.testcase.class">Tmt\TestCaseBundle\Component\TestCase</parameter>
         <parameter key="tmt.test.class">Tmt\TestCaseBundle\Component\Test</parameter>
         <parameter key="tmt.testcase.application.listener.class">Tmt\TestCaseBundle\EventListener\ApplicationListener</parameter>
+        <parameter key="tmt.testcase.entity.listener.class">Tmt\TestCaseBundle\EventListener\EntityListener</parameter>
     </parameters>
 
     <services>
@@ -16,8 +17,12 @@
             <argument type="service" id="service_container" />
             <call method="setProjectId"></call>
         </service>
-        <service id="tmt.testcase.listener" class="%tmt.testcase.application.listener.class%">
+        <service id="tmt.testcase.application.listener" class="%tmt.testcase.application.listener.class%">
             <tag name="kernel.event_listener" event="application.integration" method="onIntegration" />
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="tmt.testcase.entity.listener" class="%tmt.testcase.entity.listener.class%">
+            <tag name="kernel.event_listener" event="entity.remove" method="onEntityRemove" />
             <argument type="service" id="service_container" />
         </service>
     </services>

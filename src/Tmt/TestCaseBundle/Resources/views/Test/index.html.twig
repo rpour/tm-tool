@@ -15,7 +15,7 @@
         {% endif %}
     </td>
     <td>{{ test.user }}</td>
-    <td>{{ test.date|date('Y-m-d H:i') }}</td>
+    <td class="hide-on-media-change">{{ test.date|date('Y-m-d H:i') }}</td>
     <td>{{ data.version }}</td>
     {% if is_granted('ROLE_TESTCASE_ADMIN') %}
     <td class="testcase-index-icon align-center">
