@@ -1,0 +1,25 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Test löschen'|trans }}{% endblock %}
+
+{% block content %}
+    <form method="post" class="basic-form" action="{{ path('tmt_test_remove', {
+        'projectId': app.request.get('projectId'),
+        'testcaseId': app.request.get('testcaseId'),
+        'testId': app.request.get('testId')
+    }) }}" autocomplete="off" novalidate>
+
+        <div class="msg-box error">
+            <div class="msg-box-description">Test wirklich löschen?</div>
+            <div>
+                <button class="msg-box-btn left" type="submit">{{ 'ja'|trans }}</button>
+                <a class="msg-box-btn right" href="{{ path('tmt_test_index', {
+                    'projectId': app.request.get('projectId'),
+                    'testcaseId': app.request.get('testcaseId')
+                }) }}">nein</a>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+{% endblock %}

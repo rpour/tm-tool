@@ -19,7 +19,11 @@
     <td>{{ data.version }}</td>
     {% if is_granted('ROLE_TESTCASE_ADMIN') %}
     <td class="testcase-index-icon align-center">
-        <a href="">
+        <a href="{{ path('tmt_test_confirm', {
+                    'projectId': app.request.get('projectId'),
+                    'testcaseId': app.request.get('testcaseId'),
+                    'testId': test.id
+                }) }}">
             <span class="icon-trash-o error"></span>
         </a>
     </td>

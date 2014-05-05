@@ -1,0 +1,24 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Testfall löschen'|trans }}{% endblock %}
+
+{% block content %}
+    <form method="post" class="basic-form" action="{{ path('tmt_testcase_remove', {
+        'projectId': app.request.get('projectId'),
+        'testcaseId': app.request.get('testcaseId')
+    }) }}" autocomplete="off" novalidate>
+
+        <div class="msg-box error">
+            <div class="msg-box-description">Testfall wirklich löschen?</div>
+            <div>
+                <button class="msg-box-btn left" type="submit">{{ 'ja'|trans }}</button>
+                <a class="msg-box-btn right" href="{{ path('tmt_testcase_edit', {
+                    'projectId': app.request.get('projectId'),
+                    'testcaseId': app.request.get('testcaseId')
+                }) }}">nein</a>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </form>
+{% endblock %}

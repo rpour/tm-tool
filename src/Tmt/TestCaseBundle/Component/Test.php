@@ -16,8 +16,10 @@ class Test extends EntityManipulation {
         parent::__construct($container);
     }
 
-    public function setTestCaseId() {
-        $this->testcaseId = $this->container->get('request')->get('testcaseId', 0);
+    public function setTestCaseId($testcaseId = null) {
+        $this->testcaseId = is_null($testcaseId)
+            ? $this->container->get('request')->get('testcaseId', 0)
+            : $testcaseId;
     }
 
     public function getAll() {
@@ -75,6 +77,7 @@ class Test extends EntityManipulation {
             $date = $testcaseEntity->getVersion();
             $version = $date->format('y.mdHi');
 
+            unset($data);
             $data['steps']       = $testcaseData;
             $data['projectId']   = $testcaseEntity->getProjectId();
             $data['version']     = $version;

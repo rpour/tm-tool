@@ -65,4 +65,36 @@ class TestController extends Controller {
             'testcase' => $result['testcase']
         );
     }
+
+
+    /**
+     * @Route("/remove/{testId}", name="tmt_test_confirm")
+     * @Method("GET")
+     * @Template()
+     */
+    public function confirmAction($projectId, $testcaseId, $testId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
+    }
+
+
+    /**
+     * @Route("/remove/{testId}", name="tmt_test_remove")
+     * @Method("POST")
+     */
+    public function removeAction($projectId, $testcaseId, $testId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+            throw new AccessDeniedException();
+
+        $testService = $this->get('tmt.test');
+        $testService->remove($testService->get($testId));
+
+        return $this->redirect($this->generateUrl(
+            'tmt_test_index', array(
+                'projectId' => $projectId,
+                'testcaseId' => $testcaseId
+            )));
+    }
 }

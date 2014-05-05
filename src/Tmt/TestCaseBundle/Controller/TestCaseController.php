@@ -115,6 +115,19 @@ class TestCaseController extends Controller {
         );
     }
 
+
+    /**
+     * @Route("/remove/{testcaseId}", name="tmt_testcase_confirm")
+     * @Method("GET")
+     * @Template()
+     */
+    public function confirmAction($projectId, $projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        return array();
+    }
+
     /**
      * @Route("/remove/{testcaseId}", name="tmt_testcase_remove")
      * @Method("POST")

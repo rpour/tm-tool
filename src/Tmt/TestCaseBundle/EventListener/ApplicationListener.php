@@ -110,7 +110,7 @@ class ApplicationListener {
             $application
                 ->add('tmt-menubar-label', 'label', 'Testfall bearbeiten')
                 ->add('tmt-menubar', 'testcase.remove', array(
-                    'path'  => 'tmt_testcase_remove',
+                    'path'  => 'tmt_testcase_confirm',
                     'param' => array(
                         'projectId' => $project->getId(),
                         'testcaseId' => $testcase->getId()
