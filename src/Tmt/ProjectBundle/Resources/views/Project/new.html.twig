@@ -3,14 +3,29 @@
 {% block title %}{{ 'Projekt (neu)'|trans }}{% endblock %}
 
 {% block content %}
-    <form method="post" class="basic-form" action="{{ path('tmt_project_create') }}" autocomplete="off" novalidate>
-        {{ form_errors(form) }}
-        {{ form_widget(form._token) }}
-        <div>
-        {{ form_label(form.name) }}{{ form_widget(form.name) }}{{ form_errors(form.name) }}
+
+{% if form.vars.value.id is defined %}
+    <form method="post" class="form-style-testcase" action="{{ path('tmt_project_update', {'projectId': form.vars.value.id}) }}" autocomplete="off" novalidate>
+{% else %}
+    <form method="post" class="form-style-testcase" action="{{ path('tmt_project_create') }}" autocomplete="off" novalidate>
+{% endif %}
+
+{% if not form.vars.valid %}
+        <div class="msg-box error">
+            <div class="msg-box-description">
+            {{ form_errors(form.name) }}
+            {{ form_errors(form.template) }}
+            </div>
+            <div class="clear"></div>
         </div>
-        <div>
-        {{ form_label(form.template) }}{{ form_widget(form.template) }}{{ form_errors(form.template) }}
+{% endif %}
+
+        {{ form_widget(form._token) }}
+        <div class="column full">
+        {{ form_label(form.name) }}{{ form_widget(form.name) }}
+        </div>
+        <div class="column full">
+        {{ form_label(form.template) }}{{ form_widget(form.template) }}
         </div>
         <div>
             <label>&nbsp;</label>

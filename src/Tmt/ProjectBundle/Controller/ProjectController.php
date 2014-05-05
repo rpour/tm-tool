@@ -92,7 +92,11 @@ class ProjectController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        $projectService = $this->get('tmt.project');
+        $entity = $projectService->get($projectId);
+        $form = $this->createForm(new ProjectType(), $entity);
+
+        return array('form' => $form->createView());
     }
 
     /**
@@ -104,7 +108,21 @@ class ProjectController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        $projectService = $this->get('tmt.project');
+        $entity = $projectService->get($projectId);;
+
+        $form = $this->createForm(new ProjectType(), $entity);
+        $form->bind($this->get('request'));
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('tmt_project_index'));
+        }
+
+        return array('form' => $form->createView());
     }
 
     /**
@@ -128,6 +146,11 @@ class ProjectController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        $project = $this->get('tmt.project');
+        $project->remove(
+            $project->get($projectId)
+        );
+
+        return $this->redirect($this->generateUrl('tmt_project_index'));
     }
 }

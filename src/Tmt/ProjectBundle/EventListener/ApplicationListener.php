@@ -39,7 +39,7 @@ class ApplicationListener {
                 'path'  => 'tmt_project_show',
                 'param' => array('projectId' => $project->getId()),
                 'label' => $project->getName(),
-                'class' => 'breadcrumb-value'
+                'class' => 'breadcrumb-highlight'
             ));
         }
 
