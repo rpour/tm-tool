@@ -32,8 +32,11 @@
     }
 }
 
-.breadcrumb .breadcrumb-value {
+.breadcrumb .breadcrumb-highlight {
     font-weight: bold;
-    color: #717ECD;
-    & > a { color: #717ECD; }
+    color: darken($info, 15%);
+
+    & > a {
+        color: darken($info, 15%);
+    }
 }

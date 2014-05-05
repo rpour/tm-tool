@@ -1,0 +1,57 @@
+.msg-box {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid silver;
+    font-size: 20px;
+    @include border-radius(6px);
+
+    & ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.msg-box-description {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    @include single-text-shadow(1px, 1px, 2px, false, white);
+}
+
+.msg-box-btn {
+    display: inline;
+    border: 1px solid silver;
+    padding: 5px 20px;
+    font-size: 16px;
+    @include border-radius(4px);
+    @include single-text-shadow(1px, 1px, 0px, true, white);
+
+    &:hover {
+        @include box-shadow(
+            inset 1px 1px 0px white, inset -1px -1px 0px white
+        );
+    }
+}
+
+.msg-box.info {
+    border: 1px solid $info;
+    background-color: lighten($info, 20%);
+    & .msg-box-description {color: darken($info, 30%);}
+    & .msg-box-btn {
+        background-color: lighten($info, 40%);
+        border: 1px solid $info;
+        &:hover {background-color: lighten($info, 35%);}
+    }
+}
+
+.msg-box.error {
+    border: 1px solid $error;
+    background-color: lighten($error, 20%);
+    & .msg-box-description {color: darken($error, 30%);}
+    & .msg-box-btn {
+        background-color: lighten($error, 40%);
+        border: 1px solid $error;
+        &:hover {background-color: lighten($error, 35%);}
+    }
+}

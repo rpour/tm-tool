@@ -1,9 +1,17 @@
 .page-body {
     margin: 0 auto;
     width: $page-width;
+    // width: 100%;
+    min-width: 450px;
 
-    @media only screen and (max-width : 480px) {
+    @media only screen and (max-width : 900px) {
         margin: 0;
         width: 100%;
+    }
+}
+
+.hide-on-media-change {
+    @media only screen and (max-width : $media-width) {
+        display: none;
     }
 }

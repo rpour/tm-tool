@@ -2,7 +2,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{{ asset('bundles/tmtcore/css/screen.css') }}">
-    <link rel="stylesheet" href="http://i.icomoon.io/public/temp/fb7d5d34ba/tm-tool11/style.css">
+    <link rel="stylesheet" href="http://i.icomoon.io/public/temp/42fc0e7cae/tm-tool11/style.css">
 {% endblock %}
 
 {% block body %}
@@ -20,6 +20,7 @@
 
             <span class="icon-key"></span>
             <input type="password" name="_password" />
+            <input type="hidden" name="_target_path" value="{{ app.request.uri }}" />
 
             <button type="submit">login</button>
         </form>

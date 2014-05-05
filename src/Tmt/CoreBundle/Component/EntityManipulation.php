@@ -4,6 +4,8 @@ namespace Tmt\CoreBundle\Component;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
+use Tmt\CoreBundle\Event\EntityEvent;
+
 class EntityManipulation {
     protected $container;
     protected $em;
@@ -26,11 +28,23 @@ class EntityManipulation {
     }
 
     public function save($entity) {
+        // dispatch event
+        $this->container->get('event_dispatcher')->dispatch(
+            'entity.save',
+            new EntityEvent($entity)
+        );
+
         $this->em->persist($entity);
         $this->em->flush();
     }
 
     public function remove($entity) {
+        // dispatch event
+        $this->container->get('event_dispatcher')->dispatch(
+            'entity.remove',
+            new EntityEvent($entity)
+        );
+
         $this->em->remove($entity);
         $this->em->flush();
     }

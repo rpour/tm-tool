@@ -45,9 +45,15 @@ a {
     padding-right: 1rem;
 
     &.full { width: 100%; }
-    &.third { width: 33.3%; }
+    &.third {
+        width: 33.3%; }
     &.two-thirds { width: 66.7%; }
-    &.half { width: 50%; }
+    &.half {
+        width: 50%;
+        @media only screen and (max-width : $media-width) {
+            width: 100%;
+        }
+    }
     &.three-fourth { width: 75%; }
     &.fourth { width: 25%; }
     &.last { float: right; }
