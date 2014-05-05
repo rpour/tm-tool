@@ -1,0 +1,13 @@
+<h1>{{ project.name }}</h1>
+
+<h2>Testfälle</h2>
+<table>
+    {% for testcase in testcases %}
+    <tr>
+        <td>{{ testcase.case.title }}</td>
+        <td>{{ testcase.case.lastUser }}</td>
+        <td>{{ testcase.case.lastDate|date('d.m.Y') }}</td>
+        <td>{{ testcase.case.version|date('y.mdhi') }}</td>
+    </tr>
+    {% endfor %}
+</table>

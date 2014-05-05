@@ -153,4 +153,53 @@ class ProjectController extends Controller {
 
         return $this->redirect($this->generateUrl('tmt_project_index'));
     }
+
+    /**
+     * @Route("/project/pdf/{projectId}", name="tmt_project_pdf")
+     * @Method("GET")
+     */
+    public function pdfAction($projectId) {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+            throw new AccessDeniedException();
+
+        $projectService = $this->get('tmt.project');
+        $testcaseService = $this->get('tmt.testcase');
+        $testService = $this->get('tmt.test');
+        $project = $projectService->get($projectId);
+
+        $testcasesArray = array();
+        $testcases = $testcaseService->getAll();
+
+        foreach ($testcases as $testcase) {
+            $testService->setTestCaseId($testcase->getId());
+
+            $testcasesArray[] = array(
+                'case' => $testcase,
+                'tests' => $testService->getAll()
+            );
+        }
+
+        $html = $this->render('TmtProjectBundle:Project:pdf.html.twig', array(
+            "project" => $project,
+            "testcases" => $testcasesArray
+        ));
+
+        $filename = preg_replace('/\W/', '', strtolower($project->getName()))
+            . date('_Y-m-d')
+            . '.pdf';
+
+        $pdf = new \TCPDF('P', 'mm', 'A4', true, 'UTF-8', false, false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Test Management Tool');
+        $pdf->SetTitle($project->getName());
+        $pdf->SetSubject('Testbericht');
+        $pdf->SetFont('helvetica', '', 10);
+        $pdf->SetMargins(20, 20, 15);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->setAutoPageBreak(true, 20);
+        $pdf->AddPage();
+        $pdf->writeHTML($html->getContent(), true, true, false, false, '');
+        $pdf->Output($filename, 'D');
+    }
 }
