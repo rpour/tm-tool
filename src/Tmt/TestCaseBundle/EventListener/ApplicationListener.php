@@ -86,15 +86,6 @@ class ApplicationListener {
                     'label' => 'ausführen',
                     'class' => 'icon-sign-in'
                 ), 'ROLE_TESTCASE_USER')
-                ->add('tmt-menubar', 'testcase.edit', array(
-                    'path'  => 'tmt_testcase_edit',
-                    'param' =>array(
-                        'projectId' => $project->getId(),
-                        'testcaseId' => $testcase->getId()
-                    ),
-                    'label' => 'bearbeiten',
-                    'class' => 'icon-edit'
-                ), 'ROLE_TESTCASE_ADMIN')
                 ->add('tmt-menubar', 'testcase.back', array(
                     'path'  => 'tmt_testcase_index',
                     'param' => array('projectId' => $project->getId()),

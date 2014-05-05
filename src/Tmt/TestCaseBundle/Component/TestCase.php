@@ -58,9 +58,9 @@ class TestCase extends EntityManipulation {
         $testcase->setTitle($data['title']);
         $testcase->setDescription($data['description']);
         $testcase->setPrecondition($data['precondition']);
-        $testcase->setPreconditionId($data['preconditionId']);
+        $testcase->setPreconditionId((int)$data['preconditionId']);
         $testcase->setPostcondition($data['postcondition']);
-        $testcase->setPostconditionId($data['postconditionId']);
+        $testcase->setPostconditionId((int)$data['postconditionId']);
         $testcase->setData(json_encode($data['data']));
 
         $validator = $this->container->get('validator');

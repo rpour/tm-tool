@@ -22,6 +22,9 @@ security:
                     admin:
                         password: test
                         roles: [ 'ROLE_ADMIN' ]
+                    rpour:
+                        password: test
+                        roles: [ 'ROLE_USER', 'ROLE_TESTCASE_USER' ]
 
     firewalls:
         dev:
