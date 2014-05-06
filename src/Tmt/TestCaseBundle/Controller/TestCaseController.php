@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use Tmt\CoreBundle\Component\PDFIcons;
+
 /**
  * @Route("/project/{projectId}/testcase")
  */
@@ -139,7 +141,6 @@ class TestCaseController extends Controller {
             'tmt_testcase_index', array('projectId' => $projectId)));
     }
 
-
     /**
      * @Route("/pdf", name="tmt_testcase_pdf")
      * @Method("GET")
@@ -185,7 +186,23 @@ class TestCaseController extends Controller {
         $pdf->setPrintFooter(false);
         $pdf->setAutoPageBreak(true, 20);
         $pdf->AddPage();
-        $pdf->writeHTML($html->getContent(), true, true, false, false, '');
+        // $pdf->writeHTML($html->getContent(), true, true, false, false, '');
+
+        // PDF-ICON
+        $icons = new PDFIcons();
+        $fontname = $pdf->addTTFfont(
+            $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf',
+            'TrueTypeUnicode', '', 32
+        );
+
+        $pdf->SetFont('helvetica', '', 10);
+        $pdf->Cell(0, 0, "test : ".htmlentities(""), 1, 1, 'C');
+
+        $pdf->SetFont($fontname, '', 8, '', false);
+        $pdf->Cell(0, 0,  $icons->get('icon-times'), 1, 1, 'C');
+        $pdf->SetFont($fontname, '', 20, '', false);
+        $pdf->Cell(0, 0,  $icons->get('icon-warning'), 1, 1, 'C');
+
         $pdf->Output($filename, 'D');
     }
 }
