@@ -36,13 +36,24 @@ class Test extends EntityManipulation {
         if (!is_null($testcaseId))
             $this->testcaseId = $testcaseId;
 
-        return $this->repo
+        $passed = (int)$this->repo
             ->createQueryBuilder('m')
-            ->select('SUM(m.passed) as passed, COUNT(m) as total')
-            ->where($this->qb->expr()->eq('m.testcaseId', ':testcaseId'))
-            ->setParameter('testcaseId', $this->testcaseId)
+            ->select('count(m)')
+            ->where('m.passed', true)
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
+
+        $notpassed = (int)$this->repo
+            ->createQueryBuilder('m')
+            ->select('count(m)')
+            ->where('m.passed', true)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return array(
+            'passed' => $passed,
+            'notpassed' => $notpassed
+        );
     }
 
     public function create() {

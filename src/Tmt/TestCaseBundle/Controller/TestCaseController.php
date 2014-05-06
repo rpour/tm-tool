@@ -28,14 +28,10 @@ class TestCaseController extends Controller {
         foreach ($testcases as $testcase) {
             $result = $testService->getPassedCount($testcase->getId());
 
-            if ($result[0]['total'] > 0)
-                $count[$testcase->getId()] = array(
-                    'passed' => (int)$result[0]['passed'],
-                    'notpassed' => (int)$result[0]['total'] - (int)$result[0]['passed']
-                );
-            else
-                $count[$testcase->getId()] = array('passed' => 0, 'notpassed' => 0);
-
+            $count[$testcase->getId()] = array(
+                'passed' => $result['passed'],
+                'notpassed' => $result['notpassed']
+            );
         }
 
         return array(

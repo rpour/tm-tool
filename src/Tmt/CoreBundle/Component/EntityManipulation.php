@@ -27,6 +27,14 @@ class EntityManipulation {
         return $this->repo->findAll();
     }
 
+    public function count() {
+        return (int)$this->repo
+            ->createQueryBuilder('m')
+            ->select('count(m)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function save($entity) {
         // dispatch event
         $this->container->get('event_dispatcher')->dispatch(
