@@ -33,14 +33,14 @@ class Test {
     private $data;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $passed;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $user;
+    private $username;
 
     /**
      * Gets the value of id.
@@ -167,9 +167,9 @@ class Test {
      *
      * @return mixed
      */
-    public function getUser()
+    public function getUsername()
     {
-        return $this->user;
+        return $this->username;
     }
 
     /**
@@ -179,9 +179,9 @@ class Test {
      *
      * @return self
      */
-    public function setUser($user)
+    public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
 
         return $this;
     }

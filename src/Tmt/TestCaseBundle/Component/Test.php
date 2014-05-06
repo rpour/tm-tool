@@ -42,11 +42,10 @@ class Test extends EntityManipulation {
             ->where(
                 $this->qb->expr()->andx(
                     $this->qb->expr()->eq('m.testcaseId', ':testcaseId'),
-                    $this->qb->expr()->eq('m.passed', ':passed')
+                    $this->qb->expr()->eq('m.passed', $this->qb->expr()->literal(true))
                 )
             )
             ->setParameter('testcaseId', $this->testcaseId)
-            ->setParameter('passed', true)
             ->getQuery()
             ->getSingleScalarResult();
 
@@ -56,13 +55,13 @@ class Test extends EntityManipulation {
             ->where(
                 $this->qb->expr()->andx(
                     $this->qb->expr()->eq('m.testcaseId', ':testcaseId'),
-                    $this->qb->expr()->eq('m.passed', ':passed')
+                    $this->qb->expr()->eq('m.passed', $this->qb->expr()->literal(false))
                 )
             )
             ->setParameter('testcaseId', $this->testcaseId)
-            ->setParameter('passed', false)
             ->getQuery()
             ->getSingleScalarResult();
+
 
         return array(
             'passed' => $passed,
@@ -110,11 +109,11 @@ class Test extends EntityManipulation {
             $data['description'] = $testcaseEntity->getDescription();
 
             $test = new TestEntity();
-            $test->setTestCaseId($this->testcaseId);
+            $test->setTestCaseId((int)$this->testcaseId);
             $test->setDate(new \DateTime());
             $test->setData(json_encode($data));
-            $test->setPassed(!$testcaseErrors);
-            $test->setUser($this->getUsername());
+            $test->setPassed((boolean)!$testcaseErrors);
+            $test->setUsername($this->getUsername());
 
             $validator = $this->container->get('validator');
             $result['errors'] = $validator->validate($test);
