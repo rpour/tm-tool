@@ -66,12 +66,6 @@ class ApplicationListener {
         } else if ($application->routeIs('tmt_project_show')) {
             $application
             ->add('tmt-menubar-label', 'label', $project->getName())
-            ->add('tmt-menubar', 'project.pdf', array(
-                'path'  => 'tmt_project_pdf',
-                'param' => array('projectId' => $project->getId()),
-                'label' => 'PDF',
-                'class' => 'icon-book'
-            ), 'ROLE_TESTCASE_ADMIN')
             ->add('tmt-menubar', 'project.edit', array(
                 'path'  => 'tmt_project_edit',
                 'param' => array('projectId' => $project->getId()),

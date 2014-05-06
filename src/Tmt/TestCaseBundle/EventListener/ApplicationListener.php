@@ -67,6 +67,12 @@ class ApplicationListener {
         if ($application->routeIs('tmt_testcase_index')) {
             $application
                 ->add('tmt-menubar-label', 'label', 'Testfälle')
+                ->add('tmt-menubar', 'testcase.pdf', array(
+                    'path'  => 'tmt_testcase_pdf',
+                    'param' => array('projectId' => $project->getId()),
+                    'label' => 'PDF',
+                    'class' => 'icon-book'
+                ), 'ROLE_TESTCASE_ADMIN')
                 ->add('tmt-menubar', 'testcase.new', array(
                     'path'  => 'tmt_testcase_new',
                     'param' => array('projectId' => $project->getId()),
