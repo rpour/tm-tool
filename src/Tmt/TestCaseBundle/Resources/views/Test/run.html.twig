@@ -27,7 +27,7 @@
             {{ testcase.title }}
             <span class="right"># {{ testcase.id }}</span>
         </label>
-        <p class="fs1">{{ testcase.description }}</p>
+        <p class="fs1">{{ testcase.description|display_testcase }}</p>
     </div>
 
     <div class="column half">
@@ -68,7 +68,7 @@
 <div class="column full testcase {% if case['passed'] is defined and case['passed'] %}ok{% endif %}" data-id="{{ loop.index }}">
     <div class="case">
         <div class="testcase-count"># {{ loop.index }}</div>
-        <div>{{ case[0] }}</div>
+        <div>{{ case[0]|display_testcase }}</div>
     </div>
     <div class="result">
         <div>{{ case[1] }}</div>

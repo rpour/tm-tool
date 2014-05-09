@@ -6,6 +6,7 @@
         <parameter key="tmt.test.class">Tmt\TestCaseBundle\Component\Test</parameter>
         <parameter key="tmt.testcase.application.listener.class">Tmt\TestCaseBundle\EventListener\ApplicationListener</parameter>
         <parameter key="tmt.testcase.entity.listener.class">Tmt\TestCaseBundle\EventListener\EntityListener</parameter>
+        <parameter key="tmt.display.test.case.extension.class">Tmt\TestCaseBundle\Twig\Extension\DisplayTestCaseExtension</parameter>
     </parameters>
 
     <services>
@@ -24,6 +25,10 @@
         <service id="tmt.testcase.entity.listener" class="%tmt.testcase.entity.listener.class%">
             <tag name="kernel.event_listener" event="entity.remove" method="onEntityRemove" />
             <argument type="service" id="service_container" />
+        </service>
+        <service id="tmt.twig.display.test.case" class="%tmt.display.test.case.extension.class%">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
         </service>
     </services>
 </container>
