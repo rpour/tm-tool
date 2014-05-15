@@ -22,9 +22,6 @@ security:
                     admin:
                         password: test
                         roles: [ 'ROLE_ADMIN' ]
-                    rpour:
-                        password: test
-                        roles: [ 'ROLE_USER', 'ROLE_TESTCASE_USER' ]
 
     firewalls:
         dev:
@@ -36,11 +33,11 @@ security:
             anonymous: ~
 
             form_login:
-                login_path: tmt_project_index
-                check_path: tmt_login_check
+                login_path: /
+                check_path: /login/check
 
             logout:
-                path: tmt_logout
+                path: /logout
                 target: /
 
     access_control:

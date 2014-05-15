@@ -114,6 +114,7 @@ class Test extends EntityManipulation {
             $test->setData(json_encode($data));
             $test->setPassed((boolean)!$testcaseErrors);
             $test->setUsername($this->getUsername());
+            $test->setUserAgent($_SERVER['HTTP_USER_AGENT']);
 
             $validator = $this->container->get('validator');
             $result['errors'] = $validator->validate($test);
@@ -125,6 +126,7 @@ class Test extends EntityManipulation {
             // Update testcase
             $testcaseEntity->setLastUser($this->getUsername());
             $testcaseEntity->setLastDate(new \DateTime());
+            $testcaseEntity->setLastState((boolean)!$testcaseErrors);
             $testcaseService->save($testcaseEntity);
 
         } else {

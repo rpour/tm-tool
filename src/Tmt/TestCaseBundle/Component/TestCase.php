@@ -31,7 +31,9 @@ class TestCase extends EntityManipulation {
     }
 
     public function create() {
-        return $this->saveEntity(new TestcaseEntity());
+        $entity = new TestcaseEntity();
+        $entity->setLastState(false);
+        return $this->saveEntity($entity);
     }
 
     public function update($testcaseId) {

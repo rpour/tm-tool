@@ -7,14 +7,13 @@
 {% for testcase in testcases %}
 {% set data = testcase.data|json_decode %}
 <tr>
-    {% if is_granted('ROLE_TESTCASE_USER') %}
-    <td class="testcase-index-icon align-center">
-        <a href="{{ path('tmt_test_run', {
-        'projectId': app.request.get('projectId'),
-        'testcaseId': testcase.id
-        }) }}"><span class="icon-sign-in info"></span></a>
+    <td>
+        {% if testcase.laststate %}
+        <span class="icon-check success"></span>
+        {% else %}
+        <span class="icon-warning error"></span>
+        {% endif %}
     </td>
-    {% endif %}
     <td>
         <a href="{{ path('tmt_test_index', {
             'projectId': app.request.get('projectId'),
@@ -35,6 +34,15 @@
     <td class="fs0 hide-on-media-change">{{ testcase.lastDate|date('Y-m-d H:i') }}</td>
     <td class="info"><span class="icon-list info"></span> {{ data|length }}</td>
     <td class="fs0 hide-on-media-change" title="{{ 'version'|trans }}">{{ testcase.version|date('y.mdhi') }}</td>
+    {% if is_granted('ROLE_TESTCASE_USER') %}
+    <td class="testcase-index-icon align-center">
+        <a href="{{ path('tmt_test_run', {
+        'projectId': app.request.get('projectId'),
+        'testcaseId': testcase.id
+        }) }}"><span class="icon-sign-in info"></span></a>
+    </td>
+    {% endif %}
+
     {% if is_granted('ROLE_TESTCASE_ADMIN') %}
     <td class="testcase-index-icon align-center">
         <a href="{{ path('tmt_testcase_edit', {

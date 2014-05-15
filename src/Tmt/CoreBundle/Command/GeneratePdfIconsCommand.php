@@ -19,7 +19,7 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand {
         $output->write('Start ... ');
         $root_path = $this->getContainer()->get('kernel')->getRootDir();
         $icons_css = $root_path . '/../src/Tmt/CoreBundle/Resources/public/css/icons.css';
-        $pdficons_class = $root_path . '/../src/Tmt/CoreBundle/Component/PDFIcons.php';
+        $pdficons_class = $root_path . '/../src/Tmt/CoreBundle/Component/PDF/Icon.php';
 
         if (file_exists($icons_css) && is_readable($icons_css)) {
             preg_match_all("/\.([^:]+):before[^\"]+\"\\\([^\"]+)\"/", file_get_contents($icons_css), $matches);

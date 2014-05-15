@@ -1,12 +1,13 @@
 <?php
 
-namespace Tmt\CoreBundle\Component;
+namespace Tmt\CoreBundle\Component\PDF;
 
-class PDFIcons {
-    private $data = array();
+class Icon {
+    private $iconData = array();
+    protected $iconFont = "";
 
     public function __construct() {
-        $this->data = array(
+        $this->iconData = array(
 // data#start
 'icon-user' => 'f007',
 'icon-check' => 'f00c',
@@ -28,9 +29,14 @@ class PDFIcons {
         );
     }
 
-    public function get($name) {
-        return isset($this->data[trim($name)])
-            ? mb_convert_encoding('&#x' . strtoupper($this->data[trim($name)]) . ';', 'UTF-8', 'HTML-ENTITIES')
+    public function setFontFile($file) {
+        $this->iconFont = @$this->raw->addTTFfont($file, 'TrueTypeUnicode', '', 32);
+        return $this;
+    }
+
+    public function getIcon($name) {
+        return isset($this->iconData[trim($name)])
+            ? mb_convert_encoding('&#x' . strtoupper($this->iconData[trim($name)]) . ';', 'UTF-8', 'HTML-ENTITIES')
             : '';
     }
 }

@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-use Tmt\CoreBundle\Component\PDFIcons;
+use Tmt\TestCaseBundle\Component\TestCasePdf;
 
 /**
  * @Route("/project/{projectId}/testcase")
@@ -157,51 +157,71 @@ class TestCaseController extends Controller {
         $testcasesArray = array();
         $testcases = $testcaseService->getAll();
 
-        foreach ($testcases as $testcase) {
-            $testService->setTestCaseId($testcase->getId());
-
-            $testcasesArray[] = array(
-                'case' => $testcase,
-                'tests' => $testService->getAll()
-            );
-        }
-
-        $html = $this->render('TmtProjectBundle:Project:pdf.html.twig', array(
-            "project" => $project,
-            "testcases" => $testcasesArray
-        ));
+        // $html = $this->render('TmtProjectBundle:Project:pdf.html.twig', array(
+        //     "project" => $project,
+        //     "testcases" => $testcasesArray
+        // ));
 
         $filename = preg_replace('/\W/', '', strtolower($project->getName()))
             . date('_Y-m-d')
             . '.pdf';
 
-        $pdf = new \TCPDF('P', 'mm', 'A4', true, 'UTF-8', false, false);
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Test Management Tool');
+        $pdf = new TestCasePdf();
         $pdf->SetTitle($project->getName());
-        $pdf->SetSubject('Testbericht');
-        $pdf->SetFont('helvetica', '', 10);
-        $pdf->SetMargins(20, 20, 15);
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
-        $pdf->setAutoPageBreak(true, 20);
-        $pdf->AddPage();
-        // $pdf->writeHTML($html->getContent(), true, true, false, false, '');
+        $pdf->setIconFontFile($this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf');
 
-        // PDF-ICON
-        $icons = new PDFIcons();
-        $fontname = $pdf->addTTFfont(
-            $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf',
-            'TrueTypeUnicode', '', 32
-        );
+        $pdf->SetFontSize(25);
+        $pdf->Cell(0, 15, $project->getName(), 0, 0, 'L');
+        $pdf->SetFontSize(14);
+        $pdf->Cell(0, 15, date('d.m.Y'), 0, 1, 'R');
 
-        $pdf->SetFont('helvetica', '', 10);
-        $pdf->Cell(0, 0, "test : ".htmlentities(""), 1, 1, 'C');
+        $pdf->_setFontSize(14);
 
-        $pdf->SetFont($fontname, '', 8, '', false);
-        $pdf->Cell(0, 0,  $icons->get('icon-times'), 1, 1, 'C');
-        $pdf->SetFont($fontname, '', 20, '', false);
-        $pdf->Cell(0, 0,  $icons->get('icon-warning'), 1, 1, 'C');
+        foreach ($testcases as $testcase) {
+            $testService->setTestCaseId($testcase->getId());
+            $tests = $testService->getAll();
+
+            $pdf->drawTestCase(
+                $testcase->getLastState(),
+                $testcase->getTitle(),
+                count($tests)
+            );
+
+            $testcasesArray[] = array(
+                'case' => $testcase,
+                'tests' => $tests
+            );
+        }
+
+        unset($testcase, $test);
+
+        $pdf->Ln(8);
+        $pdf->SetFontSize(10);
+
+        foreach ($testcasesArray as $testcase) {
+            $pdf->_write($testcase['case']->getTitle(), 0);
+            $pdf->Ln(8);
+
+            foreach ($testcase['tests'] as $test) {
+                $data = json_decode($test->getData());
+
+                if ($test->getPassed())
+                    $pdf->_icon('icon-check', '4AB471');
+                else
+                    $pdf->_icon('icon-warning', 'CF5C60');
+
+                $date = $test->getDate();
+                $pdf->_write($date->format('d.m.Y'), 40);
+
+                $pdf->_icon('icon-user');
+                $pdf->_write($test->getUsername(), 40);
+
+                $pdf->_write($data->version, 30, null, 'R');
+
+                $pdf->Ln(8);
+            }
+             $pdf->Ln(8);
+        }
 
         $pdf->Output($filename, 'D');
     }

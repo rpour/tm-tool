@@ -63,6 +63,11 @@ class Testcase {
     private $title;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $lastState;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -308,6 +313,30 @@ class Testcase {
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of lastState.
+     *
+     * @return mixed
+     */
+    public function getLastState()
+    {
+        return $this->lastState;
+    }
+
+    /**
+     * Sets the value of lastState.
+     *
+     * @param mixed $lastState the last state
+     *
+     * @return self
+     */
+    public function setLastState($lastState)
+    {
+        $this->lastState = $lastState;
 
         return $this;
     }

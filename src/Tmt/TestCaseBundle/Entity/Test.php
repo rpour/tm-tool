@@ -33,7 +33,7 @@ class Test {
     private $data;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
     private $passed;
 
@@ -41,6 +41,11 @@ class Test {
      * @ORM\Column(type="string", length=255)
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $userAgent;
 
     /**
      * Gets the value of id.
@@ -163,7 +168,7 @@ class Test {
     }
 
     /**
-     * Gets the value of user.
+     * Gets the value of username.
      *
      * @return mixed
      */
@@ -173,15 +178,39 @@ class Test {
     }
 
     /**
-     * Sets the value of user.
+     * Sets the value of username.
      *
-     * @param mixed $user the user
+     * @param mixed $username the username
      *
      * @return self
      */
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of userAgent.
+     *
+     * @return mixed
+     */
+    public function getUserAgent()
+    {
+        return $this->userAgent;
+    }
+
+    /**
+     * Sets the value of userAgent.
+     *
+     * @param mixed $userAgent the user agent
+     *
+     * @return self
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
 
         return $this;
     }
