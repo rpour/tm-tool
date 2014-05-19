@@ -2,7 +2,6 @@
 
 namespace Tmt\CoreBundle\Command;
 
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
@@ -15,7 +14,7 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand {
         ->setName('tmt:generate:pdficons');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(OutputInterface $output) {
         $output->write('Start ... ');
         $root_path = $this->getContainer()->get('kernel')->getRootDir();
         $icons_css = $root_path . '/../src/Tmt/CoreBundle/Resources/public/css/icons.css';

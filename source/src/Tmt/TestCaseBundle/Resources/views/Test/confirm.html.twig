@@ -4,9 +4,9 @@
 
 {% block content %}
     <form method="post" class="basic-form" action="{{ path('tmt_test_remove', {
-        'projectId': app.request.get('projectId'),
-        'testcaseId': app.request.get('testcaseId'),
-        'testId': app.request.get('testId')
+        'projectId': projectId,
+        'testcaseId': testcaseId,
+        'testId': testId
     }) }}" autocomplete="off" novalidate>
 
         <div class="msg-box error">

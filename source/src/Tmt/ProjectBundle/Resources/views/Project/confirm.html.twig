@@ -3,13 +3,13 @@
 {% block title %}{{ 'Projekt löschen'|trans }}{% endblock %}
 
 {% block content %}
-    <form method="post" class="basic-form" action="{{ path('tmt_project_remove', {'projectId': app.request.get('projectId')}) }}" autocomplete="off" novalidate>
+    <form method="post" class="basic-form" action="{{ path('tmt_project_remove', {'projectId': projectId}) }}" autocomplete="off" novalidate>
 
         <div class="msg-box error">
             <div class="msg-box-description">Projekt wirklich löschen?</div>
             <div>
                 <button class="msg-box-btn left" type="submit">{{ 'ja'|trans }}</button>
-                <a class="msg-box-btn right" href="{{ path('tmt_project_show', {'projectId': app.request.get('projectId')}) }}">nein</a>
+                <a class="msg-box-btn right" href="{{ path('tmt_project_show', {'projectId': projectId}) }}">nein</a>
 
             </div>
             <div class="clear"></div>

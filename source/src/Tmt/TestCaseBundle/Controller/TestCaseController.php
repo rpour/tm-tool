@@ -23,6 +23,8 @@ class TestCaseController extends Controller {
      */
     public function indexAction($projectId) {
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
+
         $testService = $this->get('tmt.test');
         $testcases = $testcaseService->getAll();
 
@@ -51,7 +53,9 @@ class TestCaseController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        return array(
+            'projectId' => $projectId
+        );
     }
 
     /**
@@ -64,6 +68,8 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
+
         $errors = $testcaseService->create();
 
         if (count($errors) === 0)
@@ -83,6 +89,7 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
 
         return array(
             'update'   => true,
@@ -100,6 +107,8 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
+
         $errors = $testcaseService->update($testcaseId);
 
         if (count($errors) === 0)
@@ -119,11 +128,14 @@ class TestCaseController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function confirmAction($projectId, $projectId) {
+    public function confirmAction($projectId, $testcaseId) {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        return array(
+            'projectId'  => $projectId,
+            'testcaseId' => $testcaseId
+        );
     }
 
     /**

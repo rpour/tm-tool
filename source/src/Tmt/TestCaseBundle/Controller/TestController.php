@@ -19,8 +19,10 @@ class TestController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($projectId, $testcaseId) {
+    public function indexAction($testcaseId) {
         $testService = $this->get('tmt.test');
+        $testService->setTestCaseId($testcaseId);
+
         return array(
             'tests' => $testService->getAll()
         );
@@ -36,6 +38,7 @@ class TestController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
 
         return array(
             'testcase' => $testcaseService->get($testcaseId)
@@ -52,6 +55,7 @@ class TestController extends Controller {
             throw new AccessDeniedException();
 
         $testService = $this->get('tmt.test');
+        $testService->setTestCaseId($testcaseId);
 
         $result = $testService->create();
 
@@ -76,7 +80,11 @@ class TestController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        return array(
+            'projectId'  => $projectId,
+            'testcaseId' => $testcaseId,
+            'testId'     => $testId
+        );
     }
 
 

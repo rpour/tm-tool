@@ -7,7 +7,6 @@ use Tmt\CoreBundle\Component\PDFIcons;
 class TestCasePdf extends \TCPDF {
     private $icons;
     private $iconFont;
-    private $iconFontFile;
     private $lineheight = 8;
     private $fontSize = 10;
     private $debug = 0;

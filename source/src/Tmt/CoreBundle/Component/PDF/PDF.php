@@ -11,7 +11,7 @@ class PDF extends Icon {
         $this->raw = $raw;
     }
 
-    public function ln() {
+    public function newLine() {
         $this->raw->Ln();
         return $this;
     }
@@ -27,20 +27,20 @@ class PDF extends Icon {
     }
 
     public function setColor($color) {
-        list($r, $g, $b) = $this->parseHtmlColor($color);
-        $this->raw->SetTextColor($r, $g, $b);
+        list($red, $green, $blue) = $this->parseHtmlColor($color);
+        $this->raw->SetTextColor($red, $green, $blue);
         return $this;
     }
 
     public function setBackgroundColor($color) {
-        list($r, $g, $b) = $this->parseHtmlColor($color);
-        $this->raw->SetFillColor($r, $g, $b);
+        list($red, $green, $blue) = $this->parseHtmlColor($color);
+        $this->raw->SetFillColor($red, $green, $blue);
         return $this;
     }
 
     public function setBorderColor($color) {
-        list($r, $g, $b) = $this->parseHtmlColor($color);
-        $this->raw->SetDrawColor($r, $g, $b);
+        list($red, $green, $blue) = $this->parseHtmlColor($color);
+        $this->raw->SetDrawColor($red, $green, $blue);
         return $this;
     }
 

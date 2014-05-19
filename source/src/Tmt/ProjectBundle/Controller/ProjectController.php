@@ -134,7 +134,9 @@ class ProjectController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array();
+        return array(
+            'projectId' => $projectId
+        );
     }
 
     /**

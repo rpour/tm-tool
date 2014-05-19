@@ -8,54 +8,63 @@ use Tmt\CoreBundle\Event\ApplicationEvent;
 
 class ApplicationListener {
     protected $container;
+    protected $application;
+    protected $projectId;
+    protected $project;
 
     public function __construct(ContainerInterface $container) {
         $this->container = $container;
     }
 
     public function onIntegration(ApplicationEvent $event) {
-        $application = $event->getApplication();
+        $this->application = $event->getApplication();
+        $this->projectId = $this->container->get('request')->get('projectId', 0);
 
-        $projectId = $this->container->get('request')->get('projectId', 0);
+        $this->buildBreadcrumb();
+        $this->buildMenuBar();
+    }
 
+    private function buildBreadcrumb() {
         /***********************************************************************
          * BREADCRUMB
          **********************************************************************/
 
         // home > project
-        if ($application->bundleIs('project') || $projectId) {
-            $application->add('breadcrumb', 'project', array(
+        if ($this->application->bundleIs('project') || $this->projectId) {
+            $this->application->add('breadcrumb', 'project', array(
                 'path'  => 'tmt_project_index',
                 'label' => 'Projekt'
             ));
         }
 
         // home > project > [name]
-        if ($projectId) {
+        if ($this->projectId) {
             $projectService = $this->container->get('tmt.project');
-            $project = $projectService->get($projectId);
+            $this->project = $projectService->get($this->projectId);
 
-            $application->add('breadcrumb', strtolower($project->getName()), array(
+            $this->application->add('breadcrumb', strtolower($this->project->getName()), array(
                 'path'  => 'tmt_project_show',
-                'param' => array('projectId' => $project->getId()),
-                'label' => $project->getName(),
+                'param' => array('projectId' => $this->project->getId()),
+                'label' => $this->project->getName(),
                 'class' => 'breadcrumb-highlight'
             ));
         }
 
         // home > project > new
-        if ($application->routeIs('tmt_project_new')) {
-            $application->add('breadcrumb', 'project.new', array(
+        if ($this->application->routeIs('tmt_project_new')) {
+            $this->application->add('breadcrumb', 'project.new', array(
                 'path'  => 'tmt_project_index',
                 'label' => 'new'
             ));
         }
+    }
 
+    private function buildMenuBar() {
         /***********************************************************************
          * MENU-BAR
          **********************************************************************/
-        if ($application->routeIs('tmt_project_index')) {
-            $application
+        if ($this->application->routeIs('tmt_project_index')) {
+            $this->application
             ->add('tmt-menubar-label', 'label', 'Projete')
             ->add('tmt-menubar', 'project.new', array(
                 'path'  => 'tmt_project_new',
@@ -63,28 +72,28 @@ class ApplicationListener {
                 'class' => 'icon-file-o'
             ), 'ROLE_PROJECT_ADMIN');
 
-        } else if ($application->routeIs('tmt_project_show')) {
-            $application
-            ->add('tmt-menubar-label', 'label', $project->getName())
+        } else if ($this->application->routeIs('tmt_project_show')) {
+            $this->application
+            ->add('tmt-menubar-label', 'label', $this->project->getName())
             ->add('tmt-menubar', 'project.edit', array(
                 'path'  => 'tmt_project_edit',
-                'param' => array('projectId' => $project->getId()),
+                'param' => array('projectId' => $this->project->getId()),
                 'label' => 'bearbeiten',
                 'class' => 'icon-edit'
             ), 'ROLE_PROJECT_ADMIN')
             ->add('tmt-menubar', 'project.remove', array(
                 'path'  => 'tmt_project_confirm',
-                'param' => array('projectId' => $project->getId()),
+                'param' => array('projectId' => $this->project->getId()),
                 'label' => 'löschen',
                 'class' => 'icon-trash-o'
             ), 'ROLE_PROJECT_ADMIN');
-        } else if ($application->routeIs('tmt_project_confirm')) {
-            $application
-                ->add('tmt-menubar-label', 'label', $project->getName());
+        } else if ($this->application->routeIs('tmt_project_confirm')) {
+            $this->application
+                ->add('tmt-menubar-label', 'label', $this->project->getName());
         }
 
-        if ($application->bundleIs('project') && !$application->routeIs('tmt_project_index')) {
-            $application
+        if ($this->application->bundleIs('project') && !$this->application->routeIs('tmt_project_index')) {
+            $this->application
                 ->add('tmt-menubar', 'testcase.back', array(
                     'path'  => 'tmt_project_index',
                     'label' => 'zurück',

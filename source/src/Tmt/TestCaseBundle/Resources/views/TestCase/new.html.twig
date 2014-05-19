@@ -13,7 +13,7 @@
 {% if testcase is defined %}
 {% set data = testcase.data|json_decode %}
 <form action="{{ path('tmt_testcase_update', {
-    'projectId': app.request.get('projectId'),
+    'projectId': projectId,
     'testcaseId': testcase.id
 }) }}" method="post" class="container form-style-testcase" autocomplete="off" novalidate>
 {% else %}
