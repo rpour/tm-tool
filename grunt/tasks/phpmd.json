@@ -4,7 +4,7 @@
     },
     "options": {
         "bin": "<%= project_source %>/bin/phpmd",
-        "exclude": "Entity,Form",
+        "exclude": "Entity,Form,DependencyInjection",
         "reportFormat": "text",
         "rulesets": "tests/rulesets/naming.xml,tests/rulesets/codesize.xml,tests/rulesets/unusedcode.xml",
         "strict": "true"
