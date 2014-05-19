@@ -1,0 +1,9 @@
+{
+  "options": {
+      "phpCmd":     "/usr/bin/php",
+      "phpArgs":    {"-l": null},
+      "spawnLimit": 10,
+      "swapPath":   "<%= phplint_cons.swap %>"
+  },
+  "files": "<%= phplint_cons.files %>"
+}

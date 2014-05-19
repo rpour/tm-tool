@@ -1,0 +1,31 @@
+{
+    "cache": {
+        "files": {
+            "dot": "true",
+            "src": ["<%= clean_cons.source %>/app/cache/*",".sass-cache"]
+        }
+    },
+
+    "dist": {
+        "files": {
+            "src": ["<%= clean_cons.dist %>"]
+        }
+    },
+
+    "build": {
+        "files": {
+            "src": ["<%= clean_cons.dist %>/composer.*",
+                    "<%= clean_cons.dist %>/*.md",
+                    "<%= clean_cons.dist %>/app/cache/*",
+                    "<%= clean_cons.dist %>/app/logs/*",
+                    "<%= clean_cons.dist %>/**/sass",
+                    "<%= clean_cons.dist %>/**/sprites*/",
+                    "<%= clean_cons.dist %>/**/styles",
+                    "<%= clean_cons.dist %>/src/**/files",
+                    "<%= clean_cons.dist %>/src/**/fonts",
+                    "<%= clean_cons.dist %>/src/**/images",
+                    "<%= clean_cons.dist %>/vendor",
+                    "<%= clean_cons.dist %>/web/app_dev.php"]
+        }
+    }
+}

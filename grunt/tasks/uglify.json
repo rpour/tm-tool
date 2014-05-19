@@ -1,0 +1,8 @@
+{
+    "build": {
+        "expand": true,
+        "cwd":  "<%= uglify_cons.src %>",
+        "src":  "**/*.js",
+        "dest": "<%= uglify_cons.dest %>/"
+    }
+}

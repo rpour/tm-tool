@@ -1,0 +1,14 @@
+{
+    "scripts": {
+        "options": {
+            "pattern": "<%= filescheck_cons.script_pattern %>"
+        },
+        "src": "<%= filescheck_cons.script_src %>"
+    },
+    "templates": {
+        "options": {
+            "pattern": "<%= filescheck_cons.html_pattern %>"
+        },
+        "src": "<%= filescheck_cons.html_src %>"
+    }
+}

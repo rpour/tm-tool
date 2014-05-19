@@ -1,0 +1,37 @@
+{
+  "options": {
+    "proxy": {
+      "ports": {
+        "min": 6000,
+        "max": 6100
+      }
+    },
+    "debugInfo": true,
+    "ghostMode": {
+      "clicks": true,
+      "scroll": true,
+      "links": true,
+      "forms": true
+    }
+  },
+  "test":{
+    "options": {
+      "watchTask": false
+    },
+    "bsFiles": {"src" : ["<%= symfony.web %>/**/*.css"]}
+  },
+  "dev":{
+    "options": {
+      "watchTask": true
+    },
+    "bsFiles": {
+      "src": [
+        "<%= symfony.web %>/**/*.css",
+        "<%= symfony.web %>/**/*.jpg",
+        "<%= symfony.web %>/**/*.png",
+        "<%= symfony.web %>/**/*.js",
+        "<%= symfony.web %>/**/*.html.twig"
+      ]
+    }
+  }
+}

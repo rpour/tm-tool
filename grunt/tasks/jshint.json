@@ -1,0 +1,7 @@
+{
+    "options": {
+        "jshintrc": ".jshintrc",
+        "ignores":  "<%= jshint_cons.ignores %>"
+    },
+    "all": "<%= jshint_cons.targets %>"
+}

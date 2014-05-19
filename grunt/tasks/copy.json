@@ -1,0 +1,8 @@
+{
+    "build": {
+        "expand": true,
+        "cwd":    "<%= copy_cons.root %>",
+        "src":    "**",
+        "dest":   "<%= copy_cons.dest %>"
+    }
+}

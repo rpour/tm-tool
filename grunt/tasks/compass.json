@@ -1,0 +1,14 @@
+{
+  "options": {
+    "relativeAssets": true,
+    "outputStyle":    "expanded",
+    "importPath":     "<%= compass_cons.import_path %>"
+  },
+  "location": {
+    "options": {
+      "imagesDir": "<%= compass_cons.location %>/images",
+      "sassDir": "<%= compass_cons.location %>/sass",
+      "cssDir": "<%= compass_cons.location %>/styles"
+    }
+  }
+}

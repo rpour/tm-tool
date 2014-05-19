@@ -1,0 +1,8 @@
+{
+    "minify": {
+        "expand": true,
+        "cwd":    "<%= cssmin_cons.cwd %>/",
+        "src":    ["**/*.css"],
+        "dest":   "<%= cssmin_cons.dest %>/"
+    }
+}

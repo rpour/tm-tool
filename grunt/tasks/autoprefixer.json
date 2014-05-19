@@ -1,0 +1,11 @@
+{
+    "options": {
+        "browsers": "<%= autoprefixer_cons.browsers %>"
+    },
+    "multiple_files": {
+        "expand":  true,
+        "flatten": true,
+        "src":     "<%= autoprefixer_cons.src %>",
+        "dest":    "<%= autoprefixer_cons.dest %>"
+    }
+}
