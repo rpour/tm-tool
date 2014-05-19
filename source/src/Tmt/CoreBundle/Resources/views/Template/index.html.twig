@@ -12,7 +12,6 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/png" />
-        {# <meta http-equiv="refresh" content="5; URL="> #}
         {% block css %}{% endblock %}
     </head>
     <body>
@@ -22,6 +21,9 @@
                 var BASEDIR = '{{ BASEDIR }}';
             </script>
             <script src="{{ asset('bundles/tmtcore/js/jquery.min.js') }}"></script>
+            {% if app.environment == "dev" %}
+            <script src="http://localhost:9000/livereload.js"></script>
+            {% endif %}
         {% endblock %}
     </body>
 </html>
