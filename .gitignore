@@ -1,9 +1,13 @@
 *~
-/source/*.db
-/source/*.cache
-/source/*.phar
-/source/*.TODO
-/source/*.lock
+*.db
+*.cache
+*.phar
+*.TODO
+*.lock
+
+.project
+.sass-cache
+
 /source/app/config/parameters.yml
 /source/app/tmp
 /source/app/cache
@@ -11,5 +15,3 @@
 /source/bin
 /source/vendor
 /source/web/bundles
-.project
-.sass-cache
