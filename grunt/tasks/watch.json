@@ -1,29 +1,56 @@
 {
-  "phplint": {
-      "files": ["<%= watch_cons.src %>/**/*.php"],
-  "tasks": ["phplint", "phpmd"]
-  },
-  "jshint": {
-      "files": ["<%= watch_cons.src %>/**/*.js"],
-      "tasks": ["jshint", "files_check:scripts"]
-  },
-  "templates": {
-      "files": ["<%= watch_cons.src %>/**/*.html*"],
-      "tasks": ["files_check:templates"]
-  },
-  "compass": {
-      "files": ["<%= watch_cons.src %>/**/*.scss"],
-      "tasks": ["compass", "autoprefixer"]
-  },
-  "reload-styles": {
-      "files": ["<%= watch_cons.src %>/**/*.css"],
-      "options": {"livereload": "<%= watch_cons.reload_port %>" }
-  },
-  "reload": {
-      "files": ["<%= watch_cons.src %>/**/*.html*",
-                "<%= watch_cons.src %>/**/*.png",
-                "<%= watch_cons.src %>/**/*.jpg",
-                "<%= watch_cons.src %>/**/*.js"],
-      "options": {"livereload": "<%= watch_cons.reload_port %>" }
-  }
+    "compass": {
+        "files": [
+            "<%= project_source %>/src/**/*.scss"
+        ],
+        "tasks": [
+            "compass",
+            "autoprefixer"
+        ]
+    },
+    "jshint": {
+        "files": [
+            "<%= project_source %>/src/**/*.js"
+        ],
+        "tasks": [
+            "jshint",
+            "files_check:scripts"
+        ]
+    },
+    "phplint": {
+        "files": [
+            "<%= project_source %>/src/**/*.php"
+        ],
+        "tasks": [
+            "phplint",
+            "phpmd"
+        ]
+    },
+    "reload": {
+        "files": [
+            "<%= project_source %>/src/**/*.html*",
+            "<%= project_source %>/src/**/*.png",
+            "<%= project_source %>/src/**/*.jpg",
+            "<%= project_source %>/src/**/*.js"
+        ],
+        "options": {
+            "livereload": 9000
+        }
+    },
+    "reload-styles": {
+        "files": [
+            "<%= project_source %>/src/**/*.css"
+        ],
+        "options": {
+            "livereload": 9000
+        }
+    },
+    "templates": {
+        "files": [
+            "<%= project_source %>/src/**/*.html*"
+        ],
+        "tasks": [
+            "files_check:templates"
+        ]
+    }
 }

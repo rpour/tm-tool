@@ -1,8 +1,8 @@
 {
     "build": {
+        "cwd": "<%= project_dist %>/web/",
+        "dest": "<%= project_dist %>/web/",
         "expand": true,
-        "cwd":  "<%= uglify_cons.src %>",
-        "src":  "**/*.js",
-        "dest": "<%= uglify_cons.dest %>/"
+        "src": "**/*.js"
     }
 }

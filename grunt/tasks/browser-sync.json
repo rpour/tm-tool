@@ -1,37 +1,41 @@
 {
-  "options": {
-    "proxy": {
-      "ports": {
-        "min": 6000,
-        "max": 6100
-      }
+    "dev": {
+        "bsFiles": {
+            "src": [
+                "<%= symfony.web %>/**/*.css",
+                "<%= symfony.web %>/**/*.jpg",
+                "<%= symfony.web %>/**/*.png",
+                "<%= symfony.web %>/**/*.js",
+                "<%= symfony.web %>/**/*.html.twig"
+            ]
+        },
+        "options": {
+            "watchTask": true
+        }
     },
-    "debugInfo": true,
-    "ghostMode": {
-      "clicks": true,
-      "scroll": true,
-      "links": true,
-      "forms": true
-    }
-  },
-  "test":{
     "options": {
-      "watchTask": false
+        "debugInfo": true,
+        "ghostMode": {
+            "clicks": true,
+            "forms": true,
+            "links": true,
+            "scroll": true
+        },
+        "proxy": {
+            "ports": {
+                "max": 6100,
+                "min": 6000
+            }
+        }
     },
-    "bsFiles": {"src" : ["<%= symfony.web %>/**/*.css"]}
-  },
-  "dev":{
-    "options": {
-      "watchTask": true
-    },
-    "bsFiles": {
-      "src": [
-        "<%= symfony.web %>/**/*.css",
-        "<%= symfony.web %>/**/*.jpg",
-        "<%= symfony.web %>/**/*.png",
-        "<%= symfony.web %>/**/*.js",
-        "<%= symfony.web %>/**/*.html.twig"
-      ]
+    "test": {
+        "bsFiles": {
+            "src": [
+                "<%= symfony.web %>/**/*.css"
+            ]
+        },
+        "options": {
+            "watchTask": false
+        }
     }
-  }
 }

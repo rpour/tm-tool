@@ -2,13 +2,13 @@
     "cache": {
         "files": {
             "dot": "true",
-            "src": ["<%= clean_cons.source %>/app/cache/*",".sass-cache"]
+            "src": ["<%= project_source %>/app/cache/*",".sass-cache"]
         }
     },
 
     "dist": {
         "files": {
-            "src": ["<%= clean_cons.dist %>"]
+            "src": ["<%= project_dist %>"]
         }
     },
 

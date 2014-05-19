@@ -1,9 +1,14 @@
 {
-  "options": {
-      "phpCmd":     "/usr/bin/php",
-      "phpArgs":    {"-l": null},
-      "spawnLimit": 10,
-      "swapPath":   "<%= phplint_cons.swap %>"
-  },
-  "files": "<%= phplint_cons.files %>"
+    "files": [
+        "<%= project_source %>/app/**/*.php",
+        "<%= project_source %>/src/**/*.php"
+    ],
+    "options": {
+        "phpArgs": {
+            "-l": null
+        },
+        "phpCmd": "/usr/bin/php",
+        "spawnLimit": 10,
+        "swapPath": "<%= project_source %>/app/cache"
+    }
 }

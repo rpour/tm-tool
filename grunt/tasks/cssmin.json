@@ -1,8 +1,10 @@
 {
     "minify": {
+        "cwd": "<%= project_dist %>/web/",
+        "dest": "<%= project_dist %>/web/",
         "expand": true,
-        "cwd":    "<%= cssmin_cons.cwd %>/",
-        "src":    ["**/*.css"],
-        "dest":   "<%= cssmin_cons.dest %>/"
+        "src": [
+            "**/*.css"
+        ]
     }
 }

@@ -1,11 +1,11 @@
 {
     "symlinks": {
-        "command": "<%= shell_cons.path %> assets:install <%= project_source %>/web --relative --symlink"
+        "command": "<%= symfony_console %> assets:install <%= project_source %>/web --relative --symlink"
     },
     "assetic": {
-        "command": "<%= shell_cons.path %> assetic:dump --env=prod --no-debug"
+        "command": "<%= symfony_console %> assetic:dump --env=prod --no-debug"
     },
     "trans":{
-        "command": "<%= shell_cons.path %> translation:update --clean --force <%= shell_cons.trans_lang %> <%= shell_cons.trans_bundle %>"
+        "command": "<%= symfony_console %> translation:update --clean --force de {REPLACE}"
     }
 }

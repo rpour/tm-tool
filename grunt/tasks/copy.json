@@ -1,8 +1,8 @@
 {
     "build": {
+        "cwd": "<%= project_source %>/",
+        "dest": "<%= project_dist %>/",
         "expand": true,
-        "cwd":    "<%= copy_cons.root %>",
-        "src":    "**",
-        "dest":   "<%= copy_cons.dest %>"
+        "src": "**"
     }
 }

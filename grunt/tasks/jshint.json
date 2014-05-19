@@ -1,7 +1,11 @@
 {
+    "all": [
+        "<%= project_source %>/src/**/*.js"
+    ],
     "options": {
-        "jshintrc": ".jshintrc",
-        "ignores":  "<%= jshint_cons.ignores %>"
-    },
-    "all": "<%= jshint_cons.targets %>"
+        "ignores": [
+            "<%= project_source %>/src/**/vendors/*.js"
+        ],
+        "jshintrc": ".jshintrc"
+    }
 }

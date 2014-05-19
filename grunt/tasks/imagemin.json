@@ -1,10 +1,14 @@
 {
     "build": {
-        "files": [{
-            "expand": true,
-            "cwd":    "<%= imagemin_cons.cwd %>/",
-            "src":    ["**/images/**/*.{png,jpg}"],
-            "dest":   "<%= imagemin_cons.dest %>"
-        }]
+        "files": [
+            {
+                "cwd": "<%= project_source %>/src",
+                "dest": "<%= project_source %>/src",
+                "expand": true,
+                "src": [
+                    "**/images/**/*.{png,jpg}"
+                ]
+            }
+        ]
     }
 }

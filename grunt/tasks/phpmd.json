@@ -1,11 +1,12 @@
 {
     "develop": {
-        "dir": "<%= phpmd_cons.dir %>"
+        "dir": "<%= project_source %>/src"
     },
     "options": {
-        "rulesets":     "tests/rulesets/naming.xml,tests/rulesets/codesize.xml,tests/rulesets/unusedcode.xml",
+        "bin": "<%= project_source %>/bin/phpmd",
+        "exclude": "Entity,Form",
         "reportFormat": "text",
-        "strict":       "true",
-        "exclude":      "<%= phpmd_cons.exclude %>"
+        "rulesets": "tests/rulesets/naming.xml,tests/rulesets/codesize.xml,tests/rulesets/unusedcode.xml",
+        "strict": "true"
     }
 }

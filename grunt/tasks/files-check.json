@@ -1,14 +1,18 @@
 {
     "scripts": {
         "options": {
-            "pattern": "<%= filescheck_cons.script_pattern %>"
+            "pattern": "css\\(|show\\(|hide\\("
         },
-        "src": "<%= filescheck_cons.script_src %>"
+        "src": [
+            "<%= project_source %>/src/**/scripts/*.js"
+        ]
     },
     "templates": {
         "options": {
-            "pattern": "<%= filescheck_cons.html_pattern %>"
+            "pattern": "style=|<style"
         },
-        "src": "<%= filescheck_cons.html_src %>"
+        "src": [
+            "<%= project_source %>/src/**/*.html.twig"
+        ]
     }
 }
