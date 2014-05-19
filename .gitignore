@@ -15,3 +15,5 @@
 /source/bin
 /source/vendor
 /source/web/bundles
+
+/grunt/node_modules
