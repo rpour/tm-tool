@@ -23,10 +23,9 @@ module.exports = function (g) {
          * GLOBALS
          **********************************************************************/
         pkg                 : g.file.readJSON('package.json'),
-        project_root_folder : "..",
-        project_browser_url : "http://localhost/github/tm-tool/source/web/app_dev.php",
-        project_source      : "<%= project_root_folder %>/source",
-        project_dist        : "<%= project_root_folder %>/dist",
+        browser_url         : "http://localhost/github/tm-tool/source/web/app_dev.php",
+        project_source      : "../source",
+        project_dist        : "../dist",
 
         project_sass_dir    : "<%= project_source %>/src/Tmt/CoreBundle/Resources/public/sass",
         project_image_dir   : "<%= project_source %>/src/Tmt/CoreBundle/Resources/public/img",
@@ -71,20 +70,21 @@ module.exports = function (g) {
         'watch'
    ]);
 
-    g.registerTask('build', [
-        'shell:symlinks',
-        'shell:assetic',
-        'clean:dist',
-        'copy:build',
-        'clean:build',
-        'imagemin',
-        'cssmin',
-        'uglify'
-    ]);
+    // g.registerTask('build', [
+    //     'shell:symlinks',
+    //     'shell:assetic',
+    //     'clean:dist',
+    //     'copy:build',
+    //     'clean:build',
+    //     'imagemin',
+    //     'cssmin',
+    //     'uglify'
+    // ]);
 
-    g.registerTask('symlinks' ['shell:symlinks']);
-    g.registerTask('assets',  ['shell:assetic']);
-    g.registerTask('cache',   ['clean:cache']);
-    g.registerTask('trans',   ['shell:trans']);
-    g.registerTask('md',      ['phpmd']);
+    // g.registerTask('composerupdate'     ['shell:composer-update']);
+    // g.registerTask('symlinks'           ['shell:symlinks']);
+    // g.registerTask('assets',            ['shell:assetic']);
+    // g.registerTask('cache',             ['clean:cache']);
+    // g.registerTask('trans',             ['shell:trans']);
+    // g.registerTask('md',                ['phpmd']);
 };

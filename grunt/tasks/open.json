@@ -1,5 +1,5 @@
 {
     "default": {
-        "path": "<%= project_browser_url %>"
+        "path": "<%= browser_url %>"
     }
 }
