@@ -16,12 +16,12 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand {
 
     protected function execute(OutputInterface $output) {
         $output->write('Start ... ');
-        $root_path = $this->getContainer()->get('kernel')->getRootDir();
-        $icons_css = $root_path . '/../src/Tmt/CoreBundle/Resources/public/css/icons.css';
-        $pdficons_class = $root_path . '/../src/Tmt/CoreBundle/Component/PDF/Icon.php';
+        $rootPath = $this->getContainer()->get('kernel')->getRootDir();
+        $iconsCss = $rootPath . '/../src/Tmt/CoreBundle/Resources/public/css/icons.css';
+        $pdficonsClass = $rootPath . '/../src/Tmt/CoreBundle/Component/PDF/Icon.php';
 
-        if (file_exists($icons_css) && is_readable($icons_css)) {
-            preg_match_all("/\.([^:]+):before[^\"]+\"\\\([^\"]+)\"/", file_get_contents($icons_css), $matches);
+        if (file_exists($iconsCss) && is_readable($iconsCss)) {
+            preg_match_all("/\.([^:]+):before[^\"]+\"\\\([^\"]+)\"/", file_get_contents($iconsCss), $matches);
 
             if (isset($matches[1]) && isset($matches[2]) && !empty($matches[1])) {
                 $dataString = "// data#start\n";
@@ -30,18 +30,18 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand {
                 $dataString .= "//data#end";
 
 
-                if (file_exists($pdficons_class) && is_readable($pdficons_class)) {
+                if (file_exists($pdficonsClass) && is_readable($pdficonsClass)) {
                     file_put_contents(
-                        $pdficons_class,
+                        $pdficonsClass,
                         preg_replace(
                             "/(\/\/ data#start.*\/\/ data#end)/s",
                             $dataString,
-                            file_get_contents($pdficons_class)
+                            file_get_contents($pdficonsClass)
                         )
                     );
-                } else $output->writeln('ERROR-READ:' . $pdficons_class);
+                } else $output->writeln('ERROR-READ:' . $pdficonsClass);
             } else $output->writeln('ERROR: No matches.');
-        } else $output->writeln('ERROR-READ:' . $icons_css);
+        } else $output->writeln('ERROR-READ:' . $iconsCss);
 
         $output->writeln('done.');
     }

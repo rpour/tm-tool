@@ -82,6 +82,8 @@ class Test extends EntityManipulation {
         $passed = 0;
 
         for($i=0; $i<count($data);$i++) {
+            $testcaseData[$i]['passed'] = 0;
+
             if ($data[$i+1]['passed']) {
                 $testcaseData[$i]['passed'] = 1;
                 $passed++;
@@ -90,14 +92,12 @@ class Test extends EntityManipulation {
                     $testcaseErrors++;
                     $testcaseData[$i]['error'] = trim($data[$i+1]['error']);
                 }
-            } else
-                $testcaseData[$i]['passed'] = 0;
+            }
         }
 
-        if (!$testcaseErrors && $passed !== count($data)) {
-            $result['errors'] = array("Nicht alles ausgefüllt!");
+        $result['errors'] = array("Nicht alles ausgefüllt!");
 
-        } else {
+        if ($testcaseErrors || $passed === count($data)) {
             $date = $testcaseEntity->getVersion();
             $version = $date->format('y.mdHi');
 
@@ -114,11 +114,14 @@ class Test extends EntityManipulation {
             $test->setData(json_encode($data));
             $test->setPassed((boolean)!$testcaseErrors);
             $test->setUsername($this->getUsername());
-            $test->setUserAgent($_SERVER['HTTP_USER_AGENT']);
+            $test->setUserAgent($this->container->get('request')->headers->get('User-Agent'));
 
             $validator = $this->container->get('validator');
             $result['errors'] = $validator->validate($test);
         }
+
+        $testcaseEntity->setData(json_encode($testcaseData));
+        $result['testcase'] = $testcaseEntity;
 
         if (count($result['errors']) === 0) {
             $this->save($test);
@@ -129,9 +132,6 @@ class Test extends EntityManipulation {
             $testcaseEntity->setLastState((boolean)!$testcaseErrors);
             $testcaseService->save($testcaseEntity);
 
-        } else {
-            $testcaseEntity->setData(json_encode($testcaseData));
-            $result['testcase'] = $testcaseEntity;
         }
 
         return $result;
@@ -154,7 +154,6 @@ class Test extends EntityManipulation {
 
             $this->em->remove($test);
         }
-
         $this->em->flush();
     }
 }

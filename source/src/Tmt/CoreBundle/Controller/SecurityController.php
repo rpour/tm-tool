@@ -27,8 +27,8 @@ class SecurityController extends Controller {
      * @Route("/pdf")
      */
     public function pdfAction() {
-        $dark_blue = '2980b9';
-        $light_blue = 'eaf5fb';
+        $darkBlue = '2980b9';
+        $lightBlue = 'eaf5fb';
 
         $font  = $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf';
         $pdf   = new PDFBuilder();
@@ -40,8 +40,8 @@ class SecurityController extends Controller {
             ->setFontSize(14)
             ->setBorder(1)
             ->setWidth(20)
-            ->setBackgroundColor($light_blue)
-            ->setBorderColor($dark_blue)
+            ->setBackgroundColor($lightBlue)
+            ->setBorderColor($darkBlue)
             ->setText('::icon::icon-user')
             ->draw()
             ->clear()
@@ -54,7 +54,7 @@ class SecurityController extends Controller {
             ->setFontFile($font)
             ->setFontSize(16)
             ->setBorderColor('dbe7ed')
-            ->toggleBackground(array($light_blue))
+            ->toggleBackground(array($lightBlue))
             ->setRowSize(20, 30, 100)
             ->setRowAlign('L', 'C', 'C')
             ->setRow('hallo', 'mallo', 'ballo')
