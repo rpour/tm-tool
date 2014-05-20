@@ -23,8 +23,6 @@ class TestCaseController extends Controller {
      */
     public function indexAction($projectId) {
         $testcaseService = $this->get('tmt.testcase');
-        $testcaseService->setProjectId($projectId);
-
         $testService = $this->get('tmt.test');
         $testcases = $testcaseService->getAll();
 
@@ -53,9 +51,7 @@ class TestCaseController extends Controller {
         if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
             throw new AccessDeniedException();
 
-        return array(
-            'projectId' => $projectId
-        );
+        return array();
     }
 
     /**
@@ -68,8 +64,6 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
-        $testcaseService->setProjectId($projectId);
-
         $errors = $testcaseService->create();
 
         if (count($errors) === 0)
@@ -89,7 +83,6 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
-        $testcaseService->setProjectId($projectId);
 
         return array(
             'update'   => true,
@@ -107,8 +100,6 @@ class TestCaseController extends Controller {
             throw new AccessDeniedException();
 
         $testcaseService = $this->get('tmt.testcase');
-        $testcaseService->setProjectId($projectId);
-
         $errors = $testcaseService->update($testcaseId);
 
         if (count($errors) === 0)
@@ -128,14 +119,11 @@ class TestCaseController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function confirmAction($projectId, $testcaseId) {
+    public function confirmAction($projectId, $projectId) {
         if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
             throw new AccessDeniedException();
 
-        return array(
-            'projectId'  => $projectId,
-            'testcaseId' => $testcaseId
-        );
+        return array();
     }
 
     /**
@@ -169,31 +157,19 @@ class TestCaseController extends Controller {
         $testcasesArray = array();
         $testcases = $testcaseService->getAll();
 
-        // $html = $this->render('TmtProjectBundle:Project:pdf.html.twig', array(
-        //     "project" => $project,
-        //     "testcases" => $testcasesArray
-        // ));
+        $pdf = new TestCasePdf(
+            $project->getName(),
+            $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf'
+        );
 
-        $filename = preg_replace('/\W/', '', strtolower($project->getName()))
-            . date('_Y-m-d')
-            . '.pdf';
+        $pdf->h1($project->getName());
 
-        $pdf = new TestCasePdf();
-        $pdf->SetTitle($project->getName());
-        $pdf->setIconFontFile($this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf');
-
-        $pdf->SetFontSize(25);
-        $pdf->Cell(0, 15, $project->getName(), 0, 0, 'L');
-        $pdf->SetFontSize(14);
-        $pdf->Cell(0, 15, date('d.m.Y'), 0, 1, 'R');
-
-        $pdf->_setFontSize(14);
-
+        // Testcases
         foreach ($testcases as $testcase) {
             $testService->setTestCaseId($testcase->getId());
             $tests = $testService->getAll();
 
-            $pdf->drawTestCase(
+            $pdf->drawTestcase(
                 $testcase->getLastState(),
                 $testcase->getTitle(),
                 count($tests)
@@ -207,34 +183,83 @@ class TestCaseController extends Controller {
 
         unset($testcase, $test);
 
-        $pdf->Ln(8);
-        $pdf->SetFontSize(10);
 
+        // Test
         foreach ($testcasesArray as $testcase) {
-            $pdf->_write($testcase['case']->getTitle(), 0);
-            $pdf->Ln(8);
+            $pdf->h2($testcase['case']->getTitle());
 
             foreach ($testcase['tests'] as $test) {
                 $data = json_decode($test->getData());
-
-                if ($test->getPassed())
-                    $pdf->_icon('icon-check', '4AB471');
-                else
-                    $pdf->_icon('icon-warning', 'CF5C60');
-
                 $date = $test->getDate();
-                $pdf->_write($date->format('d.m.Y'), 40);
 
-                $pdf->_icon('icon-user');
-                $pdf->_write($test->getUsername(), 40);
-
-                $pdf->_write($data->version, 30, null, 'R');
-
-                $pdf->Ln(8);
+                $pdf->drawTest(
+                    $test->getPassed(),
+                    $date->format('d.m.Y'),
+                    $test->getUsername(),
+                    $data->version
+                );
             }
-             $pdf->Ln(8);
+
         }
 
-        $pdf->Output($filename, 'D');
+        $pdf->download();
+
+        // $pdf->SetTitle($project->getName());
+        // $pdf->setIconFontFile($this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf');
+
+        // $pdf->SetFontSize(25);
+        // $pdf->Cell(0, 15, $project->getName(), 0, 0, 'L');
+        // $pdf->SetFontSize(14);
+        // $pdf->Cell(0, 15, date('d.m.Y'), 0, 1, 'R');
+
+        // $pdf->_setFontSize(14);
+
+        // foreach ($testcases as $testcase) {
+        //     $testService->setTestCaseId($testcase->getId());
+        //     $tests = $testService->getAll();
+
+        //     $pdf->drawTestCase(
+        //         $testcase->getLastState(),
+        //         $testcase->getTitle(),
+        //         count($tests)
+        //     );
+
+        //     $testcasesArray[] = array(
+        //         'case' => $testcase,
+        //         'tests' => $tests
+        //     );
+        // }
+
+        // unset($testcase, $test);
+
+        // $pdf->Ln(8);
+        // $pdf->SetFontSize(10);
+
+        // foreach ($testcasesArray as $testcase) {
+        //     $pdf->_write($testcase['case']->getTitle(), 0);
+        //     $pdf->Ln(8);
+
+        //     foreach ($testcase['tests'] as $test) {
+        //         $data = json_decode($test->getData());
+
+        //         if ($test->getPassed())
+        //             $pdf->_icon('icon-check', '4AB471');
+        //         else
+        //             $pdf->_icon('icon-warning', 'CF5C60');
+
+        //         $date = $test->getDate();
+        //         $pdf->_write($date->format('d.m.Y'), 40);
+
+        //         $pdf->_icon('icon-user');
+        //         $pdf->_write($test->getUsername(), 40);
+
+        //         $pdf->_write($data->version, 30, null, 'R');
+
+        //         $pdf->Ln(8);
+        //     }
+        //      $pdf->Ln(8);
+        // }
+
+        // $pdf->Output($filename, 'D');
     }
 }
