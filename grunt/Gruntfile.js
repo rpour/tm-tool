@@ -15,6 +15,7 @@ module.exports = function (g) {
     g.loadNpmTasks('grunt-autoprefixer');
     g.loadNpmTasks('grunt-phplint');
     g.loadNpmTasks('grunt-shell');
+    g.loadNpmTasks('grunt-devtools');
 
     g.option( 'force', true );
     g.initConfig({
