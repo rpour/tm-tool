@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "tecnick.com/tcpdf": "dev-master",
         "pdepend/pdepend": "2.0.0.*@dev",
-        "phpmd/phpmd": "2.0.0.*@dev"
+        "phpmd/phpmd": "2.0.0.*@dev",
+        "phpunit/phpunit": "4.1.*"
     },
     "scripts": {
         "post-install-cmd": [
