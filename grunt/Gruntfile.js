@@ -1,19 +1,25 @@
 'use strict';
 
 module.exports = function (g) {
+    // PHP
+    g.loadNpmTasks('grunt-phpcs');
+    g.loadNpmTasks('grunt-phpmd');
+    g.loadNpmTasks('grunt-phplint');
+
+    // FRONTEND
+    g.loadNpmTasks('grunt-contrib-jshint');
+    g.loadNpmTasks('grunt-contrib-cssmin');
+    g.loadNpmTasks('grunt-contrib-compass');
+    g.loadNpmTasks('grunt-contrib-imagemin');
+    g.loadNpmTasks('grunt-autoprefixer');
+    g.loadNpmTasks('grunt-contrib-uglify');
+
+    // PROJECT
     g.loadNpmTasks('grunt-contrib-clean');
     g.loadNpmTasks('grunt-contrib-copy');
-    g.loadNpmTasks('grunt-contrib-cssmin');
-    g.loadNpmTasks('grunt-contrib-jshint');
-    g.loadNpmTasks('grunt-contrib-compass');
-    g.loadNpmTasks('grunt-contrib-uglify');
     g.loadNpmTasks('grunt-contrib-watch');
-    g.loadNpmTasks('grunt-contrib-imagemin');
-    g.loadNpmTasks('grunt-phpmd');
     g.loadNpmTasks('grunt-open');
     g.loadNpmTasks('grunt-files-check');
-    g.loadNpmTasks('grunt-autoprefixer');
-    g.loadNpmTasks('grunt-phplint');
     g.loadNpmTasks('grunt-shell');
     g.loadNpmTasks('grunt-devtools');
 
@@ -36,6 +42,8 @@ module.exports = function (g) {
         /***********************************************************************
          * DEFINE TASK'S
          **********************************************************************/
+        phpcs       : g.file.readJSON('tasks/phpcs.json'),
+        phpmd       : g.file.readJSON('tasks/phpmd.json'),
         clean       : g.file.readJSON('tasks/symfony/clean.json'),
         open        : g.file.readJSON('tasks/open.json'),
         copy        : g.file.readJSON('tasks/copy.json'),
@@ -49,7 +57,6 @@ module.exports = function (g) {
         compass     : g.file.readJSON('tasks/compass.json'),
         files_check : g.file.readJSON('tasks/files-check.json'),
         phplint     : g.file.readJSON('tasks/phplint.json'),
-        phpmd       : g.file.readJSON('tasks/phpmd.json'),
         uglify      : g.file.readJSON('tasks/uglify.json'),
         watch       : g.file.readJSON('tasks/watch.json'),
         /* WATCHOUT: Customize the shell.json file

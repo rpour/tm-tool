@@ -23,7 +23,8 @@
         ],
         "tasks": [
             "phplint",
-            "phpmd"
+            "phpmd",
+            "phpcs"
         ]
     },
     "reload": {

@@ -1,0 +1,9 @@
+{
+        "application": {
+            "dir": ["<%= project_source %>/src/**/*.php"]
+        },
+        "options": {
+            "bin"     : "phpcs",
+            "standard": "PSR2"
+        }
+    }
