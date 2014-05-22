@@ -9,24 +9,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Tmt\CoreBundle\Component\PDF\PDFBuilder;
 
-class SecurityController extends Controller {
+class SecurityController extends Controller
+{
     /**
      *
      * @Route("/login/check", name="tmt_login_check")
      */
-    public function loginCheckAction() {}
+    public function loginCheckAction()
+    {
+
+    }
 
     /**
      *
      * @Route("/logout", name="tmt_logout")
      */
-    public function logoutAction() {}
+    public function logoutAction()
+    {
+
+    }
 
     /**
      *
      * @Route("/pdf")
      */
-    public function pdfAction() {
+    public function pdfAction()
+    {
         $darkBlue = '2980b9';
         $lightBlue = 'eaf5fb';
 

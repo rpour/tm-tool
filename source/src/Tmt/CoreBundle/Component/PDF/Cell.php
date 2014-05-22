@@ -5,7 +5,8 @@ namespace Tmt\CoreBundle\Component\PDF;
 /**
  * http://www.tcpdf.org/doc/code/classTCPDF.html#a33b265e5eb3e4d1d4fedfe29f8166f31
  */
-class Cell extends PDF {
+class Cell extends PDF
+{
     protected $width;
     protected $height;
     protected $text;
@@ -20,22 +21,26 @@ class Cell extends PDF {
     protected $valign;
     protected $isIcon = false;
 
-    public function __construct($pdf) {
+    public function __construct($pdf)
+    {
         parent::__construct($pdf);
         $this->clear();
     }
 
-    public function setWidth($width) {
+    public function setWidth($width)
+    {
         $this->width = $width;
         return $this;
     }
 
-    public function setHeight($height) {
+    public function setHeight($height)
+    {
         $this->height = $height;
         return $this;
     }
 
-    public function setText($text) {
+    public function setText($text)
+    {
         if (strtolower(substr($text, 0, 8)) === '::icon::') {
             $text = $this->getIcon(substr($text, 8));
             $this->isIcon = true;
@@ -44,52 +49,62 @@ class Cell extends PDF {
         return $this;
     }
 
-    public function setBorder($border) {
+    public function setBorder($border)
+    {
         $this->border = $border;
         return $this;
     }
 
-    public function setLn($ln) {
+    public function setLn($ln)
+    {
         $this->ln = $ln;
         return $this;
     }
 
-    public function setFill($fill) {
+    public function setFill($fill)
+    {
         $this->fill = $fill;
         return $this;
     }
 
-    public function setLink($link) {
+    public function setLink($link)
+    {
         $this->link = $link;
         return $this;
     }
 
-    public function setStretch($stretch) {
+    public function setStretch($stretch)
+    {
         $this->stretch = $stretch;
         return $this;
     }
 
-    public function setIgnoreMinHeight($ignoreMinHeight) {
+    public function setIgnoreMinHeight($ignoreMinHeight)
+    {
         $this->ignoreMinHeight = $ignoreMinHeight;
         return $this;
     }
 
-    public function setAlign($align) {
+    public function setAlign($align)
+    {
         $this->align = $align;
         return $this;
     }
 
-    public function setCalign($calign) {
+    public function setCalign($calign)
+    {
         $this->calign = $calign;
         return $this;
     }
 
-    public function setValign($valign) {
+    public function setValign($valign)
+    {
         $this->valign = $valign;
         return $this;
     }
 
-    public function draw() {
+    public function draw()
+    {
         if ($this->isIcon) {
             $this->raw->SetFont($this->iconFont, '', null, '', false);
         }
@@ -117,7 +132,8 @@ class Cell extends PDF {
         return $this;
     }
 
-    public function clear() {
+    public function clear()
+    {
         parent::clear();
 
         $this->width           = '';

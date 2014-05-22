@@ -6,28 +6,33 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 use Tmt\CoreBundle\Event\EntityEvent;
 
-class EntityManipulation {
+class EntityManipulation
+{
     protected $container;
     protected $em;
     protected $repo;
     protected $qb;
 
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         $this->container = $container;
         $this->em = $this->container->get('doctrine')->getManager();
         $this->repo = $this->em->getRepository($this->repository);
         $this->qb = $this->em->createQueryBuilder();
     }
 
-    public function get($id) {
+    public function get($id)
+    {
         return $this->repo->findOneById($id);
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->repo->findAll();
     }
 
-    public function count() {
+    public function count()
+    {
         return (int)$this->repo
             ->createQueryBuilder('m')
             ->select('count(m)')
@@ -35,7 +40,8 @@ class EntityManipulation {
             ->getSingleScalarResult();
     }
 
-    public function save($entity) {
+    public function save($entity)
+    {
         // dispatch event
         $this->container->get('event_dispatcher')->dispatch(
             'entity.save',
@@ -46,7 +52,8 @@ class EntityManipulation {
         $this->em->flush();
     }
 
-    public function remove($entity) {
+    public function remove($entity)
+    {
         // dispatch event
         $this->container->get('event_dispatcher')->dispatch(
             'entity.remove',
@@ -57,7 +64,8 @@ class EntityManipulation {
         $this->em->flush();
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         $user = $this->container->get('security.context')->getToken()->getUser();
         return $user->getUsername();
     }
