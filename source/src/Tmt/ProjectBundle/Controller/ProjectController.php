@@ -16,13 +16,15 @@ use Tmt\ProjectBundle\Form\ProjectType;
  * @Route("/")
  * @Template()
  */
-class ProjectController extends Controller {
+class ProjectController extends Controller
+{
     /**
      * @Route("/", name="tmt_project_index")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $project = $this->get('tmt.project');
 
         return array(
@@ -35,7 +37,8 @@ class ProjectController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($projectId) {
+    public function showAction($projectId)
+    {
 
         return array(
             'projectId'=> $projectId
@@ -47,9 +50,11 @@ class ProjectController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction() {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function newAction()
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         return array(
             'form' => $this
@@ -63,9 +68,11 @@ class ProjectController extends Controller {
      * @Method("POST")
      * @Template("TmtProjectBundle:Project:new.html.twig")
      */
-    public function createAction() {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function createAction()
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $entity  = new Project();
 
@@ -88,9 +95,11 @@ class ProjectController extends Controller {
      * @Method("GET")
      * @Template("TmtProjectBundle:Project:new.html.twig")
      */
-    public function editAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function editAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $projectService = $this->get('tmt.project');
         $entity = $projectService->get($projectId);
@@ -104,12 +113,14 @@ class ProjectController extends Controller {
      * @Method("POST")
      * @Template("TmtProjectBundle:Project:new.html.twig")
      */
-    public function updateAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function updateAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $projectService = $this->get('tmt.project');
-        $entity = $projectService->get($projectId);;
+        $entity = $projectService->get($projectId);
 
         $form = $this->createForm(new ProjectType(), $entity);
         $form->bind($this->get('request'));
@@ -130,9 +141,11 @@ class ProjectController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function confirmAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function confirmAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         return array(
             'projectId' => $projectId
@@ -144,9 +157,11 @@ class ProjectController extends Controller {
      * @Method("POST")
      * @Template("TmtProjectBundle:Project:new.html.twig")
      */
-    public function removeAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function removeAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $project = $this->get('tmt.project');
         $project->remove(
