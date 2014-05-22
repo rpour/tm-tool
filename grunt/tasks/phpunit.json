@@ -1,0 +1,11 @@
+{
+    "classes": {
+        "dir": "<%= project_source %>/src"
+    },
+    "options": {
+        "bin"          : "<%= project_source %>/bin/phpunit",
+        "configuration": "<%= project_source %>/app/",
+        "colors"       : true,
+        "coverageHtml" : "../doc/coverage"
+    }
+}

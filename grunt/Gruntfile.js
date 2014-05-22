@@ -5,6 +5,7 @@ module.exports = function (g) {
     g.loadNpmTasks('grunt-phpcs');
     g.loadNpmTasks('grunt-phpmd');
     g.loadNpmTasks('grunt-phplint');
+    g.loadNpmTasks('grunt-phpunit');
 
     // FRONTEND
     g.loadNpmTasks('grunt-contrib-jshint');
@@ -42,8 +43,13 @@ module.exports = function (g) {
         /***********************************************************************
          * DEFINE TASK'S
          **********************************************************************/
+        // PHP
         phpcs       : g.file.readJSON('tasks/phpcs.json'),
         phpmd       : g.file.readJSON('tasks/phpmd.json'),
+        phplint     : g.file.readJSON('tasks/phplint.json'),
+        phpunit     : g.file.readJSON('tasks/phpunit.json'),
+
+
         clean       : g.file.readJSON('tasks/symfony/clean.json'),
         open        : g.file.readJSON('tasks/open.json'),
         copy        : g.file.readJSON('tasks/copy.json'),
@@ -56,7 +62,7 @@ module.exports = function (g) {
         autoprefixer: g.file.readJSON('tasks/autoprefixer.json'),
         compass     : g.file.readJSON('tasks/compass.json'),
         files_check : g.file.readJSON('tasks/files-check.json'),
-        phplint     : g.file.readJSON('tasks/phplint.json'),
+
         uglify      : g.file.readJSON('tasks/uglify.json'),
         watch       : g.file.readJSON('tasks/watch.json'),
         /* WATCHOUT: Customize the shell.json file
@@ -75,6 +81,13 @@ module.exports = function (g) {
         'autoprefixer',
         'shell:symlinks',
         'watch'
+   ]);
+
+    g.registerTask('test', [
+        // 'phpcs',
+        // 'phpmd',
+        'phplint',
+        'phpunit'
    ]);
 
     // g.registerTask('build', [
