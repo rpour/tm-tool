@@ -14,14 +14,16 @@ use Tmt\TestCaseBundle\Component\TestCasePdf;
 /**
  * @Route("/project/{projectId}/testcase")
  */
-class TestCaseController extends Controller {
+class TestCaseController extends Controller
+{
 
     /**
      * @Route("/", name="tmt_testcase_index")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($projectId) {
+    public function indexAction($projectId)
+    {
         $testcaseService = $this->get('tmt.testcase');
         $testService = $this->get('tmt.test');
         $testcases = $testcaseService->getAll();
