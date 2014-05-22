@@ -29,7 +29,7 @@ class TestCasePdf extends \TCPDF {
         $this->filename = preg_replace('/\W/', '', strtolower($projectName)) . date('_Y-m-d') . '.pdf';
     }
 
-    public function h1($headline) {
+    public function header1($headline) {
         $cell = $this->pdf->getCell();
         $cell
             ->ln()
@@ -38,7 +38,7 @@ class TestCasePdf extends \TCPDF {
             ->draw()->ln();
     }
 
-    public function h2($headline) {
+    public function header2($headline) {
         $cell = $this->pdf->getCell();
         $cell
             ->ln()

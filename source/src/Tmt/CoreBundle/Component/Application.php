@@ -7,7 +7,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Tmt\CoreBundle\Event\ApplicationEvent;
 
-class Application {
+class Application
+{
     private $container;
     private $data;
     private $dataEnd;
@@ -16,10 +17,10 @@ class Application {
     private $action;
     private $route;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
 
-        // get controller information
         $controllerInfo = $container->get('request')->get('_controller');
 
         $this->bundle     = $this->parse("/\\\([\w]*)Bundle\\\/i", $controllerInfo);
@@ -36,54 +37,67 @@ class Application {
         $container->get('event_dispatcher')->dispatch('application.integration', $event);
     }
 
-    public function add($type, $key, $data, $role = null) {
-        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role))
+    public function add($type, $key, $data, $role = null)
+    {
+        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role)) {
             return $this;
+        }
 
-        if (isset($data['path']) && $data['path'] === $this->route)
+        if (isset($data['path']) && $data['path'] === $this->route) {
             $data['action_act'] = true;
+        }
 
         $this->data[$type][$key] = $data;
         return $this;
     }
 
-    public function append($type, $key, $data, $role = null) {
-        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role))
+    public function append($type, $key, $data, $role = null)
+    {
+        if (!is_null($role) && false === $this->container->get('security.context')->isGranted($role)) {
             return $this;
+        }
 
-        if (isset($data['path']) && $data['path'] === $this->route)
+        if (isset($data['path']) && $data['path'] === $this->route) {
             $data['action_act'] = true;
+        }
 
         $this->dataEnd[$type][$key] = $data;
         return $this;
     }
 
-    public function get($type, $key = null) {
+    public function get($type, $key = null)
+    {
         $merged = array_merge_recursive($this->data, $this->dataEnd);
 
-        if (is_null($key))
+        if (is_null($key)) {
             return isset($merged[$type]) ? $merged[$type] : array();
+        }
 
         return isset($merged[$type][$key]) ? $merged[$type][$key] : '';
     }
 
-    public function bundleIs($bundle) {
+    public function bundleIs($bundle)
+    {
         return ($this->bundle === $bundle);
     }
 
-    public function controllerIs($controller) {
+    public function controllerIs($controller)
+    {
         return ($this->controller === $controller);
     }
 
-    public function actionIs($action) {
+    public function actionIs($action)
+    {
         return ($this->action === $action);
     }
 
-    public function routeIs($route) {
+    public function routeIs($route)
+    {
         return ($this->route === $route);
     }
 
-    private function parse($regex, $string) {
+    private function parse($regex, $string)
+    {
         $matches = array();
 
         preg_match($regex, $string, $matches);
