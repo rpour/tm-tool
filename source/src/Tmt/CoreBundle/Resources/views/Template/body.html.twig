@@ -14,17 +14,6 @@
         <a href="{{ path('tmt_logout') }}">
             <span class="icon-power-off"></span>
         </a>
-        {% else %}
-        <form action="{{ path('tmt_login_check') }}" method="post">
-            <span class="icon-user"></span>
-            <input type="text" name="_username" value="" />
-
-            <span class="icon-key"></span>
-            <input type="password" name="_password" />
-            <input type="hidden" name="_target_path" value="{{ app.request.uri }}" />
-
-            <button type="submit">login</button>
-        </form>
         {% endif %}
     </div>
     <header>

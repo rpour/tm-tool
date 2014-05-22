@@ -1,0 +1,19 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Login'|trans }}{% endblock %}
+
+{% block content %}
+    <form action="{{ path('tmt_login_check') }}" method="post">
+        <span class="icon-user"></span>
+        <input type="text" name="_username" value="" />
+
+        <span class="icon-key"></span>
+        <input type="password" name="_password" />
+        <input type="hidden" name="_target_path" value="{{ app.request.uri }}" />
+        <input type="hidden" name="_target_path" value="/" />
+
+        <button type="submit">login</button>
+    </form>
+{% endblock %}
+
+

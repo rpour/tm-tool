@@ -33,7 +33,7 @@ security:
             anonymous: ~
 
             form_login:
-                login_path: /
+                login_path: /login
                 check_path: /login/check
 
             logout:
@@ -41,4 +41,5 @@ security:
                 target: /
 
     access_control:
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
