@@ -8,72 +8,87 @@ use Symfony\Component\BrowserKit\Cookie;
 
 class ProjectControllerTest extends WebTestCase
 {
-    private $client = null;
-
-    public function __construct()
-    {
-        $this->client = static::createClient();
-        $session = $this->client->getContainer()->get('session');
-        $firewall = 'secured_area';
-        $session->set('_security_'.$firewall, serialize(
-            new UsernamePasswordToken('admin', null, $firewall, array('ROLE_ADMIN'))
-        ));
-        $session->save();
-        $this->client->getCookieJar()->set(
-            new Cookie($session->getName(), $session->getId())
-        );
-        // die($this->client->getResponse()->getContent());
-    }
+    // die($client->getResponse()->getContent());
+    // die((string)$client->getResponse()->getStatusCode());
 
     public function testIndex()
     {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $client = $this->login('guest', array('ROLE_USER'));
+        $crawler = $client->request('GET', '/');
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Projete")')->count());
     }
 
     public function testNew()
     {
-        $crawler = $this->client->request('GET', '/project/new');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $crawler = $this->client->submit(
+        // login as guest
+        $client = $this->login('guest', array('ROLE_USER'));
+
+        // 403 Forbidden for user
+        $crawler = $client->request('GET', '/project/new');
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+
+        $client = $this->login('admin', array('ROLE_PROJECT_ADMIN'));
+        $crawler = $client->request('GET', '/project/new');
+        $this->assertTrue($client->getResponse()->isSuccessful());
+
+        // fill out the form and send
+        $crawler = $client->submit(
             $crawler->selectButton('Speichern')->form(array(
                 'project[name]'     => 'PROJECT-NEW',
                 'project[template]' => '',
             ))
         );
-        $crawler = $this->client->followRedirect();
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("PROJECT-NEW")')->count());
     }
 
     public function testEdit()
     {
-        $crawler = $this->client->request('GET', '/');
-        $crawler = $this->client->click($crawler->selectLink('PROJECT-NEW')->link());
-        $crawler = $this->client->click($crawler->selectLink('bearbeiten')->link());
-        $crawler = $this->client->submit(
+        $client = $this->login('admin', array('ROLE_PROJECT_ADMIN'));
+        $crawler = $client->request('GET', '/');
+        $crawler = $client->click($crawler->selectLink('PROJECT-NEW')->link());
+        $crawler = $client->click($crawler->selectLink('bearbeiten')->link());
+        $crawler = $client->submit(
             $crawler->selectButton('Speichern')->form(array(
                 'project[name]'     => 'PROJECT-EDIT',
                 'project[template]' => '',
             ))
         );
-        $crawler = $this->client->followRedirect();
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("PROJECT-EDIT")')->count());
     }
 
-
     public function testDelete()
     {
-        $crawler = $this->client->request('GET', '/');
-        $crawler = $this->client->click($crawler->selectLink('PROJECT-EDIT')->link());
-        $crawler = $this->client->click($crawler->selectLink('löschen')->link());
+        $client = $this->login('admin', array('ROLE_PROJECT_ADMIN'));
+        $crawler = $client->request('GET', '/');
+        $crawler = $client->click($crawler->selectLink('PROJECT-EDIT')->link());
+        $crawler = $client->click($crawler->selectLink('löschen')->link());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Projekt wirklich löschen?")')->count());
-        $crawler = $this->client->submit(
+        $crawler = $client->submit(
             $crawler->selectButton('ja')->form()
         );
-        $crawler = $this->client->followRedirect();
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    }
+
+    public function login($username, $roles)
+    {
+        $client = static::createClient();
+
+        $session = $client->getContainer()->get('session');
+        $session->set('_security_secured_area', serialize(
+            new UsernamePasswordToken($username, null, 'secured_area', $roles)
+        ));
+        $session->save();
+
+        $client->getCookieJar()->set(
+            new Cookie($session->getName(), $session->getId())
+        );
+
+        return $client;
     }
 }

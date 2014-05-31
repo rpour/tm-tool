@@ -8,12 +8,14 @@ security:
             - ROLE_USER
             - ROLE_PROJECT_ADMIN
             - ROLE_TESTCASE_ADMIN
-        ROLE_SUPER_ADMIN:
-            - ROLE_USER
-            - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH
+        ROLE_PROJECT_ADMIN:
+            - ROLE_USER
         ROLE_TESTCASE_ADMIN:
+            - ROLE_USER
             - ROLE_TESTCASE_USER
+        ROLE_TESTCASE_USER:
+            - ROLE_USER
 
     providers:
         in_memory:
@@ -22,7 +24,6 @@ security:
                     admin:
                         password: test
                         roles: [ 'ROLE_ADMIN' ]
-
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
