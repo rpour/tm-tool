@@ -1,12 +1,17 @@
-.breadcrumb {
+nav {
     list-style: none;
     margin: 0;
     padding: 0;
-    height: 30px;
+    min-height: 30px;
     line-height: 30px;
     background-color: $light;
     border: 1px solid darken($light, 25%);
     @include border-top-radius(4px);
+}
+
+.breadcrumb {
+    margin: 0;
+    padding: 0;
 
     & > li {
         padding: 0 5px;

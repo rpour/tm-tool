@@ -63,7 +63,7 @@ class Testcase {
     private $title;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $lastState;
 

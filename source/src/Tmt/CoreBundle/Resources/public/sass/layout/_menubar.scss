@@ -2,11 +2,12 @@ $menubar-height: 40px;
 $menubar-border: 5px;
 
 .menu {
-    height: $menubar-height;
+    min-height: $menubar-height;
     line-height: $menubar-height;
     background-color: $base;
     border-top: $menubar-border solid darken($base, 15%);
     color: white;
+    @include border-radius(0);
     @include border-bottom-radius(4px);
     @include box-shadow(
         inset 1px 0px 0px darken($base, 5%),

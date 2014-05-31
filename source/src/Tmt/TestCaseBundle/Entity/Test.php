@@ -43,7 +43,7 @@ class Test {
     private $username;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $userAgent;
 

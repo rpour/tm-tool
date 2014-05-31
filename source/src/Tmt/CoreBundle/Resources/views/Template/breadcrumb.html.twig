@@ -21,6 +21,7 @@
             {% else %}
             {{ item.label|trans }}
             {% endif %}
+            <div class="clear"></div>
         </li>
         {% if not loop.last %}
         <li>&gt;</li>
@@ -28,3 +29,4 @@
     {% endif %}
 {% endfor %}
 </ul>
+<div class="clear"></div>
