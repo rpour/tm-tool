@@ -5,18 +5,20 @@ namespace Tmt\ProjectBundle\EventListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tmt\CoreBundle\Event\ApplicationEvent;
 
-
-class ApplicationListener {
+class ApplicationListener
+{
     protected $container;
     protected $application;
     protected $projectId;
     protected $project;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
-    public function onIntegration(ApplicationEvent $event) {
+    public function onIntegration(ApplicationEvent $event)
+    {
         $this->application = $event->getApplication();
         $this->projectId = $this->container->get('request')->get('projectId', 0);
 
@@ -24,7 +26,8 @@ class ApplicationListener {
         $this->buildMenuBar();
     }
 
-    private function buildBreadcrumb() {
+    private function buildBreadcrumb()
+    {
         /***********************************************************************
          * BREADCRUMB
          **********************************************************************/
@@ -59,7 +62,8 @@ class ApplicationListener {
         }
     }
 
-    private function buildMenuBar() {
+    private function buildMenuBar()
+    {
         /***********************************************************************
          * MENU-BAR
          **********************************************************************/
@@ -72,7 +76,7 @@ class ApplicationListener {
                 'class' => 'icon-file-o'
             ), 'ROLE_PROJECT_ADMIN');
 
-        } else if ($this->application->routeIs('tmt_project_show')) {
+        } elseif ($this->application->routeIs('tmt_project_show')) {
             $this->application
             ->add('tmt-menubar-label', 'label', $this->project->getName())
             ->add('tmt-menubar', 'project.edit', array(
@@ -87,7 +91,7 @@ class ApplicationListener {
                 'label' => 'löschen',
                 'class' => 'icon-trash-o'
             ), 'ROLE_PROJECT_ADMIN');
-        } else if ($this->application->routeIs('tmt_project_confirm')) {
+        } elseif ($this->application->routeIs('tmt_project_confirm')) {
             $this->application
                 ->add('tmt-menubar-label', 'label', $this->project->getName());
         }

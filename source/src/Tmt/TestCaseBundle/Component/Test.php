@@ -8,21 +8,25 @@ use Tmt\CoreBundle\Component\EntityManipulation;
 use Tmt\CoreBundle\Event\EntityEvent;
 use Tmt\TestCaseBundle\Entity\Test as TestEntity;
 
-class Test extends EntityManipulation {
+class Test extends EntityManipulation
+{
     protected $repository = 'TmtTestCaseBundle:Test';
     protected $testcaseId;
 
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         parent::__construct($container);
     }
 
-    public function setTestCaseId($testcaseId = null) {
+    public function setTestCaseId($testcaseId = null)
+    {
         $this->testcaseId = is_null($testcaseId)
             ? $this->container->get('request')->get('testcaseId', 0)
             : $testcaseId;
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->repo
             ->createQueryBuilder('m')
             ->where($this->qb->expr()->eq('m.testcaseId', ':testcaseId'))
@@ -32,9 +36,11 @@ class Test extends EntityManipulation {
             ->getResult();
     }
 
-    public function getPassedCount($testcaseId = null) {
-        if (!is_null($testcaseId))
+    public function getPassedCount($testcaseId = null)
+    {
+        if (!is_null($testcaseId)) {
             $this->testcaseId = $testcaseId;
+        }
 
         $passed = (int)$this->repo
             ->createQueryBuilder('m')
@@ -69,9 +75,12 @@ class Test extends EntityManipulation {
         );
     }
 
-    public function create() {
+    public function create($projectId)
+    {
         $result = array();
         $testcaseService = $this->container->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
+
         $testcaseEntity = $testcaseService->get($this->testcaseId);
         $testcaseData = json_decode($testcaseEntity->getData());
 
@@ -81,7 +90,7 @@ class Test extends EntityManipulation {
         $testcaseErrors = 0;
         $passed = 0;
 
-        for($i=0; $i<count($data);$i++) {
+        for ($i=0; $i<count($data); $i++) {
             $testcaseData[$i]['passed'] = 0;
 
             if ($data[$i+1]['passed']) {
@@ -120,7 +129,6 @@ class Test extends EntityManipulation {
             $result['errors'] = $validator->validate($test);
         }
 
-        $testcaseEntity->setData(json_encode($testcaseData));
         $result['testcase'] = $testcaseEntity;
 
         if (count($result['errors']) === 0) {
@@ -137,7 +145,8 @@ class Test extends EntityManipulation {
         return $result;
     }
 
-    public function removeByTestcaseId($testcaseId) {
+    public function removeByTestcaseId($testcaseId)
+    {
         $tests = $this->repo
             ->createQueryBuilder('m')
             ->where($this->qb->expr()->eq('m.testcaseId', ':testcaseId'))

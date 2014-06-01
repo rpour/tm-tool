@@ -12,14 +12,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * @Route("/project/{projectId}/test/{testcaseId}")
  */
-class TestController extends Controller {
+class TestController extends Controller
+{
 
     /**
      * @Route("/", name="tmt_test_index")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($testcaseId) {
+    public function indexAction($testcaseId)
+    {
         $testService = $this->get('tmt.test');
         $testService->setTestCaseId($testcaseId);
 
@@ -33,12 +35,18 @@ class TestController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function runAction($projectId, $testcaseId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER'))
+    public function runAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER')) {
             throw new AccessDeniedException();
+        }
 
         $testcaseService = $this->get('tmt.testcase');
         $testcaseService->setProjectId($projectId);
+
+        $data = $testcaseService->get($testcaseId);
+
+        // die('<pre>' . print_r(json_decode($data->getData()), 1) . '</pre>');
 
         return array(
             'testcase' => $testcaseService->get($testcaseId)
@@ -50,18 +58,24 @@ class TestController extends Controller {
      * @Method("POST")
      * @Template("TmtTestCaseBundle:Test:run.html.twig")
      */
-    public function createAction($projectId, $testcaseId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER'))
+    public function createAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_USER')) {
             throw new AccessDeniedException();
+        }
 
         $testService = $this->get('tmt.test');
         $testService->setTestCaseId($testcaseId);
 
-        $result = $testService->create();
+        $result = $testService->create($projectId);
 
         if (count($result['errors']) === 0) {
-            return $this->redirect($this->generateUrl(
-                'tmt_testcase_index', array('projectId' => $projectId)));
+            return $this->redirect(
+                $this->generateUrl(
+                    'tmt_testcase_index',
+                    array('projectId' => $projectId)
+                )
+            );
         }
 
         return array(
@@ -76,9 +90,11 @@ class TestController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function confirmAction($projectId, $testcaseId, $testId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function confirmAction($projectId, $testcaseId, $testId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         return array(
             'projectId'  => $projectId,
@@ -92,17 +108,23 @@ class TestController extends Controller {
      * @Route("/remove/{testId}", name="tmt_test_remove")
      * @Method("POST")
      */
-    public function removeAction($projectId, $testcaseId, $testId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function removeAction($projectId, $testcaseId, $testId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $testService = $this->get('tmt.test');
         $testService->remove($testService->get($testId));
 
-        return $this->redirect($this->generateUrl(
-            'tmt_test_index', array(
-                'projectId' => $projectId,
-                'testcaseId' => $testcaseId
-            )));
+        return $this->redirect(
+            $this->generateUrl(
+                'tmt_test_index',
+                array(
+                    'projectId' => $projectId,
+                    'testcaseId' => $testcaseId
+                )
+            )
+        );
     }
 }

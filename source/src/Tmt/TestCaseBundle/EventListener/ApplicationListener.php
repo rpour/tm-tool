@@ -5,19 +5,21 @@ namespace Tmt\TestCaseBundle\EventListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tmt\CoreBundle\Event\ApplicationEvent;
 
-
-class ApplicationListener {
+class ApplicationListener
+{
     protected $container;
     protected $application;
     protected $testcaseId;
     protected $project;
     protected $testcase;
 
-    public function __construct(ContainerInterface $container) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
 
-    public function onIntegration(ApplicationEvent $event) {
+    public function onIntegration(ApplicationEvent $event)
+    {
         $this->application = $event->getApplication();
         $this->testcaseId = $this->container->get('request')->get('testcaseId', 0);
 
@@ -32,7 +34,8 @@ class ApplicationListener {
 
     }
 
-    private function buildBreadcrumb() {
+    private function buildBreadcrumb()
+    {
         /***********************************************************************
          * BREADCRUMB
          **********************************************************************/
@@ -72,7 +75,8 @@ class ApplicationListener {
 
     }
 
-    private function buildMenuBar() {
+    private function buildMenuBar()
+    {
         /***********************************************************************
          * MENU-BAR
          **********************************************************************/
@@ -92,7 +96,7 @@ class ApplicationListener {
                     'class' => 'icon-file-o'
                 ), 'ROLE_TESTCASE_ADMIN');
 
-        } else if ($this->application->routeIs('tmt_test_index')) {
+        } elseif ($this->application->routeIs('tmt_test_index')) {
             $this->application
                 ->add('tmt-menubar-label', 'label', $this->testcase->getTitle())
                 ->add('tmt-menubar', 'testcase.run', array(
@@ -111,11 +115,11 @@ class ApplicationListener {
                     'class' => 'icon-mail-reply'
                 ));
 
-        } else if ($this->application->routeIs('tmt_testcase_new')) {
+        } elseif ($this->application->routeIs('tmt_testcase_new')) {
             $this->application
                 ->add('tmt-menubar-label', 'label', 'Neuer Testfall');
 
-        } else if ($this->application->routeIs('tmt_testcase_edit')) {
+        } elseif ($this->application->routeIs('tmt_testcase_edit')) {
             $this->application
                 ->add('tmt-menubar-label', 'label', 'Testfall bearbeiten')
                 ->add('tmt-menubar', 'testcase.remove', array(
@@ -128,7 +132,7 @@ class ApplicationListener {
                     'class' => 'icon-trash-o'
                 ));
 
-        } else if ($this->application->routeIs('tmt_test_run')) {
+        } elseif ($this->application->routeIs('tmt_test_run')) {
             $this->application
                 ->add('tmt-menubar-label', 'label', 'Test: ' . $this->testcase->getTitle());
         }

@@ -5,8 +5,10 @@ namespace Tmt\ProjectBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProjectType extends AbstractType {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+class ProjectType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
             ->add('name', 'text', array(
                 'label'  => 'Projektname'
@@ -16,7 +18,8 @@ class ProjectType extends AbstractType {
             ));
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'project';
     }
 }

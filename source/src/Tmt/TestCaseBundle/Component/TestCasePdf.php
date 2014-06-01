@@ -5,13 +5,15 @@ namespace Tmt\TestCaseBundle\Component;
 use Tmt\CoreBundle\Component\PDFIcons;
 use Tmt\CoreBundle\Component\PDF\PDFBuilder;
 
-class TestCasePdf extends \TCPDF {
+class TestCasePdf extends \TCPDF
+{
     private $pdf;
     private $filename;
     private $iconFontPath;
     private $backgroundRow = 0;
 
-    public function __construct($projectName, $iconFontPath) {
+    public function __construct($projectName, $iconFontPath)
+    {
         parent::__construct('P', 'mm', 'A4', true, 'UTF-8', false, false);
 
         $this->pdf = new PDFBuilder();
@@ -29,7 +31,8 @@ class TestCasePdf extends \TCPDF {
         $this->filename = preg_replace('/\W/', '', strtolower($projectName)) . date('_Y-m-d') . '.pdf';
     }
 
-    public function header1($headline) {
+    public function header1($headline)
+    {
         $cell = $this->pdf->getCell();
         $cell
             ->ln()
@@ -38,7 +41,8 @@ class TestCasePdf extends \TCPDF {
             ->draw()->ln();
     }
 
-    public function header2($headline) {
+    public function header2($headline)
+    {
         $cell = $this->pdf->getCell();
         $cell
             ->ln()
@@ -47,11 +51,13 @@ class TestCasePdf extends \TCPDF {
             ->draw()->ln();
     }
 
-    public function drawTestcase($state, $title, $testCount) {
+    public function drawTestcase($state, $title, $testCount)
+    {
         $backgroundColor = 'FAFFF9';
 
-        if (($this->backgroundRow = !$this->backgroundRow))
+        if (($this->backgroundRow = !$this->backgroundRow)) {
             $backgroundColor = 'F2F7F2';
+        }
 
         $cell = $this->pdf->getCell();
         $cell
@@ -61,10 +67,15 @@ class TestCasePdf extends \TCPDF {
             ->setWidth(8)
             ->setAlign('C');
 
-        if ($state)
-            $cell->setColor('4AB471')->setText('::icon::icon-check');
-        else
-            $cell->setColor('CF5C60')->setText('::icon::icon-warning');
+        $color = 'CF5C60';
+        $text  = '::icon::icon-warning';
+
+        if ($state) {
+            $color = '4AB471';
+            $text  = '::icon::icon-check';
+        }
+
+        $cell->setColor($color)->setText($text);
 
         $cell
             ->draw()->clear()
@@ -85,11 +96,13 @@ class TestCasePdf extends \TCPDF {
             ->draw()->ln();
     }
 
-    public function drawTest($state, $date, $user, $version) {
+    public function drawTest($state, $date, $user, $version)
+    {
         $backgroundColor = 'FAFFF9';
 
-        if (($this->backgroundRow = !$this->backgroundRow))
+        if (($this->backgroundRow = !$this->backgroundRow)) {
             $backgroundColor = 'F2F7F2';
+        }
 
         $cell = $this->pdf->getCell();
         $cell
@@ -99,10 +112,15 @@ class TestCasePdf extends \TCPDF {
             ->setWidth(8)
             ->setAlign('C');
 
-        if ($state)
-            $cell->setColor('4AB471')->setText('::icon::icon-check');
-        else
-            $cell->setColor('CF5C60')->setText('::icon::icon-warning');
+        $color = 'CF5C60';
+        $text  = '::icon::icon-warning';
+
+        if ($state) {
+            $color = '4AB471';
+            $text  = '::icon::icon-check';
+        }
+
+        $cell->setColor($color)->setText($text);
 
         $cell
             ->draw()->clear()
@@ -121,7 +139,8 @@ class TestCasePdf extends \TCPDF {
         ->ln();
     }
 
-    public function download() {
+    public function download()
+    {
         $this->pdf->raw->Output($this->filename, 'D');
     }
 }

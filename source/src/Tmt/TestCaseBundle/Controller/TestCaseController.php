@@ -16,7 +16,6 @@ use Tmt\TestCaseBundle\Component\TestCasePdf;
  */
 class TestCaseController extends Controller
 {
-
     /**
      * @Route("/", name="tmt_testcase_index")
      * @Method("GET")
@@ -25,8 +24,9 @@ class TestCaseController extends Controller
     public function indexAction($projectId)
     {
         $testcaseService = $this->get('tmt.testcase');
-        $testService = $this->get('tmt.test');
-        $testcases = $testcaseService->getAll();
+        $testcaseService->setProjectId($projectId);
+        $testService     = $this->get('tmt.test');
+        $testcases       = $testcaseService->getAll();
 
         $count = array();
         foreach ($testcases as $testcase) {
@@ -39,6 +39,7 @@ class TestCaseController extends Controller
         }
 
         return array(
+            'projectId'  => $projectId,
             'testcases' => $testcases,
             'count' => $count
         );
@@ -49,11 +50,13 @@ class TestCaseController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function newAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
-        return array();
+        return array('projectId' => $projectId);
     }
 
     /**
@@ -61,18 +64,29 @@ class TestCaseController extends Controller
      * @Method("POST")
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
-    public function createAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function createAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $testcaseService = $this->get('tmt.testcase');
-        $errors = $testcaseService->create();
+        $testcaseService->setProjectId($projectId);
+        $errors          = $testcaseService->create();
 
-        if (count($errors) === 0)
-            return $this->redirect($this->generateUrl(
-                'tmt_testcase_index', array('projectId' => $projectId)));
+        if (count($errors) === 0) {
+            return $this->redirect(
+                $this->generateUrl(
+                    'tmt_testcase_index',
+                    array('projectId' => $projectId)
+                )
+            );
+        }
 
-        return array('errors' => (string)$errors);
+        return array(
+            'projectId'  => $projectId,
+            'errors' => (string)$errors
+        );
     }
 
     /**
@@ -80,15 +94,19 @@ class TestCaseController extends Controller
      * @Method("GET")
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
-    public function editAction($projectId, $testcaseId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function editAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
 
         return array(
-            'update'   => true,
-            'testcase' => $testcaseService->get($testcaseId)
+            'projectId' => $projectId,
+            'update'    => true,
+            'testcase'  => $testcaseService->get($testcaseId)
         );
     }
 
@@ -97,21 +115,31 @@ class TestCaseController extends Controller
      * @Method("POST")
      * @Template("TmtTestCaseBundle:TestCase:new.html.twig")
      */
-    public function updateAction($projectId, $testcaseId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function updateAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
+
         $errors = $testcaseService->update($testcaseId);
 
-        if (count($errors) === 0)
-            return $this->redirect($this->generateUrl(
-                'tmt_testcase_index', array('projectId' => $projectId)));
+        if (count($errors) === 0) {
+            return $this->redirect(
+                $this->generateUrl(
+                    'tmt_testcase_index',
+                    array('projectId' => $projectId)
+                )
+            );
+        }
 
         return array(
-            'update'   => true,
-            'error'    => $errors,
-            'testcase' => $testcaseService->get($testcaseId)
+            'projectId' => $projectId,
+            'update'    => true,
+            'error'     => $errors,
+            'testcase'  => $testcaseService->get($testcaseId)
         );
     }
 
@@ -121,40 +149,55 @@ class TestCaseController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function confirmAction($projectId, $projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function confirmAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
-        return array();
+        return array(
+            'projectId'  => $projectId,
+            'testcaseId' => $testcaseId,
+        );
     }
 
     /**
      * @Route("/remove/{testcaseId}", name="tmt_testcase_remove")
      * @Method("POST")
      */
-    public function removeAction($projectId, $testcaseId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN'))
+    public function removeAction($projectId, $testcaseId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
         $testcaseService = $this->get('tmt.testcase');
+        $testcaseService->setProjectId($projectId);
         $testcaseService->remove($testcaseService->get($testcaseId));
 
-        return $this->redirect($this->generateUrl(
-            'tmt_testcase_index', array('projectId' => $projectId)));
+        return $this->redirect(
+            $this->generateUrl(
+                'tmt_testcase_index',
+                array('projectId' => $projectId)
+            )
+        );
     }
 
     /**
      * @Route("/pdf", name="tmt_testcase_pdf")
      * @Method("GET")
      */
-    public function pdfAction($projectId) {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN'))
+    public function pdfAction($projectId)
+    {
+        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
             throw new AccessDeniedException();
+        }
 
-        $projectService = $this->get('tmt.project');
+        $projectService  = $this->get('tmt.project');
         $testcaseService = $this->get('tmt.testcase');
-        $testService = $this->get('tmt.test');
-        $project = $projectService->get($projectId);
+        $testcaseService->setProjectId($projectId);
+        $testService     = $this->get('tmt.test');
+        $project         = $projectService->get($projectId);
 
         $testcasesArray = array();
         $testcases = $testcaseService->getAll();
@@ -205,63 +248,5 @@ class TestCaseController extends Controller
         }
 
         $pdf->download();
-
-        // $pdf->SetTitle($project->getName());
-        // $pdf->setIconFontFile($this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf');
-
-        // $pdf->SetFontSize(25);
-        // $pdf->Cell(0, 15, $project->getName(), 0, 0, 'L');
-        // $pdf->SetFontSize(14);
-        // $pdf->Cell(0, 15, date('d.m.Y'), 0, 1, 'R');
-
-        // $pdf->_setFontSize(14);
-
-        // foreach ($testcases as $testcase) {
-        //     $testService->setTestCaseId($testcase->getId());
-        //     $tests = $testService->getAll();
-
-        //     $pdf->drawTestCase(
-        //         $testcase->getLastState(),
-        //         $testcase->getTitle(),
-        //         count($tests)
-        //     );
-
-        //     $testcasesArray[] = array(
-        //         'case' => $testcase,
-        //         'tests' => $tests
-        //     );
-        // }
-
-        // unset($testcase, $test);
-
-        // $pdf->Ln(8);
-        // $pdf->SetFontSize(10);
-
-        // foreach ($testcasesArray as $testcase) {
-        //     $pdf->_write($testcase['case']->getTitle(), 0);
-        //     $pdf->Ln(8);
-
-        //     foreach ($testcase['tests'] as $test) {
-        //         $data = json_decode($test->getData());
-
-        //         if ($test->getPassed())
-        //             $pdf->_icon('icon-check', '4AB471');
-        //         else
-        //             $pdf->_icon('icon-warning', 'CF5C60');
-
-        //         $date = $test->getDate();
-        //         $pdf->_write($date->format('d.m.Y'), 40);
-
-        //         $pdf->_icon('icon-user');
-        //         $pdf->_write($test->getUsername(), 40);
-
-        //         $pdf->_write($data->version, 30, null, 'R');
-
-        //         $pdf->Ln(8);
-        //     }
-        //      $pdf->Ln(8);
-        // }
-
-        // $pdf->Output($filename, 'D');
     }
 }

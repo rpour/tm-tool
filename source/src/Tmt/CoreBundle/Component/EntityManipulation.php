@@ -23,6 +23,9 @@ class EntityManipulation
 
     public function get($id)
     {
+        // $data = $this->repo->findOneById($id);
+
+        // die('<pre>' . print_r($data, 1) . '</pre>');
         return $this->repo->findOneById($id);
     }
 

@@ -10,7 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="tmt_project")
  * @ORM\Entity
  */
-class Project {
+class Project
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

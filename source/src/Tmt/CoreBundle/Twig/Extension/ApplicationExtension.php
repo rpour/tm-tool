@@ -5,25 +5,31 @@ namespace Tmt\CoreBundle\Twig\Extension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApplicationExtension extends \Twig_Extension {
+class ApplicationExtension extends \Twig_Extension
+{
     protected $container;
 
-    public function __construct(ContainerInterface $container) {
-        if ($container->isScopeActive('request'))
+    public function __construct(ContainerInterface $container)
+    {
+        if ($container->isScopeActive('request')) {
             $this->container = $container;
+        }
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             'applicationGet' => new \Twig_Function_Method($this, 'applicationGet')
         );
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'application_extension';
     }
 
-    public function applicationGet($type, $key = null) {
+    public function applicationGet($type, $key = null)
+    {
         $application = $this->container->get('tmt.application');
         return $application->get($type, $key);
     }

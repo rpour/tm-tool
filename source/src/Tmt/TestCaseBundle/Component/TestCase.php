@@ -8,20 +8,24 @@ use Tmt\CoreBundle\Component\EntityManipulation;
 use Tmt\TestCaseBundle\Entity\Testcase as TestcaseEntity;
 use Tmt\CoreBundle\Event\EntityEvent;
 
-class TestCase extends EntityManipulation {
+class TestCase extends EntityManipulation
+{
     protected $repository = 'TmtTestCaseBundle:Testcase';
     protected $projectId;
 
 
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         parent::__construct($container);
     }
 
-    public function setProjectId() {
+    public function setProjectId()
+    {
         $this->projectId = $this->container->get('request')->get('projectId');
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         return $this->repo
             ->createQueryBuilder('m')
             ->where($this->qb->expr()->eq('m.projectId', ':projectId'))
@@ -30,26 +34,31 @@ class TestCase extends EntityManipulation {
             ->getResult();
     }
 
-    public function create() {
+    public function create()
+    {
         $entity = new TestcaseEntity();
         $entity->setLastState(false);
         return $this->saveEntity($entity);
     }
 
-    public function update($testcaseId) {
+    public function update($testcaseId)
+    {
         return $this->saveEntity($this->get($testcaseId));
     }
 
-    private function saveEntity($testcase) {
+    private function saveEntity($testcase)
+    {
         $data = $this->container->get('request')->request->get('testcase');
 
         // normalize data
         if (is_array($data['data'])) {
             $newData = array();
 
-            for($i=0; $i<count($data['data']); $i=$i+2)
-                if (isset($data['data'][$i]))
+            for ($i=0; $i<count($data['data']); $i=$i+2) {
+                if (isset($data['data'][$i])) {
                     $newData[] = array($data['data'][$i], $data['data'][$i+1]);
+                }
+            }
 
             $data['data'] = $newData;
             unset($newData);
@@ -68,13 +77,15 @@ class TestCase extends EntityManipulation {
         $validator = $this->container->get('validator');
         $errors = $validator->validate($testcase);
 
-        if (count($errors) === 0)
+        if (count($errors) === 0) {
             $this->save($testcase);
+        }
 
         return $errors;
     }
 
-    public function removeByProjectId($projectId) {
+    public function removeByProjectId($projectId)
+    {
         $testcases = $this->repo
             ->createQueryBuilder('m')
             ->where($this->qb->expr()->eq('m.projectId', ':projectId'))

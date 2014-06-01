@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tmt_test")
  * @ORM\Entity
  */
-class Test {
+class Test
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
