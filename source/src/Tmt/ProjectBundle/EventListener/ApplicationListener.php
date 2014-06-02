@@ -36,7 +36,8 @@ class ApplicationListener
         if ($this->application->bundleIs('project') || $this->projectId) {
             $this->application->add('breadcrumb', 'project', array(
                 'path'  => 'tmt_project_index',
-                'label' => 'Projekt'
+                'label' => 'Projekt',
+                'class' => 'icon-home'
             ));
         }
 
