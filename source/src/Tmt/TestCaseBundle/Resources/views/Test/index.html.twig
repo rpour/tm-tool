@@ -16,6 +16,13 @@
     </td>
     <td>{{ test.username }}</td>
     <td class="hide-on-media-change">{{ test.date|date('Y-m-d H:i') }}</td>
+    <td>
+        {% if test.userAgent.id is defined %}
+        {% set icon = test.userAgent.json|json_decode %}
+        <span class="icon-{{ icon.iconOs }}" title="{{ icon.os ~ ' ' ~ icon.osVersion }}"></span>
+        <span class="icon-{{ icon.iconBrowser }}" title="{{ icon.browser ~ ' ' ~ icon.browserVersion }}"></span>
+        {% endif %}
+    </td>
     <td>{{ data.version }}</td>
     {% if is_granted('ROLE_TESTCASE_ADMIN') %}
     <td class="testcase-index-icon align-center">
@@ -29,6 +36,19 @@
     </td>
     {% endif %}
 </tr>
+{% if test.userAgent.id is not defined %}
+<tr>
+    <td colspan="5" style="font-size: 10px">
+        <a href="{{ path('tmt_useragent_edit', {
+            'projectId': projectId,
+            'hash': test.userAgent|md5
+        }) }}">
+            {{ test.userAgent }}
+        </a>
+
+    </td>
+</tr>
+{% endif %}
 {% endfor %}
 </table>
 {% endblock %}

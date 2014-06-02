@@ -17,7 +17,7 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand
         ->setName('tmt:generate:pdficons');
     }
 
-    protected function execute(OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->write('Start ... ');
         $rootPath = $this->getContainer()->get('kernel')->getRootDir();

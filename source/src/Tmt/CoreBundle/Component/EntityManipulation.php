@@ -3,6 +3,7 @@
 namespace Tmt\CoreBundle\Component;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Tmt\CoreBundle\Event\EntityEvent;
 
@@ -23,9 +24,6 @@ class EntityManipulation
 
     public function get($id)
     {
-        // $data = $this->repo->findOneById($id);
-
-        // die('<pre>' . print_r($data, 1) . '</pre>');
         return $this->repo->findOneById($id);
     }
 
@@ -71,5 +69,12 @@ class EntityManipulation
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         return $user->getUsername();
+    }
+
+    public function redirect($name, $params = array())
+    {
+        return new RedirectResponse(
+            $this->container->get('router')->generate($name, $params)
+        );
     }
 }

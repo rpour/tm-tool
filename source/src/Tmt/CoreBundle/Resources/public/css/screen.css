@@ -1176,6 +1176,27 @@ nav {
   background-color: #f8e6e7;
 }
 
+/* line 1, ../sass/layout/_useragent.scss */
+
+.useragent-form-row {
+  width: 300px;
+  margin: 2px auto;
+}
+
+/* line 6, ../sass/layout/_useragent.scss */
+
+.useragent-form-row > label {
+  display: block;
+  width: 150px;
+  float: left;
+}
+
+/* line 12, ../sass/layout/_useragent.scss */
+
+.useragent-form-row > label ~ * {
+  width: 150px;
+}
+
 /* line 1, ../sass/bundles/_testcase.scss */
 
 .testcase-index {

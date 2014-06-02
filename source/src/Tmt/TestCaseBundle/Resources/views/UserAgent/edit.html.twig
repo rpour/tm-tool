@@ -1,0 +1,42 @@
+{% extends 'TmtCoreBundle:Template:body.html.twig' %}
+
+{% block title %}{{ 'Useragent'|trans }}{% endblock %}
+
+{% block content %}
+<form action="{{ path('tmt_useragent_create', {'projectId': projectId}) }}" method="post">
+    <input type="hidden" name="projectId" value="{{ projectId }}" />
+    <input type="hidden" name="hash" value="{{ hash }}" />
+    <div class="useragent-form-row">
+        <label>Betriebssystem:</label>
+        <select name="os">
+            <option></option>
+            <option>Windows</option>
+            <option>Mac OS</option>
+            <option>Ubuntu</option>
+        </select>
+    </div>
+    <div class="useragent-form-row">
+        <label>Version:</label>
+        <input type="text" name="osVersion" value="" />
+    </div>
+    <div class="useragent-form-row">
+        <label>Browser:</label>
+        <select name="browser">
+            <option></option>
+            <option>Firefox</option>
+            <option>Chrome</option>
+            <option>Internet Explorer</option>
+            <option>Safari</option>
+           <option>Opera</option>
+        </select>
+    </div>
+    <div class="useragent-form-row">
+        <label>Version:</label>
+        <input type="text" name="browserVersion" value="" />
+    </div>
+    <div class="useragent-form-row">
+        <label>&nbsp;</label>
+        <button type="submit">Speichern</button>
+    </div>
+</form>
+{% endblock %}

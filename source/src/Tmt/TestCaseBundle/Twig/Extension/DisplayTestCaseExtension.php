@@ -30,14 +30,27 @@ class DisplayTestCaseExtension extends \Twig_Extension
 
     public function displayTestCase($string)
     {
+        // URL
         preg_match_all("/(http:\/\/[^ \n\r]+)/i", $string, $matches);
 
-        if (isset($matches[1])) {
+        if (isset($matches[1]) && !empty($matches[1])) {
             foreach ($matches[1] as $url) {
                 $string = str_replace($url, "<a href=\"$url\" target=\"_BLANK\">$url</a>", $string);
             }
         }
+        unset($matches);
 
+        // B
+        preg_match_all("/(\[b\]([^\[]+)\[\/b\])/i", $string, $matches);
+
+        if (isset($matches[1]) && !empty($matches[1])) {
+            for ($i=0; $i < count($matches[1]); $i++) {
+                $string = str_replace($matches[1][$i], "<b>" . $matches[2][$i] . "</b>", $string);
+            }
+        }
+        unset($matches);
+
+        // BR
         $string = str_replace("\n", "<br/>", $string);
 
         return $string;

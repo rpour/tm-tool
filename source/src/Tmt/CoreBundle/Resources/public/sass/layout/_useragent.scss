@@ -1,0 +1,15 @@
+.useragent-form-row {
+    width: 300px;
+    margin: 2px auto;
+
+
+    & > label {
+        display: block;
+        width: 150px;
+        float: left;
+    }
+
+    & > label ~ * {
+        width: 150px;
+    }
+}

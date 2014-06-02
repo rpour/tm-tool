@@ -30,6 +30,7 @@
         <p class="fs1">{{ testcase.description|display_testcase }}</p>
     </div>
 
+    {% if testcase.precondition is not empty %}
     <div class="column half">
         <label>
             {% if testcase.preconditionId != 0 %}
@@ -43,7 +44,9 @@
         </label>
         <p class="fs1">{{ testcase.precondition }}</p>
     </div>
+    {% endif %}
 
+    {% if testcase.precondition is not empty %}
     <div class="column half">
         <label>
             {% if testcase.postconditionId is not empty %}
@@ -57,6 +60,7 @@
         </label>
         <p class="fs1">{{ testcase.postcondition }}</p>
     </div>
+    {% endif %}
 
     <div class="clear"></div>
 

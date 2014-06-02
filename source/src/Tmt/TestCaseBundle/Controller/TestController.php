@@ -20,13 +20,23 @@ class TestController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($testcaseId)
+    public function indexAction($projectId, $testcaseId)
     {
         $testService = $this->get('tmt.test');
         $testService->setTestCaseId($testcaseId);
+        $userAgentService = $this->get('tmt.useragent');
+
+        $tests = $testService->getAll();
+        for ($i=0; $i < count($tests); $i++) {
+            $userAgent = $userAgentService->get(md5($tests[$i]->getUserAgent()));
+            if (is_object($userAgent)) {
+                $tests[$i]->setUserAgent($userAgent);
+            }
+        }
 
         return array(
-            'tests' => $testService->getAll()
+            'projectId' => $projectId,
+            'tests'     => $tests
         );
     }
 

@@ -4,3 +4,6 @@ tmt_testcase:
 tmt_test:
     resource: "@TmtTestCaseBundle/Controller/TestController.php"
     type:     annotation
+tmt_useragent:
+    resource: "@TmtTestCaseBundle/Controller/UserAgentController.php"
+    type:     annotation

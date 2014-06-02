@@ -4,6 +4,7 @@
     <parameters>
         <parameter key="tmt.testcase.class">Tmt\TestCaseBundle\Component\TestCase</parameter>
         <parameter key="tmt.test.class">Tmt\TestCaseBundle\Component\Test</parameter>
+        <parameter key="tmt.useragent.class">Tmt\TestCaseBundle\Component\UserAgent</parameter>
         <parameter key="tmt.testcase.application.listener.class">Tmt\TestCaseBundle\EventListener\ApplicationListener</parameter>
         <parameter key="tmt.testcase.entity.listener.class">Tmt\TestCaseBundle\EventListener\EntityListener</parameter>
         <parameter key="tmt.display.test.case.extension.class">Tmt\TestCaseBundle\Twig\Extension\DisplayTestCaseExtension</parameter>
@@ -18,6 +19,9 @@
             <argument type="service" id="service_container" />
             <call method="setProjectId"></call>
         </service>
+        <service id="tmt.useragent" class="%tmt.useragent.class%">
+            <argument type="service" id="service_container" />
+        </service>
         <service id="tmt.testcase.application.listener" class="%tmt.testcase.application.listener.class%">
             <tag name="kernel.event_listener" event="application.integration" method="onIntegration" />
             <argument type="service" id="service_container" />
@@ -26,6 +30,7 @@
             <tag name="kernel.event_listener" event="entity.remove" method="onEntityRemove" />
             <argument type="service" id="service_container" />
         </service>
+        <!-- TWIG -->
         <service id="tmt.twig.display.test.case" class="%tmt.display.test.case.extension.class%">
             <argument type="service" id="service_container" />
             <tag name="twig.extension" />
