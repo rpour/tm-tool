@@ -30,35 +30,35 @@
         <p class="fs1">{{ testcase.description|display_testcase }}</p>
     </div>
 
-    {% if testcase.precondition is not empty %}
+    {% if testcase.precondition is not empty or testcase.preconditionId != 0 %}
     <div class="column half">
         <label>
-            {% if testcase.preconditionId != 0 %}
             <a href="{{ path('tmt_test_run', {
                 'projectId': app.request.get('projectId'),
                 'testcaseId': testcase.preconditionId
             }) }}">Vorbedingung</a>
-            {% else %}
-                Vorbedingung
-            {% endif %}
         </label>
-        <p class="fs1">{{ testcase.precondition }}</p>
+        {% if testcase.precondition is not empty %}
+            <p class="fs1">{{ testcase.precondition }}</p>
+        {% elseif preTestcase.title is defined and preTestcase.title is not empty %}
+            <p class="fs1">{{ preTestcase.title }}</p>
+        {% endif %}
     </div>
     {% endif %}
 
-    {% if testcase.precondition is not empty %}
+    {% if testcase.postcondition is not empty or testcase.postconditionId != 0 %}
     <div class="column half">
         <label>
-            {% if testcase.postconditionId is not empty %}
             <a href="{{ path('tmt_test_run', {
                 'projectId': app.request.get('projectId'),
                 'testcaseId': testcase.postconditionId
             }) }}">Nachbedingung</a>
-            {% else %}
-                Nachbedingung
-            {% endif %}
         </label>
-        <p class="fs1">{{ testcase.postcondition }}</p>
+        {% if testcase.postcondition is not empty %}
+            <p class="fs1">{{ testcase.postcondition }}</p>
+        {% elseif preTestcase.title is defined and postTestcase.title is not empty %}
+            <p class="fs1">{{ postTestcase.title }}</p>
+        {% endif %}
     </div>
     {% endif %}
 
