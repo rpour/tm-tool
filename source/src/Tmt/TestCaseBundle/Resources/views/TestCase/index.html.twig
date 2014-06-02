@@ -20,19 +20,26 @@
             'testcaseId': testcase.id
             }) }}">{{ testcase.title }}</a>
     </td>
-    <td class="success">
+    <td>
         {% if count[testcase.id]['passed'] > 0 %}
-        <span class="icon-check success"></span> {{ count[testcase.id]['passed'] }}
+        <span class="icon-check notice"></span> {{ count[testcase.id]['passed'] }}
         {% endif %}
     </td>
-    <td class="error">
+    <td>
         {% if count[testcase.id]['notpassed'] > 0 %}
-        <span class="icon-warning error"></span> {{ count[testcase.id]['notpassed'] }}
+        <span class="icon-warning notice"></span> {{ count[testcase.id]['notpassed'] }}
         {% endif %}
     </td>
-    <td class="fs0 hide-on-media-change">{{ testcase.lastUser }}</td>
-    <td class="fs0 hide-on-media-change">{{ testcase.lastDate|date('Y-m-d H:i') }}</td>
-    <td class="info"><span class="icon-list info"></span> {{ data|length }}</td>
+    <td class="hide-on-media-change">
+        <span class="icon-user notice"></span> {{ testcase.lastUser }}
+    </td>
+    <td class="hide-on-media-change">
+        <span class="icon-calendar notice"></span> {{ testcase.lastDate|date('d.m.Y') }}
+    </td>
+    <td class="hide-on-media-change">
+        <span class="icon-clock-o notice"></span> {{ testcase.lastDate|date('H:i') }}
+    </td>
+    <td><span class="icon-list notice"></span> {{ data|length }}</td>
     <td class="fs0 hide-on-media-change" title="{{ 'version'|trans }}">{{ testcase.version|date('y.mdhi') }}</td>
     {% if is_granted('ROLE_TESTCASE_USER') %}
     <td class="testcase-index-icon align-center">

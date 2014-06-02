@@ -24,6 +24,10 @@ class UserAgentController extends Controller
      */
     public function editAction($projectId, $hash)
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         return array(
             'projectId' => $projectId,
             'hash'      => $hash
@@ -36,6 +40,10 @@ class UserAgentController extends Controller
      */
     public function createAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+
         $userAgentService = $this->get('tmt.useragent');
 
         $entity = $userAgentService->get(

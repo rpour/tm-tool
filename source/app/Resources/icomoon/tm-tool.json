@@ -1,7 +1,7 @@
 {
 	"metadata": {
 		"name": "tm-tool",
-		"lastOpened": 1401699033169,
+		"lastOpened": 1401711557979,
 		"created": 1398861639601
 	},
 	"iconSets": [
@@ -1629,7 +1629,7 @@
 				},
 				{
 					"id": 405,
-					"order": 21,
+					"order": 17,
 					"prevSize": 32,
 					"code": 58880,
 					"name": "tux",
@@ -1638,7 +1638,7 @@
 				},
 				{
 					"id": 406,
-					"order": 22,
+					"order": 18,
 					"prevSize": 32,
 					"code": 58881,
 					"name": "apple",
@@ -1655,7 +1655,7 @@
 				},
 				{
 					"id": 409,
-					"order": 28,
+					"order": 24,
 					"prevSize": 32,
 					"code": 58882,
 					"name": "windows",
@@ -1664,7 +1664,7 @@
 				},
 				{
 					"id": 410,
-					"order": 29,
+					"order": 25,
 					"prevSize": 32,
 					"code": 58883,
 					"name": "windows8",
@@ -1809,7 +1809,7 @@
 				},
 				{
 					"id": 445,
-					"order": 23,
+					"order": 19,
 					"prevSize": 32,
 					"code": 58884,
 					"name": "chrome",
@@ -1818,7 +1818,7 @@
 				},
 				{
 					"id": 446,
-					"order": 24,
+					"order": 20,
 					"prevSize": 32,
 					"code": 58885,
 					"name": "firefox",
@@ -1827,7 +1827,7 @@
 				},
 				{
 					"id": 447,
-					"order": 25,
+					"order": 21,
 					"prevSize": 32,
 					"code": 58886,
 					"name": "IE",
@@ -1836,7 +1836,7 @@
 				},
 				{
 					"id": 448,
-					"order": 26,
+					"order": 22,
 					"prevSize": 32,
 					"code": 58887,
 					"name": "opera",
@@ -1845,7 +1845,7 @@
 				},
 				{
 					"id": 449,
-					"order": 27,
+					"order": 23,
 					"prevSize": 32,
 					"code": 58888,
 					"name": "safari",
@@ -7578,7 +7578,7 @@
 					"grid": 16
 				}
 			],
-			"invisible": true
+			"invisible": false
 		},
 		{
 			"selection": [
@@ -7707,7 +7707,12 @@
 				},
 				{
 					"id": 22,
-					"order": 0
+					"order": 26,
+					"prevSize": 28,
+					"code": 61463,
+					"name": "clock-o",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 23,
@@ -7796,7 +7801,7 @@
 					"prevSize": 28,
 					"code": 61485,
 					"name": "book",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -7853,7 +7858,7 @@
 					"prevSize": 28,
 					"code": 61498,
 					"name": "list",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -7899,7 +7904,7 @@
 					"prevSize": 28,
 					"code": 61508,
 					"name": "edit",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8107,7 +8112,7 @@
 					"prevSize": 28,
 					"code": 61553,
 					"name": "warning",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8116,7 +8121,12 @@
 				},
 				{
 					"id": 108,
-					"order": 0
+					"order": 27,
+					"prevSize": 28,
+					"code": 61555,
+					"name": "calendar",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 109,
@@ -8184,7 +8194,7 @@
 					"prevSize": 28,
 					"code": 61572,
 					"name": "key",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8243,7 +8253,7 @@
 					"prevSize": 28,
 					"code": 61584,
 					"name": "sign-in",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8636,7 +8646,7 @@
 					"prevSize": 28,
 					"code": 61694,
 					"name": "plus-square",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8723,7 +8733,7 @@
 					"prevSize": 28,
 					"code": 61714,
 					"name": "mail-reply",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8926,7 +8936,7 @@
 					"prevSize": 28,
 					"code": 61766,
 					"name": "minus-square",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{

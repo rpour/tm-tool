@@ -21,10 +21,11 @@ a {
 .align-right {text-align: right;}
 .align-center {text-align: center;}
 
-.info{color: $info;}
+.info {color: $info;}
 .success {color: $success;}
 .warning {color: $warning;}
 .error {color: $error;}
+.notice {color: darken($light, 20%);}
 
 .pointer {cursor: pointer;}
 .left {display:block; float: left;}

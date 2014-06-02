@@ -6,6 +6,9 @@
 <table class="testcase-index">
 {% for test in tests %}
 {% set data = test.data|json_decode %}
+{% if test.userAgent.id is defined %}
+    {% set icon = test.userAgent.json|json_decode %}
+{% endif %}
 <tr>
     <td class="testcase-index-icon align-center">
         {% if test.passed %}
@@ -15,12 +18,20 @@
         {% endif %}
     </td>
     <td>{{ test.username }}</td>
-    <td class="hide-on-media-change">{{ test.date|date('Y-m-d H:i') }}</td>
+    <td class="hide-on-media-change">
+        <span class="icon-calendar notice"></span> {{ test.date|date('d.m.Y') }}
+    </td>
+    <td class="hide-on-media-change">
+        <span class="icon-clock-o notice"></span> {{ test.date|date('H:i') }}
+    </td>
     <td>
-        {% if test.userAgent.id is defined %}
-        {% set icon = test.userAgent.json|json_decode %}
-        <span class="icon-{{ icon.iconOs }}" title="{{ icon.os ~ ' ' ~ icon.osVersion }}"></span>
-        <span class="icon-{{ icon.iconBrowser }}" title="{{ icon.browser ~ ' ' ~ icon.browserVersion }}"></span>
+        {% if icon is defined %}
+        <span class="icon-{{ icon.iconOs }} info" title="{{ icon.os ~ ' ' ~ icon.osVersion }}"></span>
+        {% endif %}
+    </td>
+    <td>
+        {% if icon is defined %}
+        <span class="icon-{{ icon.iconBrowser }} info" title="{{ icon.browser ~ ' ' ~ icon.browserVersion }}"></span>
         {% endif %}
     </td>
     <td>{{ data.version }}</td>
@@ -36,16 +47,15 @@
     </td>
     {% endif %}
 </tr>
-{% if test.userAgent.id is not defined %}
+{% if test.userAgent.id is not defined and is_granted('ROLE_TESTCASE_ADMIN') %}
 <tr>
-    <td colspan="5" style="font-size: 10px">
+    <td colspan="8" style="font-size: 10px">
         <a href="{{ path('tmt_useragent_edit', {
             'projectId': projectId,
             'hash': test.userAgent|md5
         }) }}">
             {{ test.userAgent }}
         </a>
-
     </td>
 </tr>
 {% endif %}

@@ -24,6 +24,9 @@ security:
                     admin:
                         password: test
                         roles: [ 'ROLE_ADMIN' ]
+                    guest:
+                        password: test
+                        roles: [ 'ROLE_TESTCASE_USER' ]
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

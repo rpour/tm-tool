@@ -617,46 +617,52 @@ a {
   color: #cf5c60;
 }
 
-/* line 29, ../sass/layout/_main.scss */
+/* line 28, ../sass/layout/_main.scss */
+
+.notice {
+  color: #c6c6c6;
+}
+
+/* line 30, ../sass/layout/_main.scss */
 
 .pointer {
   cursor: pointer;
 }
 
-/* line 30, ../sass/layout/_main.scss */
+/* line 31, ../sass/layout/_main.scss */
 
 .left {
   display: block;
   float: left;
 }
 
-/* line 31, ../sass/layout/_main.scss */
+/* line 32, ../sass/layout/_main.scss */
 
 .right {
   display: block;
   float: right;
 }
 
-/* line 32, ../sass/layout/_main.scss */
+/* line 33, ../sass/layout/_main.scss */
 
 .text-right {
   text-align: right;
 }
 
-/* line 33, ../sass/layout/_main.scss */
+/* line 34, ../sass/layout/_main.scss */
 
 .off {
   display: none;
 }
 
-/* line 36, ../sass/layout/_main.scss */
+/* line 37, ../sass/layout/_main.scss */
 
 .container {
   margin: 0 auto;
   width: 95%;
 }
 
-/* line 42, ../sass/layout/_main.scss */
+/* line 43, ../sass/layout/_main.scss */
 
 .column {
   float: left;
@@ -664,63 +670,63 @@ a {
   padding-right: 1rem;
 }
 
-/* line 47, ../sass/layout/_main.scss */
+/* line 48, ../sass/layout/_main.scss */
 
 .column.full {
   width: 100%;
 }
 
-/* line 48, ../sass/layout/_main.scss */
+/* line 49, ../sass/layout/_main.scss */
 
 .column.third {
   width: 33.3%;
 }
 
-/* line 50, ../sass/layout/_main.scss */
+/* line 51, ../sass/layout/_main.scss */
 
 .column.two-thirds {
   width: 66.7%;
 }
 
-/* line 51, ../sass/layout/_main.scss */
+/* line 52, ../sass/layout/_main.scss */
 
 .column.half {
   width: 50%;
 }
 
 @media only screen and (max-width: 500px) {
-  /* line 51, ../sass/layout/_main.scss */
+  /* line 52, ../sass/layout/_main.scss */
 
   .column.half {
     width: 100%;
   }
 }
 
-/* line 57, ../sass/layout/_main.scss */
+/* line 58, ../sass/layout/_main.scss */
 
 .column.three-fourth {
   width: 75%;
 }
 
-/* line 58, ../sass/layout/_main.scss */
+/* line 59, ../sass/layout/_main.scss */
 
 .column.fourth {
   width: 25%;
 }
 
-/* line 59, ../sass/layout/_main.scss */
+/* line 60, ../sass/layout/_main.scss */
 
 .column.last {
   float: right;
 }
 
-/* line 62, ../sass/layout/_main.scss */
+/* line 63, ../sass/layout/_main.scss */
 
 .clearfix {
   *zoom: 1;
 }
 
-/* line 64, ../sass/layout/_main.scss */
+/* line 65, ../sass/layout/_main.scss */
 
 .clearfix:before,
 .clearfix:after {
@@ -728,7 +734,7 @@ a {
   display: table;
 }
 
-/* line 65, ../sass/layout/_main.scss */
+/* line 66, ../sass/layout/_main.scss */
 
 .clearfix:after {
   clear: both;
