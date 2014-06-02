@@ -56,23 +56,13 @@ class TestController extends Controller
         $testcaseService->setProjectId($projectId);
 
         $data = $testcaseService->get($testcaseId);
-        $preData = null;
-        $postData = null;
-
-        if (!empty($data->getPreconditionId())) {
-            $preData = $testcaseService->get($data->getPreconditionId());
-        }
-
-        if (!empty($data->getPostconditionId())) {
-            $postData = $testcaseService->get($data->getPostconditionId());
-        }
 
         return array(
-            'projectId' => $projectId,
-            'testcaseId' => $testcaseId,
-            'testcase' => $testcaseService->get($testcaseId),
-            'preTestcase' => $preData,
-            'postTestcase' => $postData
+            'projectId'    => $projectId,
+            'testcaseId'   => $testcaseId,
+            'testcase'     => $testcaseService->get($testcaseId),
+            'preTestcase'  => $testcaseService->get($data->getPreconditionId()),
+            'postTestcase' => $testcaseService->get($data->getPostconditionId())
         );
     }
 
