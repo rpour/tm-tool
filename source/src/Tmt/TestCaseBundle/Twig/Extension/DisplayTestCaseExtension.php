@@ -31,7 +31,7 @@ class DisplayTestCaseExtension extends \Twig_Extension
     public function displayTestCase($string)
     {
         // URL
-        preg_match_all("/(http:\/\/[^ \n\r]+)/i", $string, $matches);
+        preg_match_all("/(http[s]*:\/\/[^ \n\r]+)/i", $string, $matches);
 
         if (isset($matches[1]) && !empty($matches[1])) {
             foreach ($matches[1] as $url) {
