@@ -41,7 +41,7 @@ class GeneratePdfIconsCommand extends ContainerAwareCommand
         for ($i=0; $i < count($matches[1]); $i++) {
             $dataString .= "'" . $matches[1][$i] . "' => '" . $matches[2][$i] . "',\n";
         }
-        $dataString .= "//data#end";
+        $dataString .= "// data#end";
 
 
         if (!file_exists($pdficonsClass) || !is_readable($pdficonsClass)) {
