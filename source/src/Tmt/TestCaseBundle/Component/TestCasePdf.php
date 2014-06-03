@@ -35,20 +35,20 @@ class TestCasePdf extends \TCPDF
     {
         $cell = $this->pdf->getCell();
         $cell
-            ->ln()
+            ->newLine()
             ->setFontSize(20)
             ->setText($headline)
-            ->draw()->ln();
+            ->draw()->newLine();
     }
 
     public function header2($headline)
     {
         $cell = $this->pdf->getCell();
         $cell
-            ->ln()
+            ->newLine()
             ->setFontSize(16)
             ->setText($headline)
-            ->draw()->ln();
+            ->draw()->newLine();
     }
 
     public function drawTestcase($state, $title, $testCount)
@@ -93,7 +93,7 @@ class TestCasePdf extends \TCPDF
                 ->setAlign('C')
                 ->setColor('2A94D6')
                 ->setText('::icon::icon-list')
-            ->draw()->ln();
+            ->draw()->newLine();
     }
 
     public function drawTest($state, $date, $user, $version)
@@ -136,7 +136,7 @@ class TestCasePdf extends \TCPDF
                 ->setAlign('R')
                 ->setText($version)
             ->draw()->clear()
-        ->ln();
+        ->newLine();
     }
 
     public function download()

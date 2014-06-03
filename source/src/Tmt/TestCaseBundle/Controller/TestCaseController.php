@@ -207,7 +207,7 @@ class TestCaseController extends Controller
             $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf'
         );
 
-        $pdf->h1($project->getName());
+        $pdf->header1($project->getName());
 
         // Testcases
         foreach ($testcases as $testcase) {
@@ -231,7 +231,7 @@ class TestCaseController extends Controller
 
         // Test
         foreach ($testcasesArray as $testcase) {
-            $pdf->h2($testcase['case']->getTitle());
+            $pdf->header2($testcase['case']->getTitle());
 
             foreach ($testcase['tests'] as $test) {
                 $data = json_decode($test->getData());
