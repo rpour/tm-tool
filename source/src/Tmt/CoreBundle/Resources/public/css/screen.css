@@ -920,7 +920,7 @@ nav {
 
 /* line 41, ../sass/layout/_menubar.scss */
 
-.menu-bar > li > a {
+.menu-bar > li > a > span {
   color: #bedcf0;
   text-decoration: none;
   text-shadow: 1px 1px 0 #2472a4;
@@ -928,7 +928,7 @@ nav {
 
 /* line 46, ../sass/layout/_menubar.scss */
 
-.menu-bar > li > a:hover {
+.menu-bar > li > a > span:hover {
   text-decoration: underline;
 }
 

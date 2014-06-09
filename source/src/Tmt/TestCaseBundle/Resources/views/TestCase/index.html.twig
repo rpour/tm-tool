@@ -46,7 +46,7 @@
         <a href="{{ path('tmt_test_run', {
         'projectId': app.request.get('projectId'),
         'testcaseId': testcase.id
-        }) }}"><span class="icon-sign-in info"></span></a>
+        }) }}"><span class="icon-sign-in info" title="{{ 'ausführen'|trans }}"></span></a>
     </td>
     {% endif %}
 

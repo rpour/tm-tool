@@ -11,13 +11,17 @@
 
     {# USE TEMPLATE #}
     {% else %}
-        <li{% if item.class is defined %} class="{{ item.class }}"{% endif %}>
+        <li>
             {% if item.param is defined %}
             <a href="{{ path(item.path, item.param) }}">
             {% else %}
             <a href="{{ path(item.path) }}">
             {% endif %}
-            {{ item.label|trans }}</a>
+            {% if item.class is defined %}
+                <span class="{{ item.class }}" title="{{ item.label|trans }}"></span>
+            {% endif %}
+            <span class="hide-on-media-change">{{ item.label|trans }}</span>
+            </a>
         </li>
     {% endif %}
 {% endfor %}

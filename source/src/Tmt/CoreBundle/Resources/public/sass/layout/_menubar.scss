@@ -38,7 +38,7 @@ $menubar-border: 5px;
         padding: 0 0 0 10px;
         color: lighten($base, 40%);
 
-        & > a {
+        & > a > span {
             color: lighten($base, 40%);
             text-decoration: none;
 
