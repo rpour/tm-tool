@@ -9,9 +9,8 @@
 
         <span class="icon-key"></span>
         <input type="password" name="_password" />
-        <input type="hidden" name="_target_path" value="{{ app.request.uri }}" />
         <input type="hidden" name="_target_path" value="/" />
-
+        {% endif %}
         <button type="submit">login</button>
     </form>
 {% endblock %}
