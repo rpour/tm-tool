@@ -67,3 +67,13 @@
     border: 1px solid $error;
     @include border-radius(4px);
 }
+
+.column.testcase .case > div {
+    font-weight: bold;
+    color: darken($info, 20%);
+}
+
+.column.testcase .result > div {
+    font-weight: bold;
+    color: darken($success, 20%);
+}

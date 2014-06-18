@@ -1300,3 +1300,17 @@ nav {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
+
+/* line 71, ../sass/bundles/_testcase.scss */
+
+.column.testcase .case > div {
+  font-weight: bold;
+  color: #195981;
+}
+
+/* line 76, ../sass/bundles/_testcase.scss */
+
+.column.testcase .result > div {
+  font-weight: bold;
+  color: #2c6c44;
+}

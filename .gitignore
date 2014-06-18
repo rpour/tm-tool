@@ -4,6 +4,7 @@
 *.phar
 *.TODO
 *.lock
+*.log
 
 .project
 .sass-cache
