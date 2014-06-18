@@ -14,7 +14,7 @@
         {% if test.passed %}
             <span class="icon-check success"></span>
         {% else %}
-            <span class="icon-times error"></span>
+            <span class="icon-times error" title="{{ test.error }}"></span>
         {% endif %}
     </td>
     <td>{{ test.username }}</td>

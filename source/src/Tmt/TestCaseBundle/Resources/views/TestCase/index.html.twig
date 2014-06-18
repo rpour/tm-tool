@@ -11,7 +11,7 @@
         {% if testcase.laststate %}
         <span class="icon-check success"></span>
         {% else %}
-        <span class="icon-warning error"></span>
+        <span class="icon-warning error" title="{{ testcase.lastError }}"></span>
         {% endif %}
     </td>
     <td>

@@ -69,6 +69,11 @@ class Testcase
     private $lastState;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $lastError;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -79,9 +84,9 @@ class Testcase
     private $data;
 
     /**
-     * Gets the value of id.
+     * Get id
      *
-     * @return mixed
+     * @return integer 
      */
     public function getId()
     {
@@ -89,23 +94,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of id.
+     * Set projectId
      *
-     * @param mixed $id the id
-     *
-     * @return self
+     * @param integer $projectId
+     * @return Testcase
      */
-    public function setId($id)
+    public function setProjectId($projectId)
     {
-        $this->id = $id;
-
+        $this->projectId = $projectId;
+    
         return $this;
     }
 
     /**
-     * Gets the value of projectId.
+     * Get projectId
      *
-     * @return mixed
+     * @return integer 
      */
     public function getProjectId()
     {
@@ -113,23 +117,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of projectId.
+     * Set precondition
      *
-     * @param mixed $projectId the project id
-     *
-     * @return self
+     * @param string $precondition
+     * @return Testcase
      */
-    public function setProjectId($projectId)
+    public function setPrecondition($precondition)
     {
-        $this->projectId = $projectId;
-
+        $this->precondition = $precondition;
+    
         return $this;
     }
 
     /**
-     * Gets the value of precondition.
+     * Get precondition
      *
-     * @return mixed
+     * @return string 
      */
     public function getPrecondition()
     {
@@ -137,23 +140,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of precondition.
+     * Set preconditionId
      *
-     * @param mixed $precondition the precondition
-     *
-     * @return self
+     * @param integer $preconditionId
+     * @return Testcase
      */
-    public function setPrecondition($precondition)
+    public function setPreconditionId($preconditionId)
     {
-        $this->precondition = $precondition;
-
+        $this->preconditionId = $preconditionId;
+    
         return $this;
     }
 
     /**
-     * Gets the value of preconditionId.
+     * Get preconditionId
      *
-     * @return mixed
+     * @return integer 
      */
     public function getPreconditionId()
     {
@@ -161,23 +163,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of preconditionId.
+     * Set postcondition
      *
-     * @param mixed $preconditionId the precondition id
-     *
-     * @return self
+     * @param string $postcondition
+     * @return Testcase
      */
-    public function setPreconditionId($preconditionId)
+    public function setPostcondition($postcondition)
     {
-        $this->preconditionId = $preconditionId;
-
+        $this->postcondition = $postcondition;
+    
         return $this;
     }
 
     /**
-     * Gets the value of postcondition.
+     * Get postcondition
      *
-     * @return mixed
+     * @return string 
      */
     public function getPostcondition()
     {
@@ -185,23 +186,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of postcondition.
+     * Set postconditionId
      *
-     * @param mixed $postcondition the postcondition
-     *
-     * @return self
+     * @param integer $postconditionId
+     * @return Testcase
      */
-    public function setPostcondition($postcondition)
+    public function setPostconditionId($postconditionId)
     {
-        $this->postcondition = $postcondition;
-
+        $this->postconditionId = $postconditionId;
+    
         return $this;
     }
 
     /**
-     * Gets the value of postconditionId.
+     * Get postconditionId
      *
-     * @return mixed
+     * @return integer 
      */
     public function getPostconditionId()
     {
@@ -209,23 +209,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of postconditionId.
+     * Set version
      *
-     * @param mixed $postconditionId the postcondition id
-     *
-     * @return self
+     * @param \DateTime $version
+     * @return Testcase
      */
-    public function setPostconditionId($postconditionId)
+    public function setVersion($version)
     {
-        $this->postconditionId = $postconditionId;
-
+        $this->version = $version;
+    
         return $this;
     }
 
     /**
-     * Gets the value of version.
+     * Get version
      *
-     * @return mixed
+     * @return \DateTime 
      */
     public function getVersion()
     {
@@ -233,23 +232,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of version.
+     * Set lastUser
      *
-     * @param mixed $version the version
-     *
-     * @return self
+     * @param string $lastUser
+     * @return Testcase
      */
-    public function setVersion($version)
+    public function setLastUser($lastUser)
     {
-        $this->version = $version;
-
+        $this->lastUser = $lastUser;
+    
         return $this;
     }
 
     /**
-     * Gets the value of lastUser.
+     * Get lastUser
      *
-     * @return mixed
+     * @return string 
      */
     public function getLastUser()
     {
@@ -257,23 +255,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of lastUser.
+     * Set lastDate
      *
-     * @param mixed $lastUser the last user
-     *
-     * @return self
+     * @param \DateTime $lastDate
+     * @return Testcase
      */
-    public function setLastUser($lastUser)
+    public function setLastDate($lastDate)
     {
-        $this->lastUser = $lastUser;
-
+        $this->lastDate = $lastDate;
+    
         return $this;
     }
 
     /**
-     * Gets the value of lastDate.
+     * Get lastDate
      *
-     * @return mixed
+     * @return \DateTime 
      */
     public function getLastDate()
     {
@@ -281,23 +278,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of lastDate.
+     * Set title
      *
-     * @param mixed $lastDate the last date
-     *
-     * @return self
+     * @param string $title
+     * @return Testcase
      */
-    public function setLastDate($lastDate)
+    public function setTitle($title)
     {
-        $this->lastDate = $lastDate;
-
+        $this->title = $title;
+    
         return $this;
     }
 
     /**
-     * Gets the value of title.
+     * Get title
      *
-     * @return mixed
+     * @return string 
      */
     public function getTitle()
     {
@@ -305,23 +301,22 @@ class Testcase
     }
 
     /**
-     * Sets the value of title.
+     * Set lastState
      *
-     * @param mixed $title the title
-     *
-     * @return self
+     * @param boolean $lastState
+     * @return Testcase
      */
-    public function setTitle($title)
+    public function setLastState($lastState)
     {
-        $this->title = $title;
-
+        $this->lastState = $lastState;
+    
         return $this;
     }
 
     /**
-     * Gets the value of lastState.
+     * Get lastState
      *
-     * @return mixed
+     * @return boolean 
      */
     public function getLastState()
     {
@@ -329,23 +324,45 @@ class Testcase
     }
 
     /**
-     * Sets the value of lastState.
+     * Set lastError
      *
-     * @param mixed $lastState the last state
-     *
-     * @return self
+     * @param string $lastError
+     * @return Testcase
      */
-    public function setLastState($lastState)
+    public function setLastError($lastError)
     {
-        $this->lastState = $lastState;
-
+        $this->lastError = $lastError;
+    
         return $this;
     }
 
     /**
-     * Gets the value of description.
+     * Get lastError
      *
-     * @return mixed
+     * @return string 
+     */
+    public function getLastError()
+    {
+        return $this->lastError;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Testcase
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
      */
     public function getDescription()
     {
@@ -353,40 +370,25 @@ class Testcase
     }
 
     /**
-     * Sets the value of description.
+     * Set data
      *
-     * @param mixed $description the description
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of data.
-     *
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * Sets the value of data.
-     *
-     * @param mixed $data the data
-     *
-     * @return self
+     * @param string $data
+     * @return Testcase
      */
     public function setData($data)
     {
         $this->data = $data;
-
+    
         return $this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return string 
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }

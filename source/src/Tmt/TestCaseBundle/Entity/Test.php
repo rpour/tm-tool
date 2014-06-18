@@ -39,6 +39,11 @@ class Test
     private $passed;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $error;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $username;
@@ -164,6 +169,30 @@ class Test
     public function setPassed($passed)
     {
         $this->passed = $passed;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of error.
+     *
+     * @return mixed
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * Sets the value of error.
+     *
+     * @param mixed $error the error
+     *
+     * @return self
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
 
         return $this;
     }

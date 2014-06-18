@@ -78,6 +78,7 @@ class Test extends EntityManipulation
     public function create($projectId)
     {
         $result = array();
+        $lastError = "";
         $testcaseService = $this->container->get('tmt.testcase');
         $testcaseService->setProjectId($projectId);
 
@@ -99,7 +100,9 @@ class Test extends EntityManipulation
 
                 if (trim($data[$i+1]['error']) != "") {
                     $testcaseErrors++;
-                    $testcaseData[$i]['error'] = trim($data[$i+1]['error']);
+                    $lastError
+                        = $testcaseData[$i]['error']
+                        = trim($data[$i+1]['error']);
                 }
             }
         }
@@ -121,6 +124,7 @@ class Test extends EntityManipulation
             $test->setTestCaseId((int)$this->testcaseId);
             $test->setDate(new \DateTime());
             $test->setData(json_encode($data));
+            $test->setError($lastError);
             $test->setPassed((boolean)!$testcaseErrors);
             $test->setUsername($this->getUsername());
             $test->setUserAgent($this->container->get('request')->headers->get('User-Agent'));
@@ -138,6 +142,7 @@ class Test extends EntityManipulation
             $testcaseEntity->setLastUser($this->getUsername());
             $testcaseEntity->setLastDate(new \DateTime());
             $testcaseEntity->setLastState((boolean)!$testcaseErrors);
+            $testcaseEntity->setLastError($lastError);
             $testcaseService->save($testcaseEntity);
 
         }
