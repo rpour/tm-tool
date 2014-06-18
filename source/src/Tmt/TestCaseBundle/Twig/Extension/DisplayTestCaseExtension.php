@@ -30,6 +30,8 @@ class DisplayTestCaseExtension extends \Twig_Extension
 
     public function displayTestCase($string)
     {
+        $string = utf8_decode($string);
+
         // URL
         preg_match_all("/(http[s]*:\/\/[^ \n\r]+)/i", $string, $matches);
 
@@ -53,6 +55,6 @@ class DisplayTestCaseExtension extends \Twig_Extension
         // BR
         $string = str_replace("\n", "<br/>", $string);
 
-        return $string;
+        return utf8_encode($string);
     }
 }
