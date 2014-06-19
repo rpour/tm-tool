@@ -31,3 +31,27 @@
 
     @include pos(0,0,'',0);
 }
+
+.login-row {
+    width: 200px;
+    margin: 5px auto;
+
+    & > input {
+        width: 150px;
+        border: 1px solid silver;
+        padding: 1px 4px;
+        background-color: #F7F3F3;
+        @include border-radius(2px);
+    }
+}
+
+.login-label {
+    display: block;
+    width: 30px;
+    float:left;
+    text-align: center;
+
+    & > span {
+        vertical-align: middle;
+    }
+}

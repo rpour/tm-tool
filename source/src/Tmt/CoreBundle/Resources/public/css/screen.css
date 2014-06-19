@@ -1081,6 +1081,40 @@ nav {
   vertical-align: middle;
 }
 
+/* line 35, ../sass/layout/_login.scss */
+
+.login-row {
+  width: 200px;
+  margin: 5px auto;
+}
+
+/* line 39, ../sass/layout/_login.scss */
+
+.login-row > input {
+  width: 150px;
+  border: 1px solid silver;
+  padding: 1px 4px;
+  background-color: #F7F3F3;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+
+/* line 48, ../sass/layout/_login.scss */
+
+.login-label {
+  display: block;
+  width: 30px;
+  float: left;
+  text-align: center;
+}
+
+/* line 54, ../sass/layout/_login.scss */
+
+.login-label > span {
+  vertical-align: middle;
+}
+
 /* line 1, ../sass/layout/_messages.scss */
 
 .msg-box {
