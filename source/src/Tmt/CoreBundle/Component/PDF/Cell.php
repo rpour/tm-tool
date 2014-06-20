@@ -84,19 +84,37 @@ class Cell extends PDF
         $this->ignoreMinHeight = $ignoreMinHeight;
         return $this;
     }
-
+    /**
+     * L or empty string: left align (default value)
+     * C: center
+     * R: right align
+     * J: justify
+     */
     public function setAlign($align)
     {
         $this->align = $align;
         return $this;
     }
 
+    /**
+     * T : cell top
+     * C : center
+     * B : cell bottom
+     * A : font top
+     * L : font baseline
+     * D : font bottom
+     */
     public function setCalign($calign)
     {
         $this->calign = $calign;
         return $this;
     }
 
+    /**
+     * T : top
+     * C : center
+     * B : bottom
+     */
     public function setValign($valign)
     {
         $this->valign = $valign;

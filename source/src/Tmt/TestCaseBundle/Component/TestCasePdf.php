@@ -10,7 +10,7 @@ class TestCasePdf extends \TCPDF
     private $pdf;
     private $filename;
     private $iconFontPath;
-    private $backgroundRow = 0;
+    private $backgroundRow = 1;
 
     public function __construct($projectName, $iconFontPath)
     {
@@ -31,12 +31,30 @@ class TestCasePdf extends \TCPDF
         $this->filename = preg_replace('/\W/', '', strtolower($projectName)) . date('_Y-m-d') . '.pdf';
     }
 
-    public function header1($headline)
+    public function newPage()
+    {
+        $this->pdf->raw->AddPage();
+        return $this;
+    }
+
+    public function title($title)
     {
         $cell = $this->pdf->getCell();
         $cell
             ->newLine()
             ->setFontSize(20)
+            ->setText($title)
+            ->setAlign('C')
+            ->draw()->newLine();
+    }
+
+
+    public function header1($headline)
+    {
+        $cell = $this->pdf->getCell();
+        $cell
+            ->newLine()
+            ->setFontSize(18)
             ->setText($headline)
             ->draw()->newLine();
     }
@@ -51,12 +69,24 @@ class TestCasePdf extends \TCPDF
             ->draw()->newLine();
     }
 
+    public function seperator()
+    {
+        $line = $this->pdf->getLine();
+        $line->draw();
+    }
+
+    public function resetBackground()
+    {
+        $this->backgroundRow = 1;
+        return $this;
+    }
+
     public function drawTestcase($state, $title, $testCount)
     {
-        $backgroundColor = 'FAFFF9';
+        $backgroundColor = 'FFFFFF';
 
         if (($this->backgroundRow = !$this->backgroundRow)) {
-            $backgroundColor = 'F2F7F2';
+            $backgroundColor = 'EFEFEF';
         }
 
         $cell = $this->pdf->getCell();
@@ -75,7 +105,10 @@ class TestCasePdf extends \TCPDF
             $text  = '::icon::icon-check';
         }
 
-        $cell->setColor($color)->setText($text);
+        $cell
+            ->setBackgroundColor($backgroundColor)
+            ->setColor($color)
+            ->setText($text);
 
         $cell
             ->draw()->clear()
@@ -96,15 +129,16 @@ class TestCasePdf extends \TCPDF
             ->draw()->newLine();
     }
 
-    public function drawTest($state, $date, $user, $version)
+    public function drawTest($state, $date, $user, $os, $browser, $version, $header = false)
     {
-        $backgroundColor = 'FAFFF9';
+        $backgroundColor = 'FFFFFF';
 
         if (($this->backgroundRow = !$this->backgroundRow)) {
-            $backgroundColor = 'F2F7F2';
+            $backgroundColor = 'EFEFEF';
         }
 
         $cell = $this->pdf->getCell();
+
         $cell
             ->setBackgroundColor($backgroundColor)
             ->setFontFile($this->iconFontPath)
@@ -120,17 +154,36 @@ class TestCasePdf extends \TCPDF
             $text  = '::icon::icon-check';
         }
 
-        $cell->setColor($color)->setText($text);
+        // header
+        if ($header === true) {
+            $cell->raw->SetFont('', 'B');
+            $backgroundColor = 'CCCCCC';
+            $text = "";
+        }
+
+        $cell
+            ->setBackgroundColor($backgroundColor)
+            ->setColor($color)
+            ->setText($text);
+
 
         $cell
             ->draw()->clear()
                 ->setBackgroundColor($backgroundColor)
-                ->setWidth(70)
+                ->setWidth(30)
                 ->setText($date)
             ->draw()->clear()
                 ->setBackgroundColor($backgroundColor)
-                ->setWidth(70)
+                ->setWidth(40)
                 ->setText($user)
+            ->draw()->clear()
+                ->setBackgroundColor($backgroundColor)
+                ->setWidth(40)
+                ->setText($os)
+            ->draw()->clear()
+                ->setBackgroundColor($backgroundColor)
+                ->setWidth(40)
+                ->setText($browser)
             ->draw()->clear()
                 ->setBackgroundColor($backgroundColor)
                 ->setAlign('R')

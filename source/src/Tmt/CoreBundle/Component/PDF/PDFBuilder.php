@@ -14,9 +14,9 @@ class PDFBuilder extends PDF
 
     }
 
-    public function getTable()
+    public function getLine()
     {
-        return new Table($this->raw);
+        return new Line($this->raw);
     }
 
     public function getCell()

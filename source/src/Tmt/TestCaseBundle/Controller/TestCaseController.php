@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Tmt\TestCaseBundle\Component\TestCasePdf;
+use Tmt\TestCaseBundle\Component\UserAgent;
 
 /**
  * @Route("/project/{projectId}/testcase")
@@ -207,7 +208,9 @@ class TestCaseController extends Controller
             $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf'
         );
 
-        $pdf->header1($project->getName());
+        $pdf->title($project->getName());
+        $pdf->header1('Übersicht');
+        $pdf->seperator();
 
         // Testcases
         foreach ($testcases as $testcase) {
@@ -228,12 +231,41 @@ class TestCaseController extends Controller
 
         unset($testcase, $test);
 
+        $pdf->newPage();
+        $pdf->header1('Testfälle');
+        $pdf->seperator();
 
         // Test
+
         foreach ($testcasesArray as $testcase) {
             $pdf->header2($testcase['case']->getTitle());
 
+            $pdf->drawTest(
+                '',
+                'Datum',
+                'Benutzer',
+                'Betriebssystem',
+                'Browser',
+                'Version',
+                true
+            );
+
+            $pdf->resetBackground();
+
+
             foreach ($testcase['tests'] as $test) {
+                $os = "";
+                $browser = "";
+
+                $userAgent = $this->get('tmt.useragent');
+                $agent = $userAgent->get(md5($test->getUserAgent()));
+
+                if (!is_null($agent)) {
+                    $browserInfo = json_decode($agent->getJson());
+                    $os = $browserInfo->os . ' ' . $browserInfo->osVersion;
+                    $browser = $browserInfo->browser . ' ' . $browserInfo->browserVersion;
+                }
+
                 $data = json_decode($test->getData());
                 $date = $test->getDate();
 
@@ -241,6 +273,8 @@ class TestCaseController extends Controller
                     $test->getPassed(),
                     $date->format('d.m.Y'),
                     $test->getUsername(),
+                    $os,
+                    $browser,
                     $data->version
                 );
             }
