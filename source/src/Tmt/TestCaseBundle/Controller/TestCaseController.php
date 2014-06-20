@@ -190,7 +190,7 @@ class TestCaseController extends Controller
      */
     public function pdfAction($projectId)
     {
-        if (false === $this->get('security.context')->isGranted('ROLE_PROJECT_ADMIN')) {
+        if (false === $this->get('security.context')->isGranted('ROLE_TESTCASE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
