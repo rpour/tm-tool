@@ -170,4 +170,16 @@ class ProjectController extends Controller
 
         return $this->redirect($this->generateUrl('tmt_project_index'));
     }
+
+    /**
+     * @Route("/project/duplicate/{projectId}", name="tmt_project_duplicate")
+     * @Method("GET")
+     */
+    public function duplicateAction($projectId)
+    {
+        $project = $this->get('tmt.project');
+        $project->duplicate($projectId);
+
+        return $this->redirect($this->generateUrl('tmt_project_index'));
+    }
 }

@@ -80,6 +80,12 @@ class ApplicationListener
         } elseif ($this->application->routeIs('tmt_project_show')) {
             $this->application
             ->add('tmt-menubar-label', 'label', $this->project->getName())
+            ->add('tmt-menubar', 'project.duplicate', array(
+                'path'  => 'tmt_project_duplicate',
+                'param' => array('projectId' => $this->project->getId()),
+                'label' => 'duplizieren',
+                'class' => 'icon-copy'
+            ), 'ROLE_PROJECT_ADMIN')
             ->add('tmt-menubar', 'project.edit', array(
                 'path'  => 'tmt_project_edit',
                 'param' => array('projectId' => $this->project->getId()),

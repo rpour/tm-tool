@@ -19,9 +19,12 @@ class TestCase extends EntityManipulation
         parent::__construct($container);
     }
 
-    public function setProjectId()
+    public function setProjectId($projectId = null)
     {
-        $this->projectId = $this->container->get('request')->get('projectId');
+        $this->projectId = $this->container->get('request')->get(
+            'projectId',
+            $projectId
+        );
     }
 
     public function getAll()

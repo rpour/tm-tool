@@ -7,6 +7,7 @@
         <parameter key="tmt.useragent.class">Tmt\TestCaseBundle\Component\UserAgent</parameter>
         <parameter key="tmt.testcase.application.listener.class">Tmt\TestCaseBundle\EventListener\ApplicationListener</parameter>
         <parameter key="tmt.testcase.entity.listener.class">Tmt\TestCaseBundle\EventListener\EntityListener</parameter>
+        <parameter key="tmt.testcase.project.listener.class">Tmt\TestCaseBundle\EventListener\ProjectListener</parameter>
         <parameter key="tmt.display.test.case.extension.class">Tmt\TestCaseBundle\Twig\Extension\DisplayTestCaseExtension</parameter>
     </parameters>
 
@@ -28,6 +29,10 @@
         </service>
         <service id="tmt.testcase.entity.listener" class="%tmt.testcase.entity.listener.class%">
             <tag name="kernel.event_listener" event="entity.remove" method="onEntityRemove" />
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="tmt.testcase.project.listener" class="%tmt.testcase.project.listener.class%">
+            <tag name="kernel.event_listener" event="project.duplicate" method="onProjectDuplicate" />
             <argument type="service" id="service_container" />
         </service>
         <!-- TWIG -->
