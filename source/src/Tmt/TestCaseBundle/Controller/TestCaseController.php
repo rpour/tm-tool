@@ -208,6 +208,9 @@ class TestCaseController extends Controller
             $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf'
         );
 
+        /***********************************************************************
+         * Übersicht
+         **********************************************************************/
         $pdf->title($project->getName());
         $pdf->header1('Übersicht');
         $pdf->seperator();
@@ -229,13 +232,14 @@ class TestCaseController extends Controller
             );
         }
 
-        unset($testcase, $test);
+        unset($test);
 
+        /***********************************************************************
+         * Testfälle
+         **********************************************************************/
         $pdf->newPage();
-        $pdf->header1('Testfälle');
+        $pdf->header1('Tests');
         $pdf->seperator();
-
-        // Test
 
         foreach ($testcasesArray as $testcase) {
             $pdf->header2($testcase['case']->getTitle());
@@ -280,6 +284,18 @@ class TestCaseController extends Controller
             }
 
         }
+
+        /***********************************************************************
+         *
+         **********************************************************************/
+        $pdf->newPage();
+        $pdf->header1('Testfälle');
+        $pdf->seperator();
+
+        foreach ($testcases as $testcase) {
+            $pdf->draw($testcase);
+        }
+
 
         $pdf->download();
     }

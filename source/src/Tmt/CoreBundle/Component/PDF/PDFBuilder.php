@@ -23,4 +23,9 @@ class PDFBuilder extends PDF
     {
         return new Cell($this->raw);
     }
+
+    public function getMultiCell()
+    {
+        return new MultiCell($this->raw);
+    }
 }

@@ -192,6 +192,53 @@ class TestCasePdf extends \TCPDF
         ->newLine();
     }
 
+    public function draw($testcase)
+    {
+        $multicell = $this->pdf->getMultiCell();
+
+
+        $cell = $this->pdf->getCell();
+
+
+        $this->header2(
+            '#' . $testcase->getId() . ' ' .
+            $testcase->getTitle()
+        );
+
+        $multicell->raw->SetFont('', 'B');
+        $multicell
+            ->setFontSize(8)
+                ->setText($testcase->getDescription())
+                ->draw()->clear()->newLine();
+
+        $cell->setText('')->draw()->clear()->newLine();
+
+        $counter = 0;
+        foreach (json_decode($testcase->getData()) as $data) {
+            $cell->raw->SetFont('', 'B');
+            $cell
+                ->setText('Testschritt #' . ++$counter)
+                ->draw()->clear()->newLine();
+
+            $multicell
+                ->setFontSize(8)
+                ->setText(trim($data[0]))
+                ->draw()->newLine()->clear();
+            $cell->setText('')->draw()->clear()->newLine();
+
+            $cell->raw->SetFont('', 'B');
+            $cell
+                ->setText('Erwartetes Ergebnis')
+                ->draw()->newLine()->clear();
+
+            $multicell
+                ->setFontSize(8)
+                ->setText(trim($data[1]))
+                ->draw()->newLine()->clear();
+            $cell->setText('')->draw()->clear()->newLine();
+        }
+    }
+
     public function download()
     {
         $this->pdf->raw->Output($this->filename, 'D');

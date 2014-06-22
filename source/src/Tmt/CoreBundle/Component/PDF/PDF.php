@@ -13,9 +13,9 @@ class PDF extends Icon
         $this->raw = $raw;
     }
 
-    public function newLine()
+    public function newLine($h = '')
     {
-        $this->raw->Ln();
+        $this->raw->Ln($h);
         return $this;
     }
 
