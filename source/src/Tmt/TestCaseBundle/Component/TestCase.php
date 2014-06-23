@@ -33,7 +33,7 @@ class TestCase extends EntityManipulation
             ->createQueryBuilder('m')
             ->where($this->qb->expr()->eq('m.projectId', ':projectId'))
             ->setParameter('projectId', $this->projectId)
-            ->orderBy('m.id', 'DESC')
+            ->orderBy('m.title', 'ASC')
             ->getQuery()
             ->getResult();
     }
