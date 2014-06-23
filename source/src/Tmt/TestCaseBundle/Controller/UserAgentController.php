@@ -62,7 +62,7 @@ class UserAgentController extends Controller
 
         if (strtolower($json['os']) === 'ubuntu') {
             $json['iconOs'] = 'tux';
-        } elseif (strtolower($json['os']) === 'mac os') {
+        } elseif (strtolower($json['os']) === 'mac os' || strtolower($json['os']) === 'ios') {
             $json['iconOs'] = 'apple';
         } elseif (strtolower($json['os']) === 'windows' && (int)$json['osVersion'] === 8) {
             $json['iconOs'] = 'windows8';
@@ -78,7 +78,7 @@ class UserAgentController extends Controller
             $json['iconBrowser'] = 'IE';
         } elseif (strtolower($json['browser']) === 'opera') {
             $json['iconBrowser'] = 'opera';
-        } elseif (strtolower($json['browser']) === 'safari') {
+        } elseif (strtolower($json['browser']) === 'safari' || strtolower($json['browser']) === 'mobile safari') {
             $json['iconBrowser'] = 'safari';
         }
 
