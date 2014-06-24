@@ -38,7 +38,7 @@ class TCPDF extends \FPDI
     public function Footer()
     {
         // Position at 15 mm from bottom
-        $this->SetY(-26);
+        $this->SetY(-20);
         // Set font
         $this->SetFont('helvetica', 'I', 8);
         // Page number
