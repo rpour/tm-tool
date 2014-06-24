@@ -221,9 +221,8 @@ class TestCaseController extends Controller
         /***********************************************************************
          * Übersicht
          **********************************************************************/
-        $pdf->title('Testprotokoll');
-        $pdf->newLine();
-        $pdf->header1($project->getName());
+        $pdf->header1('Testprotokoll ' . $project->getName());
+        $pdf->date();
         $pdf->header2('Übersicht');
         $pdf->seperator();
 

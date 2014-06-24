@@ -30,6 +30,17 @@ class TestCasePdf
         return $this;
     }
 
+    public function date()
+    {
+        $cell = $this->pdf->getCell();
+        $cell
+            ->newLine()
+            ->setFontSize(14)
+            ->setText(date('d.m.Y'))
+            ->setAlign('R')
+            ->draw()->newLine();
+    }
+
     public function title($title)
     {
         $cell = $this->pdf->getCell();
