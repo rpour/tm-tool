@@ -62,6 +62,24 @@ class TestCasePdf
             ->draw()->newLine();
     }
 
+    public function header3($headline)
+    {
+        $cell = $this->pdf->getCell();
+        $cell
+            ->newLine()
+            ->setFontSize(14)
+            ->setText($headline)
+            ->draw()->newLine();
+    }
+
+    public function newLine()
+    {
+        $cell = $this->pdf->getCell();
+        $cell
+            ->newLine()
+            ->draw();
+    }
+
     public function seperator()
     {
         $line = $this->pdf->getLine();

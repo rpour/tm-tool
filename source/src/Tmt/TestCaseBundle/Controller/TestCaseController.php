@@ -221,8 +221,12 @@ class TestCaseController extends Controller
         /***********************************************************************
          * Übersicht
          **********************************************************************/
-        $pdf->title($project->getName());
-        $pdf->header1('Übersicht');
+        $pdf->newLine();
+        $pdf->newLine();
+        $pdf->title('Testprotokoll');
+        $pdf->newLine();
+        $pdf->header1($project->getName());
+        $pdf->header2('Übersicht');
         $pdf->seperator();
 
         // Testcases
@@ -248,11 +252,11 @@ class TestCaseController extends Controller
          * Testfälle
          **********************************************************************/
         $pdf->newPage();
-        $pdf->header1('Tests');
+        $pdf->header2('Tests');
         $pdf->seperator();
 
         foreach ($testcasesArray as $testcase) {
-            $pdf->header2($testcase['case']->getTitle());
+            $pdf->header3($testcase['case']->getTitle());
 
             $pdf->drawTest(
                 '',
@@ -299,7 +303,7 @@ class TestCaseController extends Controller
          *
          **********************************************************************/
         $pdf->newPage();
-        $pdf->header1('Testfälle');
+        $pdf->header2('Testfälle');
         $pdf->seperator();
 
         foreach ($testcases as $testcase) {
