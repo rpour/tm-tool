@@ -16,7 +16,7 @@ class TCPDF extends \FPDI
         $this->SetCreator(PDF_CREATOR);
         $this->SetAuthor('Test Management Tool');
         $this->SetSubject('Testbericht');
-        $this->SetMargins(20, 40, 15);
+        $this->SetMargins(20, 25, 15);
         $this->setAutoPageBreak(true, 20);
         $this->AddPage();
         $this->SetTextColor(0, 0, 0);
@@ -38,10 +38,10 @@ class TCPDF extends \FPDI
     public function Footer()
     {
         // Position at 15 mm from bottom
-        $this->SetY(-15);
+        $this->SetY(-28);
         // Set font
         $this->SetFont('helvetica', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Seite '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Seite '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
     }
 }
