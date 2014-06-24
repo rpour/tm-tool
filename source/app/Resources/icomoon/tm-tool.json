@@ -1,7 +1,7 @@
 {
 	"metadata": {
-		"name": "tm-tool",
-		"lastOpened": 1401711557979,
+		"name": "tm-tool 1",
+		"lastOpened": 1403268849907,
 		"created": 1398861639601
 	},
 	"iconSets": [
@@ -8411,7 +8411,12 @@
 				},
 				{
 					"id": 173,
-					"order": 0
+					"order": 28,
+					"prevSize": 28,
+					"code": 61637,
+					"name": "copy",
+					"tempChar": "",
+					"ligatures": ""
 				},
 				{
 					"id": 174,
@@ -8646,7 +8651,7 @@
 					"prevSize": 28,
 					"code": 61694,
 					"name": "plus-square",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8733,7 +8738,7 @@
 					"prevSize": 28,
 					"code": 61714,
 					"name": "mail-reply",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -8936,7 +8941,7 @@
 					"prevSize": 28,
 					"code": 61766,
 					"name": "minus-square",
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": ""
 				},
 				{
@@ -13589,7 +13594,7 @@
 		"showCodes": true,
 		"search": "",
 		"quickUsageToken": {
-			"tm-tool111": "M2VlNTc0ODgyMDRjYjIyNTM1NWEzNjAxZDA4OGUyMjgjMiMxNDAxNjk5NDc3IyMj"
+			"tm-tool1": "ODJhNmQ0MjIwYWY0ODJhNjI2NjA3N2I4ZmMwOWRkNWMjMiMxNDAzMjY4ODM2IyMj"
 		}
 	},
 	"externalSets": []

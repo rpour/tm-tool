@@ -4,14 +4,10 @@ namespace Tmt\CoreBundle\Component\PDF;
 
 class PDFBuilder extends PDF
 {
-    // public $pdf;
-
-    public function __construct()
+    public function __construct($pdf)
     {
-        $this->raw = new \TCPDF('P', 'mm', 'A4', true, 'UTF-8', false, false);
+        $this->raw = $pdf;
         parent::__construct($this->raw);
-
-
     }
 
     public function getLine()

@@ -203,9 +203,19 @@ class TestCaseController extends Controller
         $testcasesArray = array();
         $testcases = $testcaseService->getAll();
 
+        $template = $project->getTemplate();
+        if (!empty($template)) {
+            $template =
+                $this->get('kernel')->getRootDir() .
+                '/Resources/templates/' .
+                $project->getTemplate();
+        }
+
+
         $pdf = new TestCasePdf(
             $project->getName(),
-            $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf'
+            $this->get('kernel')->getRootDir() . '/../web/bundles/tmtcore/css/fonts/icomoon.ttf',
+            $template
         );
 
         /***********************************************************************
@@ -295,7 +305,6 @@ class TestCaseController extends Controller
         foreach ($testcases as $testcase) {
             $pdf->draw($testcase);
         }
-
 
         $pdf->download();
     }

@@ -4,32 +4,25 @@ namespace Tmt\TestCaseBundle\Component;
 
 use Tmt\CoreBundle\Component\PDFIcons;
 use Tmt\CoreBundle\Component\PDF\PDFBuilder;
+use Tmt\TestCaseBundle\Component\TCPDF;
 
-class TestCasePdf extends \TCPDF
+class TestCasePdf
 {
     private $pdf;
     private $filename;
     private $iconFontPath;
     private $backgroundRow = 1;
 
-    public function __construct($projectName, $iconFontPath)
+    public function __construct($projectName, $iconFontPath, $sourceFile = null)
     {
-        parent::__construct('P', 'mm', 'A4', true, 'UTF-8', false, false);
-
-        $this->pdf = new PDFBuilder();
-        $this->pdf->raw->SetCreator(PDF_CREATOR);
-        $this->pdf->raw->SetAuthor('Test Management Tool');
-        $this->pdf->raw->SetSubject('Testbericht');
-        $this->pdf->raw->SetMargins(20, 20, 15);
-        $this->pdf->raw->setPrintHeader(false);
-        $this->pdf->raw->setPrintFooter(false);
-        $this->pdf->raw->setAutoPageBreak(true, 20);
-        $this->pdf->raw->AddPage();
-        $this->pdf->raw->SetTextColor(0, 0, 0);
+        $this->pdf = new PDFBuilder(
+            new TCPDF($sourceFile)
+        );
         $this->iconFontPath = $iconFontPath;
-
         $this->filename = preg_replace('/\W/', '', strtolower($projectName)) . date('_Y-m-d') . '.pdf';
     }
+
+
 
     public function newPage()
     {
